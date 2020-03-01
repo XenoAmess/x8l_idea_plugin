@@ -1,19 +1,23 @@
 <idea-plugin>
     <id>com.xenoamess.x8l_idea_plugin</id>
-    <name>Plugin display name here</name>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <name>X8l</name>
+    <vendor email="xenoamess@gmail.com"
+            url="https://github.com/XenoAmess">
+        XenoAmess
+    </vendor>
 
-    <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
-    ]]></description>
+    <description>A plugin to deal with X8l format. X8l format is a type of data format, it is designed to be replace of
+        xml when you need it comes shorter. See https://github.com/cyanpotion/x8l
+    </description>
 
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
+        <fileType name="X8l file"
+                  implementationClass="com.xenoamess.x8l.idea_plugin.X8lFileType"
+                  fieldName="INSTANCE" language="X8l" extensions="X8L"/>
     </extensions>
 
     <actions>

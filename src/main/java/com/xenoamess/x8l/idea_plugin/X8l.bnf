@@ -1,0 +1,22 @@
+{
+  parserClass="com.xenoamess.x8l.idea_plugin.parser.X8lParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="X8l"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.xenoamess.x8l.idea_plugin.psi"
+  psiImplPackage="com.xenoamess.x8l.idea_plugin.psi.impl"
+
+  elementTypeHolderClass="com.xenoamess.x8l.idea_plugin.psi.X8lTypes"
+  elementTypeClass="com.xenoamess.x8l.idea_plugin.psi.X8lElementType"
+  tokenTypeClass="com.xenoamess.x8l.idea_plugin.psi.X8lTokenType"
+
+  psiImplUtilClass="com.xenoamess.x8l.idea_plugin.psi.impl.X8lPsiImplUtil"
+}
+
+simpleFile ::= item_*
+
+private item_ ::= (property|COMMENT|CRLF)
+
+property ::= (KEY? SEPARATOR VALUE?) | KEY

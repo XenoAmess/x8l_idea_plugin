@@ -12,6 +12,7 @@ target/
 .project
 .settings/
 .classpath
+.gradle
 
 **/.scannerwork
 
