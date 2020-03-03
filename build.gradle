@@ -6,6 +6,18 @@ plugins {
 group 'com.xenoamess'
 version '0.0.1-SNAPSHOT'
 
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/main/gen'
+        }
+    }
+}
+
+intellij {
+    plugins 'java'
+}
+
 repositories {
     mavenCentral()
     maven {

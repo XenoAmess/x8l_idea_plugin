@@ -1,5 +1,6 @@
 {
   parserClass="com.xenoamess.x8l.idea_plugin.parser.X8lParser"
+  parserUtilClass="com.xenoamess.x8l.idea_plugin.parser.X8lParserUtil"
 
   extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
 
@@ -19,4 +20,8 @@ simpleFile ::= item_*
 
 private item_ ::= (property|COMMENT|CRLF)
 
-property ::= (KEY? SEPARATOR VALUE?) | KEY
+property ::= (KEY? SEPARATOR VALUE?) | KEY {
+  mixin="org.intellij.sdk.language.psi.impl.SimpleNamedElementImpl"
+  implements="org.intellij.sdk.language.psi.SimpleNamedElement"
+  methods=[getKey getValue getName setName getNameIdentifier getPresentation]
+}

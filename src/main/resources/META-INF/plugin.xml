@@ -13,11 +13,73 @@
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
-
+    <depends>com.intellij.modules.java</depends>
     <extensions defaultExtensionNs="com.intellij">
-        <fileType name="X8l file"
-                  implementationClass="com.xenoamess.x8l.idea_plugin.X8lFileType"
-                  fieldName="INSTANCE" language="X8l" extensions="X8L"/>
+        <fileType
+                name="X8l file"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFileType"
+                fieldName="INSTANCE"
+                language="X8l"
+                extensions="X8L"
+        />
+        <lang.parserDefinition
+                language="X8l"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lParserDefinition"
+        />
+        <lang.syntaxHighlighterFactory
+                language="X8l"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lSyntaxHighlighterFactory"
+        />
+        <colorSettingsPage
+                implementation="com.xenoamess.x8l.idea_plugin.X8lColorSettingsPage"
+        />
+        <annotator language="JAVA"
+                   implementationClass="com.xenoamess.x8l.idea_plugin.X8lAnnotator"
+        />
+        <codeInsight.lineMarkerProvider
+                language="JAVA"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lLineMarkerProvider"
+        />
+        <completion.contributor
+                language="X8l"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lCompletionContributor"
+        />
+        <psi.referenceContributor
+                implementation="com.xenoamess.x8l.idea_plugin.X8lReferenceContributor"
+        />
+        <lang.refactoringSupport
+                language="X8l"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lRefactoringSupportProvider"
+        />
+        <lang.findUsagesProvider
+                language="X8l"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFindUsagesProvider"
+        />
+        <lang.foldingBuilder
+                language="JAVA"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFoldingBuilder"
+        />
+        <gotoSymbolContributor
+                implementation="com.xenoamess.x8l.idea_plugin.X8lChooseByNameContributor"
+        />
+        <lang.psiStructureViewFactory
+                language="X8l"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lStructureViewFactory"
+        />
+        <lang.formatter
+                language="X8l"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFormattingModelBuilder"
+        />
+        <codeStyleSettingsProvider
+                implementation="com.xenoamess.x8l.idea_plugin.X8lCodeStyleSettingsProvider"
+        />
+        <langCodeStyleSettingsProvider
+                implementation="com.xenoamess.x8l.idea_plugin.X8lLanguageCodeStyleSettingsProvider"
+        />
+        <lang.commenter
+                language="X8l"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lCommenter"
+        />
     </extensions>
 
     <actions>
