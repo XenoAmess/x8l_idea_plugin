@@ -21,7 +21,7 @@ simpleFile ::= item_*
 private item_ ::= (property|COMMENT|CRLF)
 
 property ::= (KEY? SEPARATOR VALUE?) | KEY {
-  mixin="org.intellij.sdk.language.psi.impl.SimpleNamedElementImpl"
-  implements="org.intellij.sdk.language.psi.SimpleNamedElement"
+  mixin="com.xenoamess.x8l.idea_plugin.psi.impl.X8lNamedElementImpl"
+  implements="com.xenoamess.x8l.idea_plugin.psi.X8lNamedElement"
   methods=[getKey getValue getName setName getNameIdentifier getPresentation]
 }
