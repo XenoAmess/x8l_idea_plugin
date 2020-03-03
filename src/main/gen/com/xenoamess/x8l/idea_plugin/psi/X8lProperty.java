@@ -4,10 +4,9 @@ package com.xenoamess.x8l.idea_plugin.psi;
 import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
-import org.intellij.sdk.language.psi.SimpleNamedElement;
 import com.intellij.navigation.ItemPresentation;
 
-public interface X8lProperty extends SimpleNamedElement {
+public interface X8lProperty extends X8lNamedElement {
 
   String getKey();
 

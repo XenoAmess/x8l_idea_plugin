@@ -4,16 +4,15 @@ package com.xenoamess.x8l.idea_plugin.psi;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiElement;
-import org.intellij.sdk.language.psi.SimpleNamedElement;
 
 public class X8lVisitor extends PsiElementVisitor {
 
   public void visitProperty(@NotNull X8lProperty o) {
-    visitSimpleNamedElement(o);
+    visitNamedElement(o);
   }
 
-  public void visitSimpleNamedElement(@NotNull SimpleNamedElement o) {
-    visitElement(o);
+  public void visitNamedElement(@NotNull X8lNamedElement o) {
+    visitPsiElement(o);
   }
 
   public void visitPsiElement(@NotNull PsiElement o) {

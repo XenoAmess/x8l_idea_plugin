@@ -8,13 +8,12 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static com.xenoamess.x8l.idea_plugin.psi.X8lTypes.*;
-import org.intellij.sdk.language.psi.impl.SimpleNamedElementImpl;
 import com.xenoamess.x8l.idea_plugin.psi.*;
 import com.intellij.navigation.ItemPresentation;
 
-public class X8lPropertyImpl extends SimpleNamedElementImpl implements X8lProperty {
+public class X8lPropertyImpl extends X8lNamedElementImpl implements X8lProperty {
 
-  public X8lPropertyImpl(ASTNode node) {
+  public X8lPropertyImpl(@NotNull ASTNode node) {
     super(node);
   }
 
