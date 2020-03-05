@@ -1,5 +1,3 @@
-// Copyright 2000-2020 JetBrains s.r.o. and other contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
-
 package com.xenoamess.x8l.idea_plugin;
 
 import com.intellij.codeInsight.lookup.LookupElement;
@@ -27,7 +25,7 @@ public class X8lReference extends PsiReferenceBase<PsiElement> implements PsiPol
     public ResolveResult[] multiResolve(boolean incompleteCode) {
         Project project = myElement.getProject();
         final List<X8lProperty> properties = X8lUtil.findProperties(project, key);
-        List<ResolveResult> results = new ArrayList<ResolveResult>();
+        List<ResolveResult> results = new ArrayList<>();
         for (X8lProperty property : properties) {
             results.add(new PsiElementResolveResult(property));
         }

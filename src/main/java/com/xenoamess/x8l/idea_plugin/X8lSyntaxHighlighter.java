@@ -21,8 +21,15 @@ public class X8lSyntaxHighlighter extends SyntaxHighlighterBase {
             createTextAttributesKey("X8L_VALUE", DefaultLanguageHighlighterColors.STRING);
     public static final TextAttributesKey COMMENT =
             createTextAttributesKey("X8L_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
+
+    public static final TextAttributesKey TEXT =
+            createTextAttributesKey("X8L_TEXT", DefaultLanguageHighlighterColors.STRING);
+
     public static final TextAttributesKey BAD_CHARACTER =
             createTextAttributesKey("X8L_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
+
+    public static final TextAttributesKey BRACES =
+            createTextAttributesKey("X8L_BRACES", HighlighterColors.BAD_CHARACTER);
 
 
     private static final TextAttributesKey[] BAD_CHAR_KEYS = new TextAttributesKey[]{BAD_CHARACTER};
@@ -30,6 +37,11 @@ public class X8lSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] KEY_KEYS = new TextAttributesKey[]{KEY};
     private static final TextAttributesKey[] VALUE_KEYS = new TextAttributesKey[]{VALUE};
     private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
+
+    private static final TextAttributesKey[] TEXT_KEYS = new TextAttributesKey[]{TEXT};
+
+    private static final TextAttributesKey[] BRACES_KEYS = new TextAttributesKey[]{BRACES};
+
     private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
 
     @NotNull
@@ -47,8 +59,12 @@ public class X8lSyntaxHighlighter extends SyntaxHighlighterBase {
             return KEY_KEYS;
         } else if (tokenType.equals(X8lTypes.VALUE)) {
             return VALUE_KEYS;
-        } else if (tokenType.equals(X8lTypes.COMMENT)) {
+        } else if (tokenType.equals(X8lTypes.COMMENT_NODE)) {
             return COMMENT_KEYS;
+        } else if (tokenType.equals(X8lTypes.TEXT_NODE)) {
+            return TEXT_KEYS;
+        } else if (tokenType.equals(X8lTypes.LEFT_BRACE) || tokenType.equals(X8lTypes.RIGHT_BRACE)) {
+            return BRACES_KEYS;
         } else if (tokenType.equals(TokenType.BAD_CHARACTER)) {
             return BAD_CHAR_KEYS;
         } else {

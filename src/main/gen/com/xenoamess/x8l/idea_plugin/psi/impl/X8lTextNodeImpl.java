@@ -8,17 +8,18 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static com.xenoamess.x8l.idea_plugin.psi.X8lTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.xenoamess.x8l.idea_plugin.psi.*;
 import com.intellij.navigation.ItemPresentation;
 
-public class X8lPropertyImpl extends X8lNamedElementImpl implements X8lProperty {
+public class X8lTextNodeImpl extends ASTWrapperPsiElement implements X8lTextNode {
 
-  public X8lPropertyImpl(@NotNull ASTNode node) {
+  public X8lTextNodeImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull X8lVisitor visitor) {
-    visitor.visitProperty(this);
+    visitor.visitTextNode(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
@@ -27,28 +28,8 @@ public class X8lPropertyImpl extends X8lNamedElementImpl implements X8lProperty 
   }
 
   @Override
-  public String getKey() {
-    return X8lPsiImplUtil.getKey(this);
-  }
-
-  @Override
   public String getValue() {
     return X8lPsiImplUtil.getValue(this);
-  }
-
-  @Override
-  public String getName() {
-    return X8lPsiImplUtil.getName(this);
-  }
-
-  @Override
-  public PsiElement setName(String newName) {
-    return X8lPsiImplUtil.setName(this, newName);
-  }
-
-  @Override
-  public PsiElement getNameIdentifier() {
-    return X8lPsiImplUtil.getNameIdentifier(this);
   }
 
   @Override

@@ -16,29 +16,24 @@ import com.intellij.psi.TokenType;
 %eof}
 
 CRLF=\R
-WHITE_SPACE=[\ \n\t\f]
-FIRST_VALUE_CHARACTER=[^ \n\f\\] | "\\"{CRLF} | "\\".
-VALUE_CHARACTER=[^\n\f\\] | "\\"{CRLF} | "\\".
-END_OF_LINE_COMMENT=("#"|"!")[^\r\n]*
-SEPARATOR=[:=]
-KEY_CHARACTER=[^:=\ \n\t\f\\] | "\\ "
+WHITE_SPACE=\s
+NORMAL_CHARACTOR=[^ \s=<>%]
+KEY_CHARACTER={NORMAL_CHARACTOR} | %.
+VALUE_CHARACTER={NORMAL_CHARACTOR} | %.
+SEPARATOR==
+TEXT_CHARACTER=[^<>%] | %.
 
 %state WAITING_VALUE
 
 %%
+<YYINITIAL> {
+  {WHITE_SPACE}                { yybegin(YYINITIAL); return TokenType.WHITE_SPACE; }
+  {KEY_CHARACTER}+             { yybegin(YYINITIAL); return X8lTypes.KEY; }
+  {SEPARATOR}                  { yybegin(WAITING_VALUE); return X8lTypes.SEPARATOR; }
+  {TEXT_CHARACTER}+            { yybegin(YYINITIAL); return X8lTypes.TEXT_STRING; }
+}
+<WAITING_VALUE> {
+  {VALUE_CHARACTER}+           { yybegin(YYINITIAL); return X8lTypes.VALUE; }
+}
 
-<YYINITIAL> {END_OF_LINE_COMMENT}                           { yybegin(YYINITIAL); return X8lTypes.COMMENT; }
-
-<YYINITIAL> {KEY_CHARACTER}+                                { yybegin(YYINITIAL); return X8lTypes.KEY; }
-
-<YYINITIAL> {SEPARATOR}                                     { yybegin(WAITING_VALUE); return X8lTypes.SEPARATOR; }
-
-<WAITING_VALUE> {CRLF}({CRLF}|{WHITE_SPACE})+               { yybegin(YYINITIAL); return TokenType.WHITE_SPACE; }
-
-<WAITING_VALUE> {WHITE_SPACE}+                              { yybegin(WAITING_VALUE); return TokenType.WHITE_SPACE; }
-
-<WAITING_VALUE> {FIRST_VALUE_CHARACTER}{VALUE_CHARACTER}*   { yybegin(YYINITIAL); return X8lTypes.VALUE; }
-
-({CRLF}|{WHITE_SPACE})+                                     { yybegin(YYINITIAL); return TokenType.WHITE_SPACE; }
-
-[^]                                                         { return TokenType.BAD_CHARACTER; }
+[^]                            { return TokenType.BAD_CHARACTER; }

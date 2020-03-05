@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class X8lParserDefinition implements ParserDefinition {
     public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
-    public static final TokenSet COMMENTS = TokenSet.create(X8lTypes.COMMENT);
+    public static final TokenSet COMMENTS = TokenSet.create(X8lTypes.COMMENT_NODE);
 
     public static final IFileElementType FILE = new IFileElementType(X8lLanguage.INSTANCE);
 

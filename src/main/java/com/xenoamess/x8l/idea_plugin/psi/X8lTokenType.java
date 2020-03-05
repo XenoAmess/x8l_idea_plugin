@@ -1,6 +1,7 @@
 package com.xenoamess.x8l.idea_plugin.psi;
 
 import com.intellij.psi.tree.IElementType;
+import com.xenoamess.x8l.X8lTree;
 import com.xenoamess.x8l.idea_plugin.X8lLanguage;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
@@ -15,5 +16,4 @@ public class X8lTokenType extends IElementType {
     public String toString() {
         return "X8l." + super.toString();
     }
-
 }

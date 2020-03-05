@@ -16,12 +16,31 @@
   psiImplUtilClass="com.xenoamess.x8l.idea_plugin.psi.impl.X8lPsiImplUtil"
 }
 
-simpleFile ::= item_*
+//simpleFile ::= item_*
+//
+//private item_ ::= (property|COMMENT|CRLF)
+//
+//property ::= (KEY? SEPARATOR VALUE?) | KEY {
+//  mixin="com.xenoamess.x8l.idea_plugin.psi.impl.X8lNamedElementImpl"
+//  implements="com.xenoamess.x8l.idea_plugin.psi.X8lNamedElement"
+//  methods=[getKey getValue getName setName getNameIdentifier getPresentation]
+//}
 
-private item_ ::= (property|COMMENT|CRLF)
-
-property ::= (KEY? SEPARATOR VALUE?) | KEY {
-  mixin="com.xenoamess.x8l.idea_plugin.psi.impl.X8lNamedElementImpl"
-  implements="com.xenoamess.x8l.idea_plugin.psi.X8lNamedElement"
-  methods=[getKey getValue getName setName getNameIdentifier getPresentation]
+x8lFile ::= CONTENT_NODE_CHILDREN_AREA
+CONTENT_NODE_CHILDREN_AREA ::= (TEXT_NODE (COMMENT_NODE|CONTENT_NODE))* TEXT_NODE
+CONTENT_NODE ::= LEFT_BRACE CONTENT_NODE_HEAD_AREA RIGHT_BRACE CONTENT_NODE_CHILDREN_AREA RIGHT_BRACE
+CONTENT_NODE_HEAD_AREA ::= WHITE_SPACE* (CONTENT_NODE_ATTRIBUTE WHITE_SPACE+)* ((CONTENT_NODE_ATTRIBUTE WHITE_SPACE*) ? )
+CONTENT_NODE_ATTRIBUTE ::= (KEY WHITE_SPACE* SEPARATOR WHITE_SPACE* VALUE) | KEY {
+    implements="com.intellij.psi.PsiNameIdentifierOwner"
+    methods=[getKey getValue getName setName getNameIdentifier getPresentation]
 }
+COMMENT_NODE ::= "<<" TEXT_STRING ? ">" {
+    implements="com.intellij.psi.PsiComment"
+    methods=[getTokenType]
+}
+TEXT_NODE ::= TEXT_STRING ? {
+    implements="com.intellij.psi.PsiLiteral"
+    methods=[getValue getPresentation]
+}
+LEFT_BRACE ::= "<"
+RIGHT_BRACE ::= ">"

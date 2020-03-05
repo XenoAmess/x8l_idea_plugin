@@ -4,15 +4,54 @@ package com.xenoamess.x8l.idea_plugin.psi;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiComment;
+import com.intellij.psi.PsiNameIdentifierOwner;
+import com.intellij.psi.PsiLiteral;
 
 public class X8lVisitor extends PsiElementVisitor {
 
-  public void visitProperty(@NotNull X8lProperty o) {
-    visitNamedElement(o);
+  public void visitCommentNode(@NotNull X8lCommentNode o) {
+    visitPsiComment(o);
   }
 
-  public void visitNamedElement(@NotNull X8lNamedElement o) {
+  public void visitContentNode(@NotNull X8lContentNode o) {
     visitPsiElement(o);
+  }
+
+  public void visitContentNodeAttribute(@NotNull X8lContentNodeAttribute o) {
+    visitPsiNameIdentifierOwner(o);
+  }
+
+  public void visitContentNodeChildrenArea(@NotNull X8lContentNodeChildrenArea o) {
+    visitPsiElement(o);
+  }
+
+  public void visitContentNodeHeadArea(@NotNull X8lContentNodeHeadArea o) {
+    visitPsiElement(o);
+  }
+
+  public void visitLeftBrace(@NotNull X8lLeftBrace o) {
+    visitPsiElement(o);
+  }
+
+  public void visitRightBrace(@NotNull X8lRightBrace o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTextNode(@NotNull X8lTextNode o) {
+    visitPsiLiteral(o);
+  }
+
+  public void visitPsiComment(@NotNull PsiComment o) {
+    visitElement(o);
+  }
+
+  public void visitPsiLiteral(@NotNull PsiLiteral o) {
+    visitElement(o);
+  }
+
+  public void visitPsiNameIdentifierOwner(@NotNull PsiNameIdentifierOwner o) {
+    visitElement(o);
   }
 
   public void visitPsiElement(@NotNull PsiElement o) {

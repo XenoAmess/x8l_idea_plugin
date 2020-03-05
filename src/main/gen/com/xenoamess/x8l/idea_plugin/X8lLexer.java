@@ -37,25 +37,25 @@ class X8lLexer implements FlexLexer {
 
   /** 
    * Translates characters to character classes
-   * Chosen bits are [9, 6, 6]
-   * Total runtime size is 1568 bytes
+   * Chosen bits are [8, 7, 6]
+   * Total runtime size is 1808 bytes
    */
   public static int ZZ_CMAP(int ch) {
-    return ZZ_CMAP_A[(ZZ_CMAP_Y[ZZ_CMAP_Z[ch>>12]|((ch>>6)&0x3f)]<<6)|(ch&0x3f)];
+    return ZZ_CMAP_A[(ZZ_CMAP_Y[(ZZ_CMAP_Z[ch>>13]<<7)|((ch>>6)&0x7f)]<<6)|(ch&0x3f)];
   }
 
-  /* The ZZ_CMAP_Z table has 272 entries */
+  /* The ZZ_CMAP_Z table has 136 entries */
   static final char ZZ_CMAP_Z[] = zzUnpackCMap(
-    "\1\0\1\100\1\200\u010d\100");
+    "\1\0\1\1\206\2");
 
-  /* The ZZ_CMAP_Y table has 192 entries */
+  /* The ZZ_CMAP_Y table has 384 entries */
   static final char ZZ_CMAP_Y[] = zzUnpackCMap(
-    "\1\0\1\1\1\2\175\3\1\4\77\3");
+    "\1\0\1\1\1\2\127\1\1\3\45\1\1\4\1\5\76\1\1\3\277\1");
 
-  /* The ZZ_CMAP_A table has 320 entries */
+  /* The ZZ_CMAP_A table has 384 entries */
   static final char ZZ_CMAP_A[] = zzUnpackCMap(
-    "\11\0\1\4\1\2\1\1\1\5\1\3\22\0\1\7\1\10\1\0\1\10\26\0\1\11\2\0\1\11\36\0\1"+
-    "\6\50\0\1\1\242\0\2\1\26\0");
+    "\11\0\1\2\4\1\22\0\1\2\4\0\1\4\26\0\1\3\1\5\1\3\106\0\1\1\32\0\1\2\37\0\1"+
+    "\2\77\0\13\2\35\0\2\1\5\0\1\2\57\0\1\2\40\0");
 
   /** 
    * Translates DFA states to action switch labels.
@@ -63,11 +63,11 @@ class X8lLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\2\0\2\1\1\2\1\3\1\4\1\5\2\6\2\7"+
-    "\1\3\1\7\1\0\2\4\1\0\1\2\2\6";
+    "\2\0\1\1\1\2\2\3\1\4\1\5\1\3\1\6"+
+    "\3\0";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[21];
+    int [] result = new int[13];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -92,12 +92,11 @@ class X8lLexer implements FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\12\0\24\0\36\0\50\0\62\0\74\0\106"+
-    "\0\120\0\132\0\50\0\144\0\156\0\170\0\62\0\202"+
-    "\0\214\0\156\0\132\0\226\0\240";
+    "\0\0\0\6\0\14\0\22\0\30\0\36\0\22\0\44"+
+    "\0\52\0\22\0\36\0\60\0\52";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[21];
+    int [] result = new int[13];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -120,22 +119,13 @@ class X8lLexer implements FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\3\1\4\1\5\1\4\2\5\1\6\1\5\1\7"+
-    "\1\10\1\11\1\12\1\13\1\12\1\14\1\13\1\15"+
-    "\1\16\2\11\2\3\1\0\1\3\2\0\1\17\1\0"+
-    "\1\3\1\0\1\3\1\4\1\5\1\4\2\5\1\17"+
-    "\1\5\1\3\2\0\5\5\1\0\1\5\11\0\1\3"+
-    "\2\0\2\7\1\0\1\3\2\20\1\21\1\20\1\7"+
-    "\1\20\12\0\2\11\1\0\2\11\1\0\1\22\4\11"+
-    "\1\23\1\5\2\23\1\5\1\22\1\23\3\11\1\24"+
-    "\1\16\1\24\1\14\1\16\1\22\1\14\5\11\1\25"+
-    "\6\11\1\0\1\5\1\16\1\5\2\16\1\0\1\16"+
-    "\2\0\2\20\2\0\10\20\2\0\3\20\1\7\2\20"+
-    "\1\11\1\24\1\5\2\24\1\5\1\22\1\24\7\11"+
-    "\1\0\1\22\3\11";
+    "\1\3\2\4\1\5\1\6\1\7\1\10\3\5\1\11"+
+    "\1\5\1\3\2\12\1\0\1\13\4\12\1\0\1\14"+
+    "\1\12\6\0\1\3\1\0\4\3\1\10\3\0\1\15"+
+    "\1\0\1\10\1\0\4\10\1\12\1\0\4\12";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[170];
+    int [] result = new int[54];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -173,10 +163,10 @@ class X8lLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\2\0\5\1\1\11\6\1\1\0\2\1\1\0\3\1";
+    "\2\0\2\1\1\11\5\1\3\0";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[21];
+    int [] result = new int[13];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -493,37 +483,32 @@ class X8lLexer implements FlexLexer {
             { yybegin(YYINITIAL); return X8lTypes.KEY;
             } 
             // fall through
-          case 8: break;
+          case 7: break;
           case 2: 
             { yybegin(YYINITIAL); return TokenType.WHITE_SPACE;
             } 
             // fall through
-          case 9: break;
+          case 8: break;
           case 3: 
             { return TokenType.BAD_CHARACTER;
             } 
             // fall through
-          case 10: break;
+          case 9: break;
           case 4: 
-            { yybegin(YYINITIAL); return X8lTypes.COMMENT;
-            } 
-            // fall through
-          case 11: break;
-          case 5: 
             { yybegin(WAITING_VALUE); return X8lTypes.SEPARATOR;
             } 
             // fall through
-          case 12: break;
-          case 6: 
+          case 10: break;
+          case 5: 
             { yybegin(YYINITIAL); return X8lTypes.VALUE;
             } 
             // fall through
-          case 13: break;
-          case 7: 
-            { yybegin(WAITING_VALUE); return TokenType.WHITE_SPACE;
+          case 11: break;
+          case 6: 
+            { yybegin(YYINITIAL); return X8lTypes.TEXT_STRING;
             } 
             // fall through
-          case 14: break;
+          case 12: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }
