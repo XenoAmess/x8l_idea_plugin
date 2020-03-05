@@ -33,43 +33,43 @@
         <colorSettingsPage
                 implementation="com.xenoamess.x8l.idea_plugin.X8lColorSettingsPage"
         />
-        <annotator language="JAVA"
-                   implementationClass="com.xenoamess.x8l.idea_plugin.X8lAnnotator"
-        />
-        <codeInsight.lineMarkerProvider
-                language="JAVA"
-                implementationClass="com.xenoamess.x8l.idea_plugin.X8lLineMarkerProvider"
-        />
+        <!--        <annotator language="JAVA"-->
+        <!--                   implementationClass="com.xenoamess.x8l.idea_plugin.X8lAnnotator"-->
+        <!--        />-->
+        <!--        <codeInsight.lineMarkerProvider-->
+        <!--                language="JAVA"-->
+        <!--                implementationClass="com.xenoamess.x8l.idea_plugin.X8lLineMarkerProvider"-->
+        <!--        />-->
         <completion.contributor
                 language="X8l"
                 implementationClass="com.xenoamess.x8l.idea_plugin.X8lCompletionContributor"
         />
-        <psi.referenceContributor
-                implementation="com.xenoamess.x8l.idea_plugin.X8lReferenceContributor"
-        />
-        <lang.refactoringSupport
-                language="X8l"
-                implementationClass="com.xenoamess.x8l.idea_plugin.X8lRefactoringSupportProvider"
-        />
-        <lang.findUsagesProvider
-                language="X8l"
-                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFindUsagesProvider"
-        />
-        <lang.foldingBuilder
-                language="JAVA"
-                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFoldingBuilder"
-        />
-        <gotoSymbolContributor
-                implementation="com.xenoamess.x8l.idea_plugin.X8lChooseByNameContributor"
-        />
+        <!--        <psi.referenceContributor-->
+        <!--                implementation="com.xenoamess.x8l.idea_plugin.X8lReferenceContributor"-->
+        <!--        />-->
+        <!--        <lang.refactoringSupport-->
+        <!--                language="X8l"-->
+        <!--                implementationClass="com.xenoamess.x8l.idea_plugin.X8lRefactoringSupportProvider"-->
+        <!--        />-->
+        <!--        <lang.findUsagesProvider-->
+        <!--                language="X8l"-->
+        <!--                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFindUsagesProvider"-->
+        <!--        />-->
+        <!--        <lang.foldingBuilder-->
+        <!--                language="JAVA"-->
+        <!--                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFoldingBuilder"-->
+        <!--        />-->
+        <!--        <gotoSymbolContributor-->
+        <!--                implementation="com.xenoamess.x8l.idea_plugin.X8lChooseByNameContributor"-->
+        <!--        />-->
         <lang.psiStructureViewFactory
                 language="X8l"
                 implementationClass="com.xenoamess.x8l.idea_plugin.X8lStructureViewFactory"
         />
-        <lang.formatter
-                language="X8l"
-                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFormattingModelBuilder"
-        />
+        <!--        <lang.formatter-->
+        <!--                language="X8l"-->
+        <!--                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFormattingModelBuilder"-->
+        <!--        />-->
         <codeStyleSettingsProvider
                 implementation="com.xenoamess.x8l.idea_plugin.X8lCodeStyleSettingsProvider"
         />
