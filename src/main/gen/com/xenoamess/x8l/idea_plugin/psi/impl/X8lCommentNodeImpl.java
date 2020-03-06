@@ -10,6 +10,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static com.xenoamess.x8l.idea_plugin.psi.X8lTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.xenoamess.x8l.idea_plugin.psi.*;
+import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.tree.IElementType;
 
 public class X8lCommentNodeImpl extends ASTWrapperPsiElement implements X8lCommentNode {
@@ -36,6 +37,16 @@ public class X8lCommentNodeImpl extends ASTWrapperPsiElement implements X8lComme
   @Override
   public IElementType getTokenType() {
     return X8lPsiImplUtil.getTokenType(this);
+  }
+
+  @Override
+  public String getValue() {
+    return X8lPsiImplUtil.getValue(this);
+  }
+
+  @Override
+  public ItemPresentation getPresentation() {
+    return X8lPsiImplUtil.getPresentation(this);
   }
 
 }

@@ -36,10 +36,10 @@
         <annotator language="JAVA"
                    implementationClass="com.xenoamess.x8l.idea_plugin.X8lAnnotator"
         />
-        <!--        <codeInsight.lineMarkerProvider-->
-        <!--                language="JAVA"-->
-        <!--                implementationClass="com.xenoamess.x8l.idea_plugin.X8lLineMarkerProvider"-->
-        <!--        />-->
+        <codeInsight.lineMarkerProvider
+                language="JAVA"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lLineMarkerProvider"
+        />
         <completion.contributor
                 language="X8l"
                 implementationClass="com.xenoamess.x8l.idea_plugin.X8lCompletionContributor"

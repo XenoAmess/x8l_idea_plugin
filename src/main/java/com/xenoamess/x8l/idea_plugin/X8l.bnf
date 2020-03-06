@@ -53,14 +53,17 @@ CONTENT_NODE_ATTRIBUTE ::= (KEY SEPARATOR VALUE) | KEY {
     implements="com.intellij.psi.PsiNameIdentifierOwner"
     methods=[getKey getValue getName setName getNameIdentifier getPresentation]
 }
+
 COMMENT_NODE ::= COMMENT_NODE_LEFT_BRACKET COMMENT_NODE_CONTENT COMMENT_NODE_RIGHT_BRACKET {
-    implements="com.intellij.psi.PsiComment"
-    methods=[getTokenType]
+    implements=["com.intellij.psi.PsiComment" "com.intellij.psi.PsiLiteral"]
+    methods=[getTokenType getValue getPresentation]
 }
+
 TEXT_NODE ::= TEXT_NODE_CONTENT {
     implements="com.intellij.psi.PsiLiteral"
     methods=[getValue getPresentation]
 }
 
 TEXT_NODE_CONTENT ::= TEXT_NODE_CONTENT_STRING?
+
 COMMENT_NODE_CONTENT ::= COMMENT_NODE_CONTENT_STRING?

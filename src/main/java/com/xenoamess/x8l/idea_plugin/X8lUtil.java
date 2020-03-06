@@ -27,29 +27,41 @@ public class X8lUtil {
         for (VirtualFile virtualFile : virtualFiles) {
             X8lFile x8lFile = (X8lFile) PsiManager.getInstance(project).findFile(virtualFile);
             if (x8lFile != null) {
-                result.addAll(getRemoteChildrenOfType(x8lFile, string, iElementType));
+                result.addAll(getMostRemoteChildrenOfType(x8lFile, string, iElementType));
             }
         }
         return result;
     }
 
+    /**
+     * @param element      base element
+     * @param string       text string
+     * @param iElementType iElementType, if==null then can be any types.
+     * @return
+     */
     @NotNull
-    public static List<PsiElement> getRemoteChildrenOfType(@Nullable PsiElement element, @NotNull String string, @NotNull IElementType iElementType) {
+    public static List<PsiElement> getMostRemoteChildrenOfType(@Nullable PsiElement element, @NotNull String string, @Nullable IElementType iElementType) {
         if (element == null) return Collections.emptyList();
         List<PsiElement> result = null;
         PsiElement[] children = element.getChildren();
         for (PsiElement child : children) {
-            List<PsiElement> childResult = getRemoteChildrenOfType(child, string, iElementType);
+            List<PsiElement> childResult = getMostRemoteChildrenOfType(child, string, iElementType);
             if (!childResult.isEmpty()) {
                 if (result == null) result = new SmartList<>();
                 result.addAll(childResult);
             }
         }
 
+        if (result != null) {
+            return result;
+        }
+
         for (PsiElement child = element.getFirstChild(); child != null; child = child.getNextSibling()) {
-            if (child.getNode().getElementType().equals(iElementType) && string.equals(child.getText())) {
-                if (result == null) result = new SmartList<>();
-                result.add(child);
+            if (iElementType == null || child.getNode().getElementType().equals(iElementType)) {
+                if (string.equals(child.getText())) {
+                    if (result == null) result = new SmartList<>();
+                    result.add(child);
+                }
             }
         }
         return result == null ? Collections.emptyList() : result;

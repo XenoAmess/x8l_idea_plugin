@@ -1,45 +1,73 @@
-//// Copyright 2000-2020 JetBrains s.r.o. and other contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
-//
-//package com.xenoamess.x8l.idea_plugin;
-//
-//import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
-//import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider;
-//import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder;
-//import com.intellij.openapi.project.Project;
-//import com.intellij.psi.PsiElement;
-//import com.intellij.psi.PsiLiteralExpression;
-//import com.intellij.psi.impl.source.tree.java.PsiJavaTokenImpl;
-//import com.xenoamess.x8l.idea_plugin.psi.X8lProperty;
-//import org.jetbrains.annotations.NotNull;
-//
-//import java.util.Collection;
-//import java.util.List;
-//
-//public class X8lLineMarkerProvider extends RelatedItemLineMarkerProvider {
-//    @Override
-//    protected void collectNavigationMarkers(@NotNull PsiElement element,
-//                                            @NotNull Collection<? super RelatedItemLineMarkerInfo> result) {
-//        // This must be an element with a literal expression as a parent
-//        if (!(element instanceof PsiJavaTokenImpl) || !(element.getParent() instanceof PsiLiteralExpression)) return;
-//
-//        // The literal expression must start with the X8l language literal expression
-//        PsiLiteralExpression literalExpression = (PsiLiteralExpression) element.getParent();
-//        String value = literalExpression.getValue() instanceof String ? (String) literalExpression.getValue() : null;
-//        if ((value == null) || !value.startsWith(X8lAnnotator.X8L_PREFIX_STR + X8lAnnotator.X8L_SEPARATOR_STR))
-//            return;
-//
-//        // Get the X8l language property usage
-//        Project project = element.getProject();
-//        String possibleProperties = value.substring(X8lAnnotator.X8L_PREFIX_STR.length() + X8lAnnotator.X8L_SEPARATOR_STR.length());
-//        final List<X8lProperty> properties = X8lUtil.findProperties(project, possibleProperties);
-//        if (properties.size() > 0) {
-//            // Add the property to a collection of line marker info
-//            NavigationGutterIconBuilder<PsiElement> builder =
-//                    NavigationGutterIconBuilder.create(X8lDataCenter.X8L_LANGUAGE_ICON)
-//                            .setTargets(properties)
-//                            .setTooltipText("Navigate to X8l language property");
-//            result.add(builder.createLineMarkerInfo(element));
-//        }
-//    }
-//
-//}
+// Copyright 2000-2020 JetBrains s.r.o. and other contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+
+package com.xenoamess.x8l.idea_plugin;
+
+import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
+import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider;
+import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder;
+import com.intellij.openapi.project.Project;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiLiteralExpression;
+import com.intellij.psi.PsiLiteralValue;
+import com.xenoamess.x8l.X8lTree;
+import org.apache.commons.collections.list.SetUniqueList;
+import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import static com.xenoamess.x8l.dealers.JsonDealer.ARRAY_ID_ATTRIBUTE;
+
+public class X8lLineMarkerProvider extends RelatedItemLineMarkerProvider {
+    @Override
+    protected void collectNavigationMarkers(@NotNull PsiElement element,
+                                            @NotNull Collection<? super RelatedItemLineMarkerInfo> result) {
+        String string = null;
+        if (element instanceof PsiLiteralValue) {
+            Object valueObject = ((PsiLiteralValue) element).getValue();
+            if (valueObject instanceof String) {
+                string = (String) valueObject;
+            }
+        }
+
+        if (string == null) {
+            string = element.getText();
+        }
+
+        if (StringUtils.isBlank(string)) {
+            return;
+        }
+
+        if (!(element instanceof PsiLiteralExpression) && ARRAY_ID_ATTRIBUTE.equals(string)) {
+            return;
+        }
+
+        final List<PsiElement> elements = SetUniqueList.decorate(new ArrayList<PsiElement>());
+
+        // Get the X8l language property usage
+        Project project = element.getProject();
+        elements.addAll(
+                X8lUtil.findPsiElements(project, string, null)
+        );
+        elements.addAll(
+                X8lUtil.findPsiElements(project, X8lTree.transcode(string), null)
+        );
+        elements.addAll(
+                X8lUtil.findPsiElements(project, X8lTree.transcodeComment(string), null)
+        );
+        elements.addAll(
+                X8lUtil.findPsiElements(project, X8lTree.transcodeWithWhitespace(string), null)
+        );
+
+        if (!elements.isEmpty()) {
+            // Add the property to a collection of line marker info
+            NavigationGutterIconBuilder<PsiElement> builder =
+                    NavigationGutterIconBuilder.create(X8lDataCenter.X8L_LANGUAGE_ICON)
+                            .setTargets(elements)
+                            .setTooltipText("Navigate to X8l language elements");
+            result.add(builder.createLineMarkerInfo(element));
+        }
+    }
+}

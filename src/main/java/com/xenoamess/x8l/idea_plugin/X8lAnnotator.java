@@ -32,6 +32,11 @@ public class X8lAnnotator implements Annotator {
         if (StringUtils.isBlank(string)) {
             return;
         }
+
+        /*
+         * right now the algorithm is running for full O(4n)
+         * we can change it to <= O(4n), but I just keep it like this for readability.
+         */
         IElementType[] iElementTypes = new IElementType[]{
                 X8lTypes.KEY,
                 X8lTypes.VALUE,

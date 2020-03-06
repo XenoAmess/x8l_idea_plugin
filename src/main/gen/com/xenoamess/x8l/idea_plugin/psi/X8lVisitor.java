@@ -5,13 +5,14 @@ import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiComment;
-import com.intellij.psi.PsiNameIdentifierOwner;
 import com.intellij.psi.PsiLiteral;
+import com.intellij.psi.PsiNameIdentifierOwner;
 
 public class X8lVisitor extends PsiElementVisitor {
 
   public void visitCommentNode(@NotNull X8lCommentNode o) {
     visitPsiComment(o);
+    // visitPsiLiteral(o);
   }
 
   public void visitCommentNodeContent(@NotNull X8lCommentNodeContent o) {

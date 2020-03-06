@@ -27,6 +27,14 @@ public class X8lPsiImplUtil {
         return X8lCommentNodeUtil.getTokenType(x8lCommentNode);
     }
 
+    public static String getValue(X8lCommentNode x8lCommentNode) {
+        return X8lCommentNodeUtil.getValue(x8lCommentNode);
+    }
+
+    public static ItemPresentation getPresentation(final X8lCommentNode x8lCommentNode) {
+        return X8lCommentNodeUtil.getPresentation(x8lCommentNode);
+    }
+
     //-----X8lCommentNodeUtil ends
 
     //-----X8lContentNodeAttributeUtil starts
