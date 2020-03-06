@@ -28,6 +28,12 @@ public class X8lTextNodeImpl extends ASTWrapperPsiElement implements X8lTextNode
   }
 
   @Override
+  @NotNull
+  public X8lTextNodeContent getTextNodeContent() {
+    return findNotNullChildByClass(X8lTextNodeContent.class);
+  }
+
+  @Override
   public String getValue() {
     return X8lPsiImplUtil.getValue(this);
   }

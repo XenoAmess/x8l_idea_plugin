@@ -14,6 +14,10 @@ public class X8lVisitor extends PsiElementVisitor {
     visitPsiComment(o);
   }
 
+  public void visitCommentNodeContent(@NotNull X8lCommentNodeContent o) {
+    visitPsiElement(o);
+  }
+
   public void visitContentNode(@NotNull X8lContentNode o) {
     visitPsiElement(o);
   }
@@ -32,6 +36,10 @@ public class X8lVisitor extends PsiElementVisitor {
 
   public void visitTextNode(@NotNull X8lTextNode o) {
     visitPsiLiteral(o);
+  }
+
+  public void visitTextNodeContent(@NotNull X8lTextNodeContent o) {
+    visitPsiElement(o);
   }
 
   public void visitPsiComment(@NotNull PsiComment o) {

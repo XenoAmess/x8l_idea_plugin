@@ -53,15 +53,19 @@ public class X8lSyntaxHighlighter extends SyntaxHighlighterBase {
     @NotNull
     @Override
     public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
+        return getTokenHighlightsStatic(tokenType);
+    }
+
+    public static TextAttributesKey[] getTokenHighlightsStatic(IElementType tokenType) {
         if (tokenType.equals(X8lTypes.SEPARATOR)) {
             return SEPARATOR_KEYS;
         } else if (tokenType.equals(X8lTypes.KEY)) {
             return KEY_KEYS;
         } else if (tokenType.equals(X8lTypes.VALUE)) {
             return VALUE_KEYS;
-        } else if (tokenType.equals(X8lTypes.COMMENT_NODE) || tokenType.equals(X8lTypes.COMMENT_NODE_LEFT_BRACKET) || tokenType.equals(X8lTypes.COMMENT_NODE_CONTENT) || tokenType.equals(X8lTypes.COMMENT_NODE_RIGHT_BRACKET)) {
+        } else if (tokenType.equals(X8lTypes.COMMENT_NODE) || tokenType.equals(X8lTypes.COMMENT_NODE_CONTENT) || tokenType.equals(X8lTypes.COMMENT_NODE_LEFT_BRACKET) || tokenType.equals(X8lTypes.COMMENT_NODE_CONTENT_STRING) || tokenType.equals(X8lTypes.COMMENT_NODE_RIGHT_BRACKET)) {
             return COMMENT_KEYS;
-        } else if (tokenType.equals(X8lTypes.TEXT_NODE)) {
+        } else if (tokenType.equals(X8lTypes.TEXT_NODE) || tokenType.equals(X8lTypes.TEXT_NODE_CONTENT) || tokenType.equals(X8lTypes.TEXT_NODE_CONTENT_STRING)) {
             return TEXT_KEYS;
         } else if (tokenType.equals(X8lTypes.LEFT_BRACKET) || tokenType.equals(X8lTypes.RIGHT_BRACKET)) {
             return BRACKETS_KEYS;

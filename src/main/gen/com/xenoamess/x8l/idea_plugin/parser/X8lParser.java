@@ -42,9 +42,21 @@ public class X8lParser implements PsiParser, LightPsiParser {
     if (!nextTokenIs(b, COMMENT_NODE_LEFT_BRACKET)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, COMMENT_NODE_LEFT_BRACKET, COMMENT_NODE_CONTENT, COMMENT_NODE_RIGHT_BRACKET);
+    r = consumeToken(b, COMMENT_NODE_LEFT_BRACKET);
+    r = r && COMMENT_NODE_CONTENT(b, l + 1);
+    r = r && consumeToken(b, COMMENT_NODE_RIGHT_BRACKET);
     exit_section_(b, m, COMMENT_NODE, r);
     return r;
+  }
+
+  /* ********************************************************** */
+  // COMMENT_NODE_CONTENT_STRING?
+  public static boolean COMMENT_NODE_CONTENT(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "COMMENT_NODE_CONTENT")) return false;
+    Marker m = enter_section_(b, l, _NONE_, COMMENT_NODE_CONTENT, "<comment node content>");
+    consumeToken(b, COMMENT_NODE_CONTENT_STRING);
+    exit_section_(b, l, m, true, false, null);
+    return true;
   }
 
   /* ********************************************************** */
@@ -144,11 +156,22 @@ public class X8lParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // TEXT_STRING?
+  // TEXT_NODE_CONTENT
   public static boolean TEXT_NODE(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "TEXT_NODE")) return false;
+    boolean r;
     Marker m = enter_section_(b, l, _NONE_, TEXT_NODE, "<text node>");
-    consumeToken(b, TEXT_STRING);
+    r = TEXT_NODE_CONTENT(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // TEXT_NODE_CONTENT_STRING?
+  public static boolean TEXT_NODE_CONTENT(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "TEXT_NODE_CONTENT")) return false;
+    Marker m = enter_section_(b, l, _NONE_, TEXT_NODE_CONTENT, "<text node content>");
+    consumeToken(b, TEXT_NODE_CONTENT_STRING);
     exit_section_(b, l, m, true, false, null);
     return true;
   }

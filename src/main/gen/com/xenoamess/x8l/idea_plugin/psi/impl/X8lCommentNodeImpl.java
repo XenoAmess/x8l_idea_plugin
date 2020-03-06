@@ -28,6 +28,12 @@ public class X8lCommentNodeImpl extends ASTWrapperPsiElement implements X8lComme
   }
 
   @Override
+  @NotNull
+  public X8lCommentNodeContent getCommentNodeContent() {
+    return findNotNullChildByClass(X8lCommentNodeContent.class);
+  }
+
+  @Override
   public IElementType getTokenType() {
     return X8lPsiImplUtil.getTokenType(this);
   }

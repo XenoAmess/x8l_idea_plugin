@@ -33,9 +33,9 @@
         <colorSettingsPage
                 implementation="com.xenoamess.x8l.idea_plugin.X8lColorSettingsPage"
         />
-        <!--        <annotator language="JAVA"-->
-        <!--                   implementationClass="com.xenoamess.x8l.idea_plugin.X8lAnnotator"-->
-        <!--        />-->
+        <annotator language="JAVA"
+                   implementationClass="com.xenoamess.x8l.idea_plugin.X8lAnnotator"
+        />
         <!--        <codeInsight.lineMarkerProvider-->
         <!--                language="JAVA"-->
         <!--                implementationClass="com.xenoamess.x8l.idea_plugin.X8lLineMarkerProvider"-->

@@ -9,6 +9,9 @@ import com.intellij.navigation.ItemPresentation;
 
 public interface X8lTextNode extends PsiLiteral {
 
+  @NotNull
+  X8lTextNodeContent getTextNodeContent();
+
   String getValue();
 
   ItemPresentation getPresentation();

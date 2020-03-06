@@ -2,9 +2,9 @@
 
 package com.xenoamess.x8l.idea_plugin;
 
+import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 import com.xenoamess.x8l.idea_plugin.psi.X8lTypes;
-import com.intellij.psi.TokenType;
 
 
 /**
@@ -491,7 +491,7 @@ class X8lLexer implements com.intellij.lexer.FlexLexer {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { yybegin(YYINITIAL); return X8lTypes.TEXT_STRING;
+            { yybegin(YYINITIAL); return X8lTypes.TEXT_NODE_CONTENT_STRING;
             } 
             // fall through
           case 12: break;
@@ -526,7 +526,7 @@ class X8lLexer implements com.intellij.lexer.FlexLexer {
             // fall through
           case 18: break;
           case 8: 
-            { yybegin(COMMENT_AREA); return X8lTypes.COMMENT_NODE_CONTENT;
+            { yybegin(COMMENT_AREA); return X8lTypes.COMMENT_NODE_CONTENT_STRING;
             } 
             // fall through
           case 19: break;

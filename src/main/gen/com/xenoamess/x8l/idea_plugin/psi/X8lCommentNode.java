@@ -9,6 +9,9 @@ import com.intellij.psi.tree.IElementType;
 
 public interface X8lCommentNode extends PsiComment {
 
+  @NotNull
+  X8lCommentNodeContent getCommentNodeContent();
+
   IElementType getTokenType();
 
 }

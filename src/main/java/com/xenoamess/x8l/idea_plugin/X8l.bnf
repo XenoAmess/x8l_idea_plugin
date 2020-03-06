@@ -57,7 +57,10 @@ COMMENT_NODE ::= COMMENT_NODE_LEFT_BRACKET COMMENT_NODE_CONTENT COMMENT_NODE_RIG
     implements="com.intellij.psi.PsiComment"
     methods=[getTokenType]
 }
-TEXT_NODE ::= TEXT_STRING? {
+TEXT_NODE ::= TEXT_NODE_CONTENT {
     implements="com.intellij.psi.PsiLiteral"
     methods=[getValue getPresentation]
 }
+
+TEXT_NODE_CONTENT ::= TEXT_NODE_CONTENT_STRING?
+COMMENT_NODE_CONTENT ::= COMMENT_NODE_CONTENT_STRING?
