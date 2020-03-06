@@ -20,6 +20,7 @@ KEY_CHARACTER=[^ \s=<>%] | "%". | "%"\R
 VALUE_CHARACTER=[^ \s=<>%] | "%". | "%"\R
 SEPARATOR=[=]
 TEXT_CHARACTER=[^<>%] | "%". | "%"\R
+COMMENT_CHARACTER=[^>%] | "%". | "%"\R
 LEFT_BRACKET = "<"
 RIGHT_BRACKET = ">"
 
@@ -36,7 +37,7 @@ RIGHT_BRACKET = ">"
 <YYINITIAL>         {LEFT_BRACKET}                                               { yybegin(HEAD_AREA); return X8lTypes.LEFT_BRACKET; }
 <YYINITIAL>         {LEFT_BRACKET}{WHITE_SPACE}*{LEFT_BRACKET}                   { yybegin(COMMENT_AREA); return X8lTypes.COMMENT_NODE_LEFT_BRACKET; }
 
-<COMMENT_AREA>      {TEXT_CHARACTER}+                                          { yybegin(COMMENT_AREA); return X8lTypes.COMMENT_NODE_CONTENT_STRING; }
+<COMMENT_AREA>      {COMMENT_CHARACTER}+                                          { yybegin(COMMENT_AREA); return X8lTypes.COMMENT_NODE_CONTENT_STRING; }
 <COMMENT_AREA>      {RIGHT_BRACKET}                                              { yybegin(YYINITIAL); return X8lTypes.COMMENT_NODE_RIGHT_BRACKET; }
 
 <HEAD_AREA>         {WHITE_SPACE}+                                             { return TokenType.WHITE_SPACE; }
