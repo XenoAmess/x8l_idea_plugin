@@ -36,13 +36,13 @@ public class X8lParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // LEFT_BRACKET COMMENT_NODE_LEFT_BRACKET COMMENT_NODE_CONTENT COMMENT_NODE_RIGHT_BRACKET
+  // COMMENT_NODE_LEFT_BRACKET COMMENT_NODE_CONTENT COMMENT_NODE_RIGHT_BRACKET
   public static boolean COMMENT_NODE(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "COMMENT_NODE")) return false;
-    if (!nextTokenIs(b, LEFT_BRACKET)) return false;
+    if (!nextTokenIs(b, COMMENT_NODE_LEFT_BRACKET)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, LEFT_BRACKET, COMMENT_NODE_LEFT_BRACKET, COMMENT_NODE_CONTENT, COMMENT_NODE_RIGHT_BRACKET);
+    r = consumeTokens(b, 0, COMMENT_NODE_LEFT_BRACKET, COMMENT_NODE_CONTENT, COMMENT_NODE_RIGHT_BRACKET);
     exit_section_(b, m, COMMENT_NODE, r);
     return r;
   }

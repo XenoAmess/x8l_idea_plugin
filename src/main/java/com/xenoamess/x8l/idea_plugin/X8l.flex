@@ -34,8 +34,8 @@ RIGHT_BRACKET = ">"
 <YYINITIAL>         {TEXT_CHARACTER}+                                          { yybegin(YYINITIAL); return X8lTypes.TEXT_STRING; }
 
 <YYINITIAL>         {LEFT_BRACKET}                                               { yybegin(HEAD_AREA); return X8lTypes.LEFT_BRACKET; }
+<YYINITIAL>         {LEFT_BRACKET}{WHITE_SPACE}*{LEFT_BRACKET}                   { yybegin(COMMENT_AREA); return X8lTypes.COMMENT_NODE_LEFT_BRACKET; }
 
-<HEAD_AREA>         {LEFT_BRACKET}                                               { yybegin(COMMENT_AREA); return X8lTypes.COMMENT_NODE_LEFT_BRACKET; }
 <COMMENT_AREA>      {TEXT_CHARACTER}+                                          { yybegin(COMMENT_AREA); return X8lTypes.COMMENT_NODE_CONTENT; }
 <COMMENT_AREA>      {RIGHT_BRACKET}                                              { yybegin(YYINITIAL); return X8lTypes.COMMENT_NODE_RIGHT_BRACKET; }
 
