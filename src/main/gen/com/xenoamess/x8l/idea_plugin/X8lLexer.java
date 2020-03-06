@@ -2,7 +2,6 @@
 
 package com.xenoamess.x8l.idea_plugin;
 
-import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
 import com.xenoamess.x8l.idea_plugin.psi.X8lTypes;
 import com.intellij.psi.TokenType;
@@ -13,7 +12,7 @@ import com.intellij.psi.TokenType;
  * <a href="http://www.jflex.de/">JFlex</a> 1.7.0
  * from the specification file <tt>X8l.flex</tt>
  */
-class X8lLexer implements FlexLexer {
+class X8lLexer implements com.intellij.lexer.FlexLexer {
 
   /** This character denotes the end of file */
   public static final int YYEOF = -1;
@@ -23,7 +22,10 @@ class X8lLexer implements FlexLexer {
 
   /** lexical states */
   public static final int YYINITIAL = 0;
-  public static final int WAITING_VALUE = 2;
+  public static final int HEAD_AREA = 2;
+  public static final int CHILDREN_AREA = 4;
+  public static final int COMMENT_AREA = 6;
+  public static final int WAITING_VALUE = 8;
 
   /**
    * ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l
@@ -32,7 +34,7 @@ class X8lLexer implements FlexLexer {
    * l is of the form l = 2*k, k a non negative integer
    */
   private static final int ZZ_LEXSTATE[] = { 
-     0,  0,  1, 1
+     0,  0,  1,  1,  2,  2,  3,  3,  4, 4
   };
 
   /** 
@@ -54,8 +56,8 @@ class X8lLexer implements FlexLexer {
 
   /* The ZZ_CMAP_A table has 384 entries */
   static final char ZZ_CMAP_A[] = zzUnpackCMap(
-    "\11\0\1\2\4\1\22\0\1\2\4\0\1\4\26\0\1\3\1\5\1\3\106\0\1\1\32\0\1\2\37\0\1"+
-    "\2\77\0\13\2\35\0\2\1\5\0\1\2\57\0\1\2\40\0");
+    "\11\0\1\1\1\2\2\1\1\3\22\0\1\1\4\0\1\5\26\0\1\7\1\6\1\4\106\0\1\1\32\0\1\1"+
+    "\37\0\1\1\77\0\13\1\35\0\2\1\5\0\1\1\57\0\1\1\40\0");
 
   /** 
    * Translates DFA states to action switch labels.
@@ -63,11 +65,12 @@ class X8lLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\2\0\1\1\1\2\2\3\1\4\1\5\1\3\1\6"+
-    "\3\0";
+    "\5\0\1\1\1\2\1\3\1\4\1\5\1\6\1\3"+
+    "\1\7\1\10\1\3\1\11\1\12\1\3\1\13\1\3"+
+    "\2\0\1\5\2\0\1\13";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[13];
+    int [] result = new int[26];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -92,11 +95,13 @@ class X8lLexer implements FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\6\0\14\0\22\0\30\0\36\0\22\0\44"+
-    "\0\52\0\22\0\36\0\60\0\52";
+    "\0\0\0\10\0\20\0\30\0\40\0\50\0\60\0\70"+
+    "\0\60\0\100\0\110\0\120\0\60\0\60\0\60\0\130"+
+    "\0\60\0\140\0\150\0\160\0\70\0\120\0\170\0\140"+
+    "\0\160\0\200";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[13];
+    int [] result = new int[26];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -119,13 +124,17 @@ class X8lLexer implements FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\3\2\4\1\5\1\6\1\7\1\10\3\5\1\11"+
-    "\1\5\1\3\2\12\1\0\1\13\4\12\1\0\1\14"+
-    "\1\12\6\0\1\3\1\0\4\3\1\10\3\0\1\15"+
-    "\1\0\1\10\1\0\4\10\1\12\1\0\4\12";
+    "\4\6\1\7\1\10\1\6\1\11\1\12\3\13\1\7"+
+    "\1\14\1\15\1\16\10\17\4\20\1\21\1\22\1\20"+
+    "\1\17\1\23\3\13\1\17\1\24\2\17\4\6\1\0"+
+    "\1\25\1\6\11\0\10\6\1\12\4\0\1\26\3\0"+
+    "\3\13\4\0\3\12\1\27\4\12\4\20\1\0\1\30"+
+    "\1\20\1\0\10\20\1\23\4\0\1\31\2\0\3\23"+
+    "\1\32\4\23\1\12\1\0\1\12\2\0\1\26\2\0"+
+    "\1\23\1\0\1\23\2\0\1\31\2\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[54];
+    int [] result = new int[136];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -163,10 +172,11 @@ class X8lLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\2\0\2\1\1\11\5\1\3\0";
+    "\5\0\1\1\1\11\1\1\1\11\3\1\3\11\1\1"+
+    "\1\11\3\1\2\0\1\1\2\0\1\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[13];
+    int [] result = new int[26];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -480,35 +490,60 @@ class X8lLexer implements FlexLexer {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { yybegin(YYINITIAL); return X8lTypes.KEY;
-            } 
-            // fall through
-          case 7: break;
-          case 2: 
-            { yybegin(YYINITIAL); return TokenType.WHITE_SPACE;
-            } 
-            // fall through
-          case 8: break;
-          case 3: 
-            { return TokenType.BAD_CHARACTER;
-            } 
-            // fall through
-          case 9: break;
-          case 4: 
-            { yybegin(WAITING_VALUE); return X8lTypes.SEPARATOR;
-            } 
-            // fall through
-          case 10: break;
-          case 5: 
-            { yybegin(YYINITIAL); return X8lTypes.VALUE;
-            } 
-            // fall through
-          case 11: break;
-          case 6: 
             { yybegin(YYINITIAL); return X8lTypes.TEXT_STRING;
             } 
             // fall through
           case 12: break;
+          case 2: 
+            { yybegin(YYINITIAL); return X8lTypes.RIGHT_BRACKET;
+            } 
+            // fall through
+          case 13: break;
+          case 3: 
+            { return TokenType.BAD_CHARACTER;
+            } 
+            // fall through
+          case 14: break;
+          case 4: 
+            { yybegin(HEAD_AREA); return X8lTypes.LEFT_BRACKET;
+            } 
+            // fall through
+          case 15: break;
+          case 5: 
+            { yybegin(HEAD_AREA); return X8lTypes.KEY;
+            } 
+            // fall through
+          case 16: break;
+          case 6: 
+            { return TokenType.WHITE_SPACE;
+            } 
+            // fall through
+          case 17: break;
+          case 7: 
+            { yybegin(WAITING_VALUE); return X8lTypes.SEPARATOR;
+            } 
+            // fall through
+          case 18: break;
+          case 8: 
+            { yybegin(COMMENT_AREA); return X8lTypes.COMMENT_NODE_LEFT_BRACKET;
+            } 
+            // fall through
+          case 19: break;
+          case 9: 
+            { yybegin(COMMENT_AREA); return X8lTypes.COMMENT_NODE_CONTENT;
+            } 
+            // fall through
+          case 20: break;
+          case 10: 
+            { yybegin(YYINITIAL); return X8lTypes.COMMENT_NODE_RIGHT_BRACKET;
+            } 
+            // fall through
+          case 21: break;
+          case 11: 
+            { yybegin(HEAD_AREA); return X8lTypes.VALUE;
+            } 
+            // fall through
+          case 22: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

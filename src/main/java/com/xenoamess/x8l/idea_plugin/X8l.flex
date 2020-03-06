@@ -1,6 +1,5 @@
 package com.xenoamess.x8l.idea_plugin;
 
-import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
 import com.xenoamess.x8l.idea_plugin.psi.X8lTypes;
 import com.intellij.psi.TokenType;
@@ -8,7 +7,7 @@ import com.intellij.psi.TokenType;
 %%
 
 %class X8lLexer
-%implements FlexLexer
+%implements com.intellij.lexer.FlexLexer
 %unicode
 %function advance
 %type IElementType
@@ -17,23 +16,37 @@ import com.intellij.psi.TokenType;
 
 CRLF=\R
 WHITE_SPACE=\s
-NORMAL_CHARACTOR=[^ \s=<>%]
-KEY_CHARACTER={NORMAL_CHARACTOR} | %.
-VALUE_CHARACTER={NORMAL_CHARACTOR} | %.
-SEPARATOR==
-TEXT_CHARACTER=[^<>%] | %.
+KEY_CHARACTER=[^ \s=<>%] | "%". | "%"\R
+VALUE_CHARACTER=[^ \s=<>%] | "%". | "%"\R
+SEPARATOR=[=]
+TEXT_CHARACTER=[^<>%] | "%". | "%"\R
+LEFT_BRACKET = "<"
+RIGHT_BRACKET = ">"
 
+
+%state HEAD_AREA
+%state CHILDREN_AREA
+%state COMMENT_AREA
 %state WAITING_VALUE
 
-%%
-<YYINITIAL> {
-  {WHITE_SPACE}                { yybegin(YYINITIAL); return TokenType.WHITE_SPACE; }
-  {KEY_CHARACTER}+             { yybegin(YYINITIAL); return X8lTypes.KEY; }
-  {SEPARATOR}                  { yybegin(WAITING_VALUE); return X8lTypes.SEPARATOR; }
-  {TEXT_CHARACTER}+            { yybegin(YYINITIAL); return X8lTypes.TEXT_STRING; }
-}
-<WAITING_VALUE> {
-  {VALUE_CHARACTER}+           { yybegin(YYINITIAL); return X8lTypes.VALUE; }
-}
 
-[^]                            { return TokenType.BAD_CHARACTER; }
+%%
+<YYINITIAL>         {TEXT_CHARACTER}+                                          { yybegin(YYINITIAL); return X8lTypes.TEXT_STRING; }
+
+<YYINITIAL>         {LEFT_BRACKET}                                               { yybegin(HEAD_AREA); return X8lTypes.LEFT_BRACKET; }
+
+<HEAD_AREA>         {LEFT_BRACKET}                                               { yybegin(COMMENT_AREA); return X8lTypes.COMMENT_NODE_LEFT_BRACKET; }
+<COMMENT_AREA>      {TEXT_CHARACTER}+                                          { yybegin(COMMENT_AREA); return X8lTypes.COMMENT_NODE_CONTENT; }
+<COMMENT_AREA>      {RIGHT_BRACKET}                                              { yybegin(YYINITIAL); return X8lTypes.COMMENT_NODE_RIGHT_BRACKET; }
+
+<HEAD_AREA>         {WHITE_SPACE}+                                             { return TokenType.WHITE_SPACE; }
+<WAITING_VALUE>     {WHITE_SPACE}+                                             { return TokenType.WHITE_SPACE; }
+
+<HEAD_AREA>         {KEY_CHARACTER}+                                           { yybegin(HEAD_AREA); return X8lTypes.KEY; }
+<HEAD_AREA>         {SEPARATOR}                                                { yybegin(WAITING_VALUE); return X8lTypes.SEPARATOR; }
+<HEAD_AREA>         {RIGHT_BRACKET}                                              { yybegin(YYINITIAL); return X8lTypes.RIGHT_BRACKET; }
+<YYINITIAL>         {RIGHT_BRACKET}                                              { yybegin(YYINITIAL); return X8lTypes.RIGHT_BRACKET; }
+
+<WAITING_VALUE>     {VALUE_CHARACTER}+                                         { yybegin(HEAD_AREA); return X8lTypes.VALUE; }
+
+[^]                                                                            { return TokenType.BAD_CHARACTER; }

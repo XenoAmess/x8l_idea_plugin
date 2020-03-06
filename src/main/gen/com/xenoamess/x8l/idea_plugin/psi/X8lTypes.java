@@ -13,15 +13,17 @@ public interface X8lTypes {
   IElementType CONTENT_NODE_ATTRIBUTE = new X8lElementType("CONTENT_NODE_ATTRIBUTE");
   IElementType CONTENT_NODE_CHILDREN_AREA = new X8lElementType("CONTENT_NODE_CHILDREN_AREA");
   IElementType CONTENT_NODE_HEAD_AREA = new X8lElementType("CONTENT_NODE_HEAD_AREA");
-  IElementType LEFT_BRACE = new X8lElementType("LEFT_BRACE");
-  IElementType RIGHT_BRACE = new X8lElementType("RIGHT_BRACE");
   IElementType TEXT_NODE = new X8lElementType("TEXT_NODE");
 
+  IElementType COMMENT_NODE_CONTENT = new X8lTokenType("COMMENT_NODE_CONTENT");
+  IElementType COMMENT_NODE_LEFT_BRACKET = new X8lTokenType("COMMENT_NODE_LEFT_BRACKET");
+  IElementType COMMENT_NODE_RIGHT_BRACKET = new X8lTokenType("COMMENT_NODE_RIGHT_BRACKET");
   IElementType KEY = new X8lTokenType("KEY");
+  IElementType LEFT_BRACKET = new X8lTokenType("LEFT_BRACKET");
+  IElementType RIGHT_BRACKET = new X8lTokenType("RIGHT_BRACKET");
   IElementType SEPARATOR = new X8lTokenType("SEPARATOR");
   IElementType TEXT_STRING = new X8lTokenType("TEXT_STRING");
   IElementType VALUE = new X8lTokenType("VALUE");
-  IElementType WHITE_SPACE = new X8lTokenType("WHITE_SPACE");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
@@ -40,12 +42,6 @@ public interface X8lTypes {
       }
       else if (type == CONTENT_NODE_HEAD_AREA) {
         return new X8lContentNodeHeadAreaImpl(node);
-      }
-      else if (type == LEFT_BRACE) {
-        return new X8lLeftBraceImpl(node);
-      }
-      else if (type == RIGHT_BRACE) {
-        return new X8lRightBraceImpl(node);
       }
       else if (type == TEXT_NODE) {
         return new X8lTextNodeImpl(node);

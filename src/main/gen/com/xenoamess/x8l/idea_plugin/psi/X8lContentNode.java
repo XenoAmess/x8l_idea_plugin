@@ -13,10 +13,4 @@ public interface X8lContentNode extends PsiElement {
   @NotNull
   X8lContentNodeHeadArea getContentNodeHeadArea();
 
-  @NotNull
-  X8lLeftBrace getLeftBrace();
-
-  @NotNull
-  List<X8lRightBrace> getRightBraceList();
-
 }

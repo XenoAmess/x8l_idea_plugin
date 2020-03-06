@@ -37,7 +37,7 @@ public class X8lColorSettingsPage implements ColorSettingsPage {
     @NotNull
     @Override
     public String getDemoText() {
-        return X8lDataCenter.DEMO_TEXT;
+        return X8lDataCenter.DEMO_X8L_TEXT;
     }
 
     @Nullable

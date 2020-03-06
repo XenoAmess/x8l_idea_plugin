@@ -26,21 +26,38 @@
 //  methods=[getKey getValue getName setName getNameIdentifier getPresentation]
 //}
 
+//x8lFile ::= CONTENT_NODE_CHILDREN_AREA
+//CONTENT_NODE_CHILDREN_AREA ::= (TEXT_NODE (COMMENT_NODE|CONTENT_NODE))* TEXT_NODE
+//CONTENT_NODE ::= LEFT_BRACKET CONTENT_NODE_HEAD_AREA RIGHT_BRACKET CONTENT_NODE_CHILDREN_AREA RIGHT_BRACKET
+//CONTENT_NODE_HEAD_AREA ::= CONTENT_NODE_ATTRIBUTE*
+//CONTENT_NODE_ATTRIBUTE ::= (KEY SEPARATOR VALUE) | KEY {
+//    implements="com.intellij.psi.PsiNameIdentifierOwner"
+//    methods=[getKey getValue getName setName getNameIdentifier getPresentation]
+//}
+//COMMENT_NODE ::= '<<' TEXT_STRING? '>' {
+//    implements="com.intellij.psi.PsiComment"
+//    methods=[getTokenType]
+//}
+//TEXT_NODE ::= TEXT_STRING? {
+//    implements="com.intellij.psi.PsiLiteral"
+//    methods=[getValue getPresentation]
+//}
+//LEFT_BRACKET ::= '<'
+//RIGHT_BRACKET ::= '>'
+
 x8lFile ::= CONTENT_NODE_CHILDREN_AREA
 CONTENT_NODE_CHILDREN_AREA ::= (TEXT_NODE (COMMENT_NODE|CONTENT_NODE))* TEXT_NODE
-CONTENT_NODE ::= LEFT_BRACE CONTENT_NODE_HEAD_AREA RIGHT_BRACE CONTENT_NODE_CHILDREN_AREA RIGHT_BRACE
-CONTENT_NODE_HEAD_AREA ::= WHITE_SPACE* (CONTENT_NODE_ATTRIBUTE WHITE_SPACE+)* ((CONTENT_NODE_ATTRIBUTE WHITE_SPACE*) ? )
-CONTENT_NODE_ATTRIBUTE ::= (KEY WHITE_SPACE* SEPARATOR WHITE_SPACE* VALUE) | KEY {
+CONTENT_NODE ::= LEFT_BRACKET CONTENT_NODE_HEAD_AREA RIGHT_BRACKET CONTENT_NODE_CHILDREN_AREA RIGHT_BRACKET
+CONTENT_NODE_HEAD_AREA ::= CONTENT_NODE_ATTRIBUTE*
+CONTENT_NODE_ATTRIBUTE ::= (KEY SEPARATOR VALUE) | KEY {
     implements="com.intellij.psi.PsiNameIdentifierOwner"
     methods=[getKey getValue getName setName getNameIdentifier getPresentation]
 }
-COMMENT_NODE ::= "<<" TEXT_STRING ? ">" {
+COMMENT_NODE ::= LEFT_BRACKET COMMENT_NODE_LEFT_BRACKET COMMENT_NODE_CONTENT COMMENT_NODE_RIGHT_BRACKET {
     implements="com.intellij.psi.PsiComment"
     methods=[getTokenType]
 }
-TEXT_NODE ::= TEXT_STRING ? {
+TEXT_NODE ::= TEXT_STRING? {
     implements="com.intellij.psi.PsiLiteral"
     methods=[getValue getPresentation]
 }
-LEFT_BRACE ::= "<"
-RIGHT_BRACE ::= ">"

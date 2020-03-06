@@ -16,20 +16,20 @@ public class X8lSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey SEPARATOR =
             createTextAttributesKey("X8L_SEPARATOR", DefaultLanguageHighlighterColors.OPERATION_SIGN);
     public static final TextAttributesKey KEY =
-            createTextAttributesKey("X8L_KEY", DefaultLanguageHighlighterColors.KEYWORD);
+            createTextAttributesKey("X8L_KEY", DefaultLanguageHighlighterColors.MARKUP_ATTRIBUTE);
     public static final TextAttributesKey VALUE =
             createTextAttributesKey("X8L_VALUE", DefaultLanguageHighlighterColors.STRING);
     public static final TextAttributesKey COMMENT =
             createTextAttributesKey("X8L_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
 
     public static final TextAttributesKey TEXT =
-            createTextAttributesKey("X8L_TEXT", DefaultLanguageHighlighterColors.STRING);
+            createTextAttributesKey("X8L_TEXT", HighlighterColors.TEXT);
 
     public static final TextAttributesKey BAD_CHARACTER =
             createTextAttributesKey("X8L_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
 
-    public static final TextAttributesKey BRACES =
-            createTextAttributesKey("X8L_BRACES", HighlighterColors.BAD_CHARACTER);
+    public static final TextAttributesKey BRACKETS =
+            createTextAttributesKey("X8L_BRACKETS", DefaultLanguageHighlighterColors.BRACKETS);
 
 
     private static final TextAttributesKey[] BAD_CHAR_KEYS = new TextAttributesKey[]{BAD_CHARACTER};
@@ -40,7 +40,7 @@ public class X8lSyntaxHighlighter extends SyntaxHighlighterBase {
 
     private static final TextAttributesKey[] TEXT_KEYS = new TextAttributesKey[]{TEXT};
 
-    private static final TextAttributesKey[] BRACES_KEYS = new TextAttributesKey[]{BRACES};
+    private static final TextAttributesKey[] BRACKETS_KEYS = new TextAttributesKey[]{BRACKETS};
 
     private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
 
@@ -59,12 +59,12 @@ public class X8lSyntaxHighlighter extends SyntaxHighlighterBase {
             return KEY_KEYS;
         } else if (tokenType.equals(X8lTypes.VALUE)) {
             return VALUE_KEYS;
-        } else if (tokenType.equals(X8lTypes.COMMENT_NODE)) {
+        } else if (tokenType.equals(X8lTypes.COMMENT_NODE) || tokenType.equals(X8lTypes.COMMENT_NODE_LEFT_BRACKET) || tokenType.equals(X8lTypes.COMMENT_NODE_CONTENT) || tokenType.equals(X8lTypes.COMMENT_NODE_RIGHT_BRACKET)) {
             return COMMENT_KEYS;
         } else if (tokenType.equals(X8lTypes.TEXT_NODE)) {
             return TEXT_KEYS;
-        } else if (tokenType.equals(X8lTypes.LEFT_BRACE) || tokenType.equals(X8lTypes.RIGHT_BRACE)) {
-            return BRACES_KEYS;
+        } else if (tokenType.equals(X8lTypes.LEFT_BRACKET) || tokenType.equals(X8lTypes.RIGHT_BRACKET)) {
+            return BRACKETS_KEYS;
         } else if (tokenType.equals(TokenType.BAD_CHARACTER)) {
             return BAD_CHAR_KEYS;
         } else {

@@ -38,16 +38,4 @@ public class X8lContentNodeImpl extends ASTWrapperPsiElement implements X8lConte
     return findNotNullChildByClass(X8lContentNodeHeadArea.class);
   }
 
-  @Override
-  @NotNull
-  public X8lLeftBrace getLeftBrace() {
-    return findNotNullChildByClass(X8lLeftBrace.class);
-  }
-
-  @Override
-  @NotNull
-  public List<X8lRightBrace> getRightBraceList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, X8lRightBrace.class);
-  }
-
 }

@@ -30,14 +30,6 @@ public class X8lVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitLeftBrace(@NotNull X8lLeftBrace o) {
-    visitPsiElement(o);
-  }
-
-  public void visitRightBrace(@NotNull X8lRightBrace o) {
-    visitPsiElement(o);
-  }
-
   public void visitTextNode(@NotNull X8lTextNode o) {
     visitPsiLiteral(o);
   }
