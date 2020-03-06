@@ -10,10 +10,13 @@ import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.util.SmartList;
+import com.xenoamess.x8l.X8lTree;
 import com.xenoamess.x8l.idea_plugin.psi.X8lFile;
+import org.apache.commons.collections.list.SetUniqueList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -30,6 +33,24 @@ public class X8lUtil {
                 result.addAll(getMostRemoteChildrenOfType(x8lFile, string, iElementType));
             }
         }
+        return result;
+    }
+
+    public static List<PsiElement> findPsiElementsIncludingTranscode(Project project, String string, IElementType iElementType) {
+        final List<PsiElement> result = SetUniqueList.decorate(new ArrayList<PsiElement>());
+
+        result.addAll(
+                X8lUtil.findPsiElements(project, string, null)
+        );
+        result.addAll(
+                X8lUtil.findPsiElements(project, X8lTree.transcode(string), null)
+        );
+        result.addAll(
+                X8lUtil.findPsiElements(project, X8lTree.transcodeComment(string), null)
+        );
+        result.addAll(
+                X8lUtil.findPsiElements(project, X8lTree.transcodeWithWhitespace(string), null)
+        );
         return result;
     }
 

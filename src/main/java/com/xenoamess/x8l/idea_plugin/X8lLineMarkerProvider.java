@@ -9,16 +9,14 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiLiteralExpression;
 import com.intellij.psi.PsiLiteralValue;
-import com.xenoamess.x8l.X8lTree;
-import org.apache.commons.collections.list.SetUniqueList;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import static com.xenoamess.x8l.dealers.JsonDealer.ARRAY_ID_ATTRIBUTE;
+import static com.xenoamess.x8l.idea_plugin.X8lUtil.findPsiElementsIncludingTranscode;
 
 public class X8lLineMarkerProvider extends RelatedItemLineMarkerProvider {
     @Override
@@ -44,23 +42,11 @@ public class X8lLineMarkerProvider extends RelatedItemLineMarkerProvider {
             return;
         }
 
-        final List<PsiElement> elements = SetUniqueList.decorate(new ArrayList<PsiElement>());
-
         // Get the X8l language property usage
         Project project = element.getProject();
-        elements.addAll(
-                X8lUtil.findPsiElements(project, string, null)
-        );
-        elements.addAll(
-                X8lUtil.findPsiElements(project, X8lTree.transcode(string), null)
-        );
-        elements.addAll(
-                X8lUtil.findPsiElements(project, X8lTree.transcodeComment(string), null)
-        );
-        elements.addAll(
-                X8lUtil.findPsiElements(project, X8lTree.transcodeWithWhitespace(string), null)
-        );
 
+        List<PsiElement> elements = findPsiElementsIncludingTranscode(project, string, null);
+        
         if (!elements.isEmpty()) {
             // Add the property to a collection of line marker info
             NavigationGutterIconBuilder<PsiElement> builder =

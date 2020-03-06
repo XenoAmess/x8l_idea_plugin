@@ -52,7 +52,7 @@ public class X8lAnnotator implements Annotator {
 
     public static boolean tryAnnotate(@NotNull AnnotationHolder holder, PsiElement element, String string, IElementType iElementType) {
         Project project = element.getProject();
-        List<PsiElement> properties = X8lUtil.findPsiElements(project, string, iElementType);
+        List<PsiElement> properties = X8lUtil.findPsiElementsIncludingTranscode(project, string, iElementType);
         if (properties.isEmpty()) {
             return false;
         }
