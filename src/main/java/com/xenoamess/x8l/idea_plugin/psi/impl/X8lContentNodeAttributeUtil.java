@@ -11,15 +11,15 @@ import com.xenoamess.x8l.idea_plugin.psi.X8lTypes;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import java.util.Objects;
 
 public class X8lContentNodeAttributeUtil {
+    public static final String EMPTY_VALUE_STRING = "".intern();
+
     public static String getKey(X8lContentNodeAttribute element) {
         ASTNode keyNode = element.getNode().findChildByType(X8lTypes.KEY);
-        if (keyNode != null) {
-            return X8lTree.untranscode(keyNode.getText());
-        } else {
-            return null;
-        }
+        Objects.requireNonNull(keyNode);
+        return X8lTree.untranscode(keyNode.getText());
     }
 
     public static String getValue(X8lContentNodeAttribute element) {
@@ -27,7 +27,7 @@ public class X8lContentNodeAttributeUtil {
         if (valueNode != null) {
             return valueNode.getText();
         } else {
-            return null;
+            return EMPTY_VALUE_STRING;
         }
     }
 
@@ -37,23 +37,18 @@ public class X8lContentNodeAttributeUtil {
 
     public static PsiElement setName(X8lContentNodeAttribute element, String newName) {
         ASTNode keyNode = element.getNode().findChildByType(X8lTypes.KEY);
-        if (keyNode != null) {
-
-            X8lContentNodeAttribute x8lContentNodeAttribute = X8lElementFactory.createX8lContentNodeAttribute(element.getProject(), newName);
-            ASTNode newKeyNode = x8lContentNodeAttribute.getFirstChild().getNode();
-            //todo fix it!
-            element.getNode().replaceChild(keyNode, newKeyNode);
-        }
+        Objects.requireNonNull(keyNode);
+        X8lContentNodeAttribute x8lContentNodeAttribute = X8lElementFactory.createX8lContentNodeAttribute(element.getProject(), newName);
+        ASTNode newKeyNode = x8lContentNodeAttribute.getFirstChild().getNode();
+        //todo fix it!
+        element.getNode().replaceChild(keyNode, newKeyNode);
         return element;
     }
 
     public static PsiElement getNameIdentifier(X8lContentNodeAttribute element) {
         ASTNode keyNode = element.getNode().findChildByType(X8lTypes.KEY);
-        if (keyNode != null) {
-            return keyNode.getPsi();
-        } else {
-            return null;
-        }
+        Objects.requireNonNull(keyNode);
+        return keyNode.getPsi();
     }
 
     public static ItemPresentation getPresentation(final X8lContentNodeAttribute element) {
