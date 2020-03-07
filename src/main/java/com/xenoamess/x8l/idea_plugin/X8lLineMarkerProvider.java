@@ -22,6 +22,8 @@ public class X8lLineMarkerProvider extends RelatedItemLineMarkerProvider {
     @Override
     protected void collectNavigationMarkers(@NotNull PsiElement element,
                                             @NotNull Collection<? super RelatedItemLineMarkerInfo> result) {
+//        if (!(element instanceof PsiLiteralExpression)) return;
+
         String string = null;
         if (element instanceof PsiLiteralValue) {
             Object valueObject = ((PsiLiteralValue) element).getValue();
@@ -46,7 +48,7 @@ public class X8lLineMarkerProvider extends RelatedItemLineMarkerProvider {
         Project project = element.getProject();
 
         List<PsiElement> elements = findPsiElementsIncludingTranscode(project, string, null);
-        
+
         if (!elements.isEmpty()) {
             // Add the property to a collection of line marker info
             NavigationGutterIconBuilder<PsiElement> builder =
