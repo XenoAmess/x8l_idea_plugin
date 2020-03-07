@@ -156,6 +156,17 @@ public class X8lParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // CONTENT_NODE_CHILDREN_AREA
+  public static boolean ROOT_NODE_CHILDREN_AREA(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ROOT_NODE_CHILDREN_AREA")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, ROOT_NODE_CHILDREN_AREA, "<root node children area>");
+    r = CONTENT_NODE_CHILDREN_AREA(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
   // TEXT_NODE_CONTENT
   public static boolean TEXT_NODE(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "TEXT_NODE")) return false;
@@ -177,9 +188,9 @@ public class X8lParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // CONTENT_NODE_CHILDREN_AREA
+  // ROOT_NODE_CHILDREN_AREA
   static boolean x8lFile(PsiBuilder b, int l) {
-    return CONTENT_NODE_CHILDREN_AREA(b, l + 1);
+    return ROOT_NODE_CHILDREN_AREA(b, l + 1);
   }
 
 }

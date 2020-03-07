@@ -35,6 +35,10 @@ public class X8lVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitRootNodeChildrenArea(@NotNull X8lRootNodeChildrenArea o) {
+    visitPsiElement(o);
+  }
+
   public void visitTextNode(@NotNull X8lTextNode o) {
     visitPsiLiteral(o);
   }

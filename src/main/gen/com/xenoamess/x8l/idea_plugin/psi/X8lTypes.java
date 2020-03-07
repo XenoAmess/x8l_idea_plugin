@@ -14,6 +14,7 @@ public interface X8lTypes {
   IElementType CONTENT_NODE_ATTRIBUTE = new X8lElementType("CONTENT_NODE_ATTRIBUTE");
   IElementType CONTENT_NODE_CHILDREN_AREA = new X8lElementType("CONTENT_NODE_CHILDREN_AREA");
   IElementType CONTENT_NODE_HEAD_AREA = new X8lElementType("CONTENT_NODE_HEAD_AREA");
+  IElementType ROOT_NODE_CHILDREN_AREA = new X8lElementType("ROOT_NODE_CHILDREN_AREA");
   IElementType TEXT_NODE = new X8lElementType("TEXT_NODE");
   IElementType TEXT_NODE_CONTENT = new X8lElementType("TEXT_NODE_CONTENT");
 
@@ -47,6 +48,9 @@ public interface X8lTypes {
       }
       else if (type == CONTENT_NODE_HEAD_AREA) {
         return new X8lContentNodeHeadAreaImpl(node);
+      }
+      else if (type == ROOT_NODE_CHILDREN_AREA) {
+        return new X8lRootNodeChildrenAreaImpl(node);
       }
       else if (type == TEXT_NODE) {
         return new X8lTextNodeImpl(node);

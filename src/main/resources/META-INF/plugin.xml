@@ -44,6 +44,7 @@
                 language="X8l"
                 implementationClass="com.xenoamess.x8l.idea_plugin.X8lCompletionContributor"
         />
+
         <!--        <psi.referenceContributor-->
         <!--                implementation="com.xenoamess.x8l.idea_plugin.X8lReferenceContributor"-->
         <!--        />-->
@@ -80,24 +81,23 @@
                 language="X8l"
                 implementationClass="com.xenoamess.x8l.idea_plugin.X8lCommenter"
         />
-        <!--        <lang.commenter language="TML" implementationClass="com.intellij.lang.xml.XmlCommenter"/>-->
     </extensions>
 
-    <actions>
-        <!--todo: fix it-->
-        <group id="CommentGroup">
-            <action id="CommentByLineComment"
-                    class="com.intellij.codeInsight.generation.actions.CommentByLineCommentAction"/>
-            <action id="CommentByBlockComment"
-                    class="com.intellij.codeInsight.generation.actions.CommentByBlockCommentAction"/>
-        </group>
-        <group id="CodeFormatGroup">
-            <action id="ReformatCode" class="com.intellij.codeInsight.actions.ReformatCodeAction"/>
-            <action id="ShowReformatFileDialog" class="com.intellij.codeInsight.actions.ShowReformatFileDialog"/>
-            <action id="AutoIndentLines" class="com.intellij.codeInsight.generation.actions.AutoIndentLinesAction"/>
-            <action id="OptimizeImports" class="com.intellij.codeInsight.actions.OptimizeImportsAction"/>
-            <action id="RearrangeCode"
-                    class="com.intellij.application.options.codeStyle.arrangement.action.RearrangeCodeAction"/>
-        </group>
-    </actions>
+<!--    <actions>-->
+<!--        &lt;!&ndash;todo: fix it&ndash;&gt;-->
+    <!--        <group id="CommentGroup">-->
+<!--            &lt;!&ndash;            <action id="CommentByLineComment"&ndash;&gt;-->
+<!--            &lt;!&ndash;                    class="com.intellij.codeInsight.generation.actions.CommentByLineCommentAction"/>&ndash;&gt;-->
+<!--            <action id="CommentByBlockComment"-->
+<!--                    class="com.xenoamess.x8l.idea_plugin.comment.X8lCommentByBlockCommentAction"/>-->
+<!--        </group>-->
+<!--        <group id="CodeFormatGroup">-->
+<!--            <action id="ReformatCode" class="com.intellij.codeInsight.actions.ReformatCodeAction"/>-->
+<!--            <action id="ShowReformatFileDialog" class="com.intellij.codeInsight.actions.ShowReformatFileDialog"/>-->
+<!--            <action id="AutoIndentLines" class="com.intellij.codeInsight.generation.actions.AutoIndentLinesAction"/>-->
+<!--            <action id="OptimizeImports" class="com.intellij.codeInsight.actions.OptimizeImportsAction"/>-->
+<!--            <action id="RearrangeCode"-->
+<!--                    class="com.intellij.application.options.codeStyle.arrangement.action.RearrangeCodeAction"/>-->
+<!--        </group>-->
+<!--    </actions>-->
 </idea-plugin>
