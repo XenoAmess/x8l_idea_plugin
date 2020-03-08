@@ -59,9 +59,9 @@
                 language="X8l"
                 implementationClass="com.xenoamess.x8l.idea_plugin.X8lFoldingBuilder"
         />
-        <!--        <gotoSymbolContributor-->
-        <!--                implementation="com.xenoamess.x8l.idea_plugin.X8lChooseByNameContributor"-->
-        <!--        />-->
+        <gotoSymbolContributor
+                implementation="com.xenoamess.x8l.idea_plugin.X8lChooseByNameContributor"
+        />
         <lang.psiStructureViewFactory
                 language="X8l"
                 implementationClass="com.xenoamess.x8l.idea_plugin.X8lStructureViewFactory"

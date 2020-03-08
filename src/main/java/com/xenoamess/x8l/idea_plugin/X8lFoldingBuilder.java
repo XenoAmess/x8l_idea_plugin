@@ -70,11 +70,13 @@ public class X8lFoldingBuilder extends FoldingBuilderEx implements DumbAware {
     @Nullable
     @Override
     public String getPlaceholderText(@NotNull ASTNode node) {
+        final int maxPlaceHolderLength = 25;
+
         PsiElement psiElement = node.getPsi();
         String res = "...";
         if (psiElement instanceof X8lCommentNode) {
             X8lCommentNode element = (X8lCommentNode) psiElement;
-            res = StringUtils.substring(element.getCommentNodeContent().getText().trim(), 0, 10);
+            res = StringUtils.substring(element.getCommentNodeContent().getText().trim(), 0, maxPlaceHolderLength);
 //        } else if (psiElement instanceof X8lTextNode) {
 //            X8lTextNode element = (X8lTextNode) psiElement;
 //            res = StringUtils.substring(element.getText().trim(), 0, 5);
@@ -91,9 +93,9 @@ public class X8lFoldingBuilder extends FoldingBuilderEx implements DumbAware {
         } else if (psiElement instanceof X8lContentNodeChildrenArea) {
             X8lContentNodeChildrenArea element = (X8lContentNodeChildrenArea) psiElement;
             res = element.getText().trim();
-            res = StringUtils.substring(res, 0, 10);
+            res = StringUtils.substring(res, 0, maxPlaceHolderLength);
             if (res.startsWith("<") && !res.endsWith(">")) {
-                res = StringUtils.substring(res, 0, 9);
+                res = StringUtils.substring(res, 0, maxPlaceHolderLength - 1);
                 res += ">";
             }
         }

@@ -74,6 +74,9 @@ public class X8lUtil {
         final List<PsiElement> result = SetUniqueList.decorate(new ArrayList<PsiElement>());
 
         result.addAll(
+                X8lUtil.findMostRemotePsiElements(project, X8lTree.untranscode(string), iElementType)
+        );
+        result.addAll(
                 X8lUtil.findMostRemotePsiElements(project, string, iElementType)
         );
         result.addAll(
@@ -85,7 +88,7 @@ public class X8lUtil {
         result.addAll(
                 X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeComment(string), iElementType)
         );
-        return result;
+        return new ArrayList<>(result);
     }
 
     public static final int X8L_GET_CHILD_ALL = -1;
