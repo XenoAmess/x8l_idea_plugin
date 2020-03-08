@@ -234,16 +234,19 @@ public class X8lUtil {
         return psi;
     }
 
-    @Nullable
+    @NotNull
     public static String getStringFromElement(@Nullable PsiElement psiElement) {
         if (psiElement == null) {
-            return null;
+            return "";
         }
 
         String string = null;
+
         if (psiElement instanceof PsiLiteralValue) {
             Object valueObject = ((PsiLiteralValue) psiElement).getValue();
-            string = valueObject.toString();
+            if (valueObject != null) {
+                string = valueObject.toString();
+            }
         }
 
         if (string == null) {

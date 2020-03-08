@@ -51,10 +51,10 @@
                 language="X8l"
                 implementationClass="com.xenoamess.x8l.idea_plugin.X8lRefactoringSupportProvider"
         />
-        <!--        <lang.findUsagesProvider-->
-        <!--                language="X8l"-->
-        <!--                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFindUsagesProvider"-->
-        <!--        />-->
+        <lang.findUsagesProvider
+                language="X8l"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFindUsagesProvider"
+        />
         <!--        <lang.foldingBuilder-->
         <!--                language="JAVA"-->
         <!--                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFoldingBuilder"-->
