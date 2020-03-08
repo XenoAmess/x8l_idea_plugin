@@ -76,13 +76,13 @@ public class X8lUtil {
                 X8lUtil.findMostRemotePsiElements(project, string, iElementType)
         );
         result.addAll(
-                X8lUtil.findMostRemotePsiElements(project, X8lTree.transcode(string), iElementType)
+                X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeKeyAndValue(string), iElementType)
+        );
+        result.addAll(
+                X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeText(string), iElementType)
         );
         result.addAll(
                 X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeComment(string), iElementType)
-        );
-        result.addAll(
-                X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeWithWhitespace(string), iElementType)
         );
         return result;
     }
