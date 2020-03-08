@@ -39,25 +39,25 @@ class X8lLexer implements com.intellij.lexer.FlexLexer {
 
   /** 
    * Translates characters to character classes
-   * Chosen bits are [8, 7, 6]
-   * Total runtime size is 1808 bytes
+   * Chosen bits are [7, 7, 7]
+   * Total runtime size is 1928 bytes
    */
   public static int ZZ_CMAP(int ch) {
-    return ZZ_CMAP_A[(ZZ_CMAP_Y[(ZZ_CMAP_Z[ch>>13]<<7)|((ch>>6)&0x7f)]<<6)|(ch&0x3f)];
+    return ZZ_CMAP_A[(ZZ_CMAP_Y[ZZ_CMAP_Z[ch>>14]|((ch>>7)&0x7f)]<<7)|(ch&0x7f)];
   }
 
-  /* The ZZ_CMAP_Z table has 136 entries */
+  /* The ZZ_CMAP_Z table has 68 entries */
   static final char ZZ_CMAP_Z[] = zzUnpackCMap(
-    "\1\0\1\1\206\2");
+    "\1\0\103\200");
 
-  /* The ZZ_CMAP_Y table has 384 entries */
+  /* The ZZ_CMAP_Y table has 256 entries */
   static final char ZZ_CMAP_Y[] = zzUnpackCMap(
-    "\1\0\1\1\1\2\127\1\1\3\45\1\1\4\1\5\76\1\1\3\277\1");
+    "\1\0\1\1\53\2\1\3\22\2\1\4\37\2\1\3\237\2");
 
-  /* The ZZ_CMAP_A table has 384 entries */
+  /* The ZZ_CMAP_A table has 640 entries */
   static final char ZZ_CMAP_A[] = zzUnpackCMap(
-    "\11\0\1\1\1\2\2\1\1\3\22\0\1\1\4\0\1\5\26\0\1\4\1\6\1\7\106\0\1\1\32\0\1\1"+
-    "\37\0\1\1\77\0\13\1\35\0\2\1\5\0\1\1\57\0\1\1\40\0");
+    "\11\0\1\1\1\2\2\1\1\3\22\0\1\1\4\0\1\6\26\0\1\5\1\7\1\10\23\0\1\4\62\0\1\1"+
+    "\32\0\1\1\337\0\1\1\177\0\13\1\35\0\2\1\5\0\1\1\57\0\1\1\40\0");
 
   /** 
    * Translates DFA states to action switch labels.
@@ -65,12 +65,12 @@ class X8lLexer implements com.intellij.lexer.FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\5\0\1\1\1\2\1\3\1\4\1\5\1\6\2\3"+
-    "\1\7\1\10\1\3\1\11\1\12\1\3\2\0\1\13"+
-    "\1\0\1\5\2\0\1\12";
+    "\5\0\1\1\1\2\1\3\1\4\1\5\2\6\2\3"+
+    "\1\7\1\10\1\3\1\11\1\12\1\6\1\3\2\0"+
+    "\1\13\1\0\1\5\2\0\1\12";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[27];
+    int [] result = new int[29];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -95,13 +95,13 @@ class X8lLexer implements com.intellij.lexer.FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\10\0\20\0\30\0\40\0\50\0\60\0\70"+
-    "\0\100\0\110\0\120\0\100\0\130\0\100\0\140\0\150"+
-    "\0\100\0\160\0\170\0\70\0\60\0\100\0\130\0\200"+
-    "\0\150\0\170\0\210";
+    "\0\0\0\11\0\22\0\33\0\44\0\55\0\66\0\77"+
+    "\0\110\0\121\0\132\0\143\0\110\0\154\0\110\0\165"+
+    "\0\176\0\110\0\207\0\220\0\231\0\77\0\66\0\110"+
+    "\0\154\0\242\0\176\0\231\0\253";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[27];
+    int [] result = new int[29];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -124,17 +124,20 @@ class X8lLexer implements com.intellij.lexer.FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\4\6\1\7\1\10\1\6\1\11\1\12\3\13\1\14"+
-    "\1\15\1\16\1\11\10\14\5\17\1\20\1\17\1\21"+
-    "\1\22\3\13\1\14\1\23\2\14\4\6\1\0\1\24"+
-    "\1\6\2\0\3\25\1\26\3\0\10\6\10\0\1\12"+
-    "\4\0\1\27\3\0\3\13\4\0\3\12\1\30\4\12"+
-    "\5\17\1\31\1\17\1\0\10\17\1\22\4\0\1\32"+
-    "\2\0\3\22\1\33\4\22\1\12\1\0\1\12\2\0"+
-    "\1\27\2\0\1\22\1\0\1\22\2\0\1\32\2\0";
+    "\5\6\1\7\1\10\1\6\1\11\1\12\3\13\1\14"+
+    "\1\15\1\16\1\17\1\11\11\15\6\20\1\21\1\20"+
+    "\1\22\1\23\3\13\1\24\1\15\1\25\2\15\5\6"+
+    "\1\0\1\26\1\6\2\0\4\27\1\30\3\0\11\6"+
+    "\11\0\1\12\3\0\1\12\1\0\1\31\3\0\4\13"+
+    "\4\0\1\12\3\13\1\14\1\0\1\31\2\0\3\12"+
+    "\1\32\5\12\6\20\1\33\1\20\1\0\11\20\1\23"+
+    "\3\0\1\23\1\0\1\34\2\0\1\23\3\13\1\24"+
+    "\1\0\1\34\2\0\3\23\1\35\5\23\1\12\1\0"+
+    "\1\12\1\0\1\12\1\0\1\31\2\0\1\23\1\0"+
+    "\1\23\1\0\1\23\1\0\1\34\2\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[144];
+    int [] result = new int[180];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -172,11 +175,11 @@ class X8lLexer implements com.intellij.lexer.FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\5\0\3\1\1\11\2\1\1\11\1\1\1\11\2\1"+
-    "\1\11\2\1\2\0\1\11\1\0\1\1\2\0\1\1";
+    "\5\0\3\1\1\11\3\1\1\11\1\1\1\11\2\1"+
+    "\1\11\3\1\2\0\1\11\1\0\1\1\2\0\1\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[27];
+    int [] result = new int[29];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -515,7 +518,7 @@ class X8lLexer implements com.intellij.lexer.FlexLexer {
             // fall through
           case 16: break;
           case 6: 
-            { return TokenType.WHITE_SPACE;
+            { return X8lTypes.WHITE_SPACE_CONTENT_STRING;
             } 
             // fall through
           case 17: break;

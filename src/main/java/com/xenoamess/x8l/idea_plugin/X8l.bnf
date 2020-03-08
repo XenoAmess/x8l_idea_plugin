@@ -58,12 +58,12 @@ CONTENT_NODE ::= LEFT_BRACKET CONTENT_NODE_HEAD_AREA RIGHT_BRACKET CONTENT_NODE_
     methods=[getTokenType getNameIdentifier getValue getPresentation getName setName]
 }
 
-CONTENT_NODE_HEAD_AREA ::= CONTENT_NODE_ATTRIBUTE* {
+CONTENT_NODE_HEAD_AREA ::= WHITE_SPACE CONTENT_NODE_ATTRIBUTE* WHITE_SPACE{
     implements=["com.intellij.psi.PsiNameIdentifierOwner"]
     methods=[getTokenType getNameIdentifier getValue getPresentation getName setName]
 }
 
-CONTENT_NODE_ATTRIBUTE ::= (CONTENT_NODE_ATTRIBUTE_KEY SEPARATOR CONTENT_NODE_ATTRIBUTE_VALUE) | CONTENT_NODE_ATTRIBUTE_KEY {
+CONTENT_NODE_ATTRIBUTE ::= (WHITE_SPACE CONTENT_NODE_ATTRIBUTE_KEY WHITE_SPACE SEPARATOR WHITE_SPACE CONTENT_NODE_ATTRIBUTE_VALUE WHITE_SPACE) | WHITE_SPACE CONTENT_NODE_ATTRIBUTE_KEY WHITE_SPACE {
     implements="com.intellij.psi.PsiNameIdentifierOwner"
     methods=[getTokenType getNameIdentifier getKey getValue getPresentation getName setName]
 }
@@ -97,3 +97,5 @@ CONTENT_NODE_ATTRIBUTE_VALUE ::= CONTENT_NODE_ATTRIBUTE_VALUE_CONTENT_STRING {
     implements=["com.intellij.psi.PsiLiteral" "com.intellij.psi.PsiNameIdentifierOwner"]
     methods=[getTokenType getNameIdentifier getValue getPresentation getName setName]
 }
+
+WHITE_SPACE ::= WHITE_SPACE_CONTENT_STRING?

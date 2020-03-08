@@ -35,6 +35,12 @@ public class X8lContentNodeHeadAreaImpl extends ASTWrapperPsiElement implements 
   }
 
   @Override
+  @NotNull
+  public List<X8lWhiteSpace> getWhiteSpaceList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, X8lWhiteSpace.class);
+  }
+
+  @Override
   public IElementType getTokenType() {
     return X8lPsiImplUtil.getTokenType(this);
   }

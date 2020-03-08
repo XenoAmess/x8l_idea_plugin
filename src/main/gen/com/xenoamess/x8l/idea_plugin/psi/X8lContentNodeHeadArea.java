@@ -13,6 +13,9 @@ public interface X8lContentNodeHeadArea extends PsiNameIdentifierOwner {
   @NotNull
   List<X8lContentNodeAttribute> getContentNodeAttributeList();
 
+  @NotNull
+  List<X8lWhiteSpace> getWhiteSpaceList();
+
   IElementType getTokenType();
 
   PsiElement getNameIdentifier();

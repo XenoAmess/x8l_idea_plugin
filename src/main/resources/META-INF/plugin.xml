@@ -82,5 +82,10 @@
         />
     </extensions>
     <actions>
+        <action id="com.xenoamess.x8l.idea_plugin.actions.X8lBeautifyAction"
+                class="com.xenoamess.x8l.idea_plugin.actions.X8lBeautifyAction" text="X8l Beautify"
+                description="Beautify X8l File">
+            <add-to-group group-id="ProjectViewPopupMenuModifyGroup" anchor="first"/>
+        </action>
     </actions>
 </idea-plugin>

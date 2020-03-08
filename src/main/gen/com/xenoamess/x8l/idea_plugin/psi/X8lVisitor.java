@@ -61,6 +61,10 @@ public class X8lVisitor extends PsiElementVisitor {
     // visitPsiNameIdentifierOwner(o);
   }
 
+  public void visitWhiteSpace(@NotNull X8lWhiteSpace o) {
+    visitPsiElement(o);
+  }
+
   public void visitPsiComment(@NotNull PsiComment o) {
     visitElement(o);
   }

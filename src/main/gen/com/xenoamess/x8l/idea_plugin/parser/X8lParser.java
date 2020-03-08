@@ -76,26 +76,42 @@ public class X8lParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (CONTENT_NODE_ATTRIBUTE_KEY SEPARATOR CONTENT_NODE_ATTRIBUTE_VALUE) | CONTENT_NODE_ATTRIBUTE_KEY
+  // (WHITE_SPACE CONTENT_NODE_ATTRIBUTE_KEY WHITE_SPACE SEPARATOR WHITE_SPACE CONTENT_NODE_ATTRIBUTE_VALUE WHITE_SPACE) | WHITE_SPACE CONTENT_NODE_ATTRIBUTE_KEY WHITE_SPACE
   public static boolean CONTENT_NODE_ATTRIBUTE(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "CONTENT_NODE_ATTRIBUTE")) return false;
-    if (!nextTokenIs(b, CONTENT_NODE_ATTRIBUTE_KEY_CONTENT_STRING)) return false;
+    if (!nextTokenIs(b, "<content node attribute>", CONTENT_NODE_ATTRIBUTE_KEY_CONTENT_STRING, WHITE_SPACE_CONTENT_STRING)) return false;
     boolean r;
-    Marker m = enter_section_(b);
+    Marker m = enter_section_(b, l, _NONE_, CONTENT_NODE_ATTRIBUTE, "<content node attribute>");
     r = CONTENT_NODE_ATTRIBUTE_0(b, l + 1);
-    if (!r) r = CONTENT_NODE_ATTRIBUTE_KEY(b, l + 1);
-    exit_section_(b, m, CONTENT_NODE_ATTRIBUTE, r);
+    if (!r) r = CONTENT_NODE_ATTRIBUTE_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // CONTENT_NODE_ATTRIBUTE_KEY SEPARATOR CONTENT_NODE_ATTRIBUTE_VALUE
+  // WHITE_SPACE CONTENT_NODE_ATTRIBUTE_KEY WHITE_SPACE SEPARATOR WHITE_SPACE CONTENT_NODE_ATTRIBUTE_VALUE WHITE_SPACE
   private static boolean CONTENT_NODE_ATTRIBUTE_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "CONTENT_NODE_ATTRIBUTE_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = CONTENT_NODE_ATTRIBUTE_KEY(b, l + 1);
+    r = WHITE_SPACE(b, l + 1);
+    r = r && CONTENT_NODE_ATTRIBUTE_KEY(b, l + 1);
+    r = r && WHITE_SPACE(b, l + 1);
     r = r && consumeToken(b, SEPARATOR);
+    r = r && WHITE_SPACE(b, l + 1);
     r = r && CONTENT_NODE_ATTRIBUTE_VALUE(b, l + 1);
+    r = r && WHITE_SPACE(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // WHITE_SPACE CONTENT_NODE_ATTRIBUTE_KEY WHITE_SPACE
+  private static boolean CONTENT_NODE_ATTRIBUTE_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "CONTENT_NODE_ATTRIBUTE_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = WHITE_SPACE(b, l + 1);
+    r = r && CONTENT_NODE_ATTRIBUTE_KEY(b, l + 1);
+    r = r && WHITE_SPACE(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -168,16 +184,26 @@ public class X8lParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // CONTENT_NODE_ATTRIBUTE*
+  // WHITE_SPACE CONTENT_NODE_ATTRIBUTE* WHITE_SPACE
   public static boolean CONTENT_NODE_HEAD_AREA(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "CONTENT_NODE_HEAD_AREA")) return false;
+    boolean r;
     Marker m = enter_section_(b, l, _NONE_, CONTENT_NODE_HEAD_AREA, "<content node head area>");
+    r = WHITE_SPACE(b, l + 1);
+    r = r && CONTENT_NODE_HEAD_AREA_1(b, l + 1);
+    r = r && WHITE_SPACE(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // CONTENT_NODE_ATTRIBUTE*
+  private static boolean CONTENT_NODE_HEAD_AREA_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "CONTENT_NODE_HEAD_AREA_1")) return false;
     while (true) {
       int c = current_position_(b);
       if (!CONTENT_NODE_ATTRIBUTE(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "CONTENT_NODE_HEAD_AREA", c)) break;
+      if (!empty_element_parsed_guard_(b, "CONTENT_NODE_HEAD_AREA_1", c)) break;
     }
-    exit_section_(b, l, m, true, false, null);
     return true;
   }
 
@@ -209,6 +235,16 @@ public class X8lParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "TEXT_NODE_CONTENT")) return false;
     Marker m = enter_section_(b, l, _NONE_, TEXT_NODE_CONTENT, "<text node content>");
     consumeToken(b, TEXT_NODE_CONTENT_STRING);
+    exit_section_(b, l, m, true, false, null);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // WHITE_SPACE_CONTENT_STRING?
+  public static boolean WHITE_SPACE(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "WHITE_SPACE")) return false;
+    Marker m = enter_section_(b, l, _NONE_, WHITE_SPACE, "<white space>");
+    consumeToken(b, WHITE_SPACE_CONTENT_STRING);
     exit_section_(b, l, m, true, false, null);
     return true;
   }

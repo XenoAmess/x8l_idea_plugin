@@ -15,7 +15,7 @@ import com.xenoamess.x8l.idea_plugin.psi.X8lTypes;
 %eof}
 
 CRLF=\R
-WHITE_SPACE=\s
+WHITE_SPACE=[\s\R]
 KEY_CHARACTER=[^ \s=<>%] | "%". | "%"\R
 VALUE_CHARACTER=[^ \s=<>%] | "%". | "%"\R
 SEPARATOR=[=]
@@ -40,8 +40,8 @@ RIGHT_BRACKET = ">"
 <COMMENT_AREA>      {COMMENT_CHARACTER}+                                          { yybegin(COMMENT_AREA); return X8lTypes.COMMENT_NODE_CONTENT_STRING; }
 <COMMENT_AREA>      {RIGHT_BRACKET}                                              { yybegin(YYINITIAL); return X8lTypes.COMMENT_NODE_RIGHT_BRACKET; }
 
-<HEAD_AREA>         {WHITE_SPACE}+                                             { return TokenType.WHITE_SPACE; }
-<WAITING_VALUE>     {WHITE_SPACE}+                                             { return TokenType.WHITE_SPACE; }
+<HEAD_AREA>         {WHITE_SPACE}+                                             { return X8lTypes.WHITE_SPACE_CONTENT_STRING; }
+<WAITING_VALUE>     {WHITE_SPACE}+                                             { return X8lTypes.WHITE_SPACE_CONTENT_STRING; }
 
 <HEAD_AREA>         {KEY_CHARACTER}+                                           { yybegin(HEAD_AREA); return X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY_CONTENT_STRING; }
 <HEAD_AREA>         {SEPARATOR}                                                { yybegin(WAITING_VALUE); return X8lTypes.SEPARATOR; }

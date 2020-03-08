@@ -66,11 +66,12 @@ public class X8lParserDefinition implements ParserDefinition {
 
     @Override
     public SpaceRequirements spaceExistenceTypeBetweenTokens(ASTNode left, ASTNode right) {
-        if (checkeElementTypeAllowSpaceBesides(left.getElementType()) && checkeElementTypeAllowSpaceBesides(right.getElementType())) {
-            return SpaceRequirements.MAY;
-        } else {
-            return SpaceRequirements.MUST_NOT;
-        }
+//        if (checkeElementTypeAllowSpaceBesides(left.getElementType()) && checkeElementTypeAllowSpaceBesides(right.getElementType())) {
+//            return SpaceRequirements.MAY;
+//        } else {
+//            return SpaceRequirements.MUST_NOT;
+//        }
+        return SpaceRequirements.MUST_NOT;
     }
 
     public static boolean checkeElementTypeAllowSpaceBesides(@Nullable IElementType type) {
@@ -87,6 +88,12 @@ public class X8lParserDefinition implements ParserDefinition {
             return false;
         }
         if (X8lTypes.COMMENT_NODE_CONTENT_STRING.equals(type)) {
+            return false;
+        }
+        if (X8lTypes.CONTENT_NODE_HEAD_AREA.equals(type)) {
+            return false;
+        }
+        if (X8lTypes.CONTENT_NODE_CHILDREN_AREA.equals(type)) {
             return false;
         }
         return true;

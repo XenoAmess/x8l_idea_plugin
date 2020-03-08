@@ -19,6 +19,7 @@ public interface X8lTypes {
   IElementType ROOT_NODE_CHILDREN_AREA = new X8lElementType("ROOT_NODE_CHILDREN_AREA");
   IElementType TEXT_NODE = new X8lElementType("TEXT_NODE");
   IElementType TEXT_NODE_CONTENT = new X8lElementType("TEXT_NODE_CONTENT");
+  IElementType WHITE_SPACE = new X8lElementType("WHITE_SPACE");
 
   IElementType COMMENT_NODE_CONTENT_STRING = new X8lTokenType("COMMENT_NODE_CONTENT_STRING");
   IElementType COMMENT_NODE_LEFT_BRACKET = new X8lTokenType("COMMENT_NODE_LEFT_BRACKET");
@@ -29,6 +30,7 @@ public interface X8lTypes {
   IElementType RIGHT_BRACKET = new X8lTokenType("RIGHT_BRACKET");
   IElementType SEPARATOR = new X8lTokenType("SEPARATOR");
   IElementType TEXT_NODE_CONTENT_STRING = new X8lTokenType("TEXT_NODE_CONTENT_STRING");
+  IElementType WHITE_SPACE_CONTENT_STRING = new X8lTokenType("WHITE_SPACE_CONTENT_STRING");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
@@ -65,6 +67,9 @@ public interface X8lTypes {
       }
       else if (type == TEXT_NODE_CONTENT) {
         return new X8lTextNodeContentImpl(node);
+      }
+      else if (type == WHITE_SPACE) {
+        return new X8lWhiteSpaceImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

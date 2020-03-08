@@ -16,6 +16,9 @@ public interface X8lContentNodeAttribute extends PsiNameIdentifierOwner {
   @Nullable
   X8lContentNodeAttributeValue getContentNodeAttributeValue();
 
+  @NotNull
+  List<X8lWhiteSpace> getWhiteSpaceList();
+
   IElementType getTokenType();
 
   PsiElement getNameIdentifier();
