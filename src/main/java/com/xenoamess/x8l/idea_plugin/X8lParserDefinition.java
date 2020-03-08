@@ -9,12 +9,14 @@ import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.TokenType;
+import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
 import com.xenoamess.x8l.idea_plugin.parser.X8lParser;
 import com.xenoamess.x8l.idea_plugin.psi.X8lFile;
 import com.xenoamess.x8l.idea_plugin.psi.X8lTypes;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class X8lParserDefinition implements ParserDefinition {
     public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
@@ -64,7 +66,30 @@ public class X8lParserDefinition implements ParserDefinition {
 
     @Override
     public SpaceRequirements spaceExistenceTypeBetweenTokens(ASTNode left, ASTNode right) {
-        return SpaceRequirements.MAY;
+        if (checkeElementTypeAllowSpaceBesides(left.getElementType()) && checkeElementTypeAllowSpaceBesides(right.getElementType())) {
+            return SpaceRequirements.MAY;
+        } else {
+            return SpaceRequirements.MUST_NOT;
+        }
+    }
+
+    public static boolean checkeElementTypeAllowSpaceBesides(@Nullable IElementType type) {
+        if (X8lTypes.TEXT_NODE.equals(type)) {
+            return false;
+        }
+        if (X8lTypes.TEXT_NODE_CONTENT.equals(type)) {
+            return false;
+        }
+        if (X8lTypes.TEXT_NODE_CONTENT_STRING.equals(type)) {
+            return false;
+        }
+        if (X8lTypes.COMMENT_NODE_CONTENT.equals(type)) {
+            return false;
+        }
+        if (X8lTypes.COMMENT_NODE_CONTENT_STRING.equals(type)) {
+            return false;
+        }
+        return true;
     }
 
     @NotNull
