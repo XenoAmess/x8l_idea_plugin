@@ -9,6 +9,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.util.SmartList;
+import com.xenoamess.x8l.idea_plugin.psi.X8lTypes;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -19,7 +20,13 @@ import static com.xenoamess.x8l.idea_plugin.X8lUtil.getStringFromElement;
 
 public class X8lLineMarkerProvider extends RelatedItemLineMarkerProvider {
 
-    protected static final IElementType[] I_ELEMENT_TYPES = X8lAnnotator.I_ELEMENT_TYPES;
+    protected static final IElementType[] I_ELEMENT_TYPES = new IElementType[]{
+            X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY_CONTENT_STRING,
+            X8lTypes.CONTENT_NODE_ATTRIBUTE_VALUE_CONTENT_STRING,
+            X8lTypes.TEXT_NODE_CONTENT_STRING,
+            X8lTypes.COMMENT_NODE_CONTENT_STRING,
+            X8lTypes.COMMENT_NODE,
+    };
 
     @Override
     protected void collectNavigationMarkers(@NotNull PsiElement element,

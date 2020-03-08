@@ -41,17 +41,18 @@ public class X8lUtil {
     }
 
     @NotNull
-    public static List<PsiElement> findAllPsiElements(PsiElement element) {
+    public static Collection<PsiElement> findAllPsiElements(PsiElement element) {
         if (element == null) return Collections.emptyList();
         List<PsiElement> result = new ArrayList<>();
         for (PsiElement child = element.getFirstChild(); child != null; child = child.getNextSibling()) {
-            List<PsiElement> childResult = findAllPsiElements(child);
+            Collection<PsiElement> childResult = findAllPsiElements(child);
             if (!childResult.isEmpty()) {
                 result.addAll(childResult);
             }
         }
         result.add(element);
         return result;
+//        return PsiTreeUtil.findChildrenOfType(element, PsiElement.class);
     }
 
     @NotNull

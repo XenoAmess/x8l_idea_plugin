@@ -55,10 +55,10 @@
                 language="X8l"
                 implementationClass="com.xenoamess.x8l.idea_plugin.X8lFindUsagesProvider"
         />
-        <!--        <lang.foldingBuilder-->
-        <!--                language="JAVA"-->
-        <!--                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFoldingBuilder"-->
-        <!--        />-->
+        <lang.foldingBuilder
+                language="X8l"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFoldingBuilder"
+        />
         <!--        <gotoSymbolContributor-->
         <!--                implementation="com.xenoamess.x8l.idea_plugin.X8lChooseByNameContributor"-->
         <!--        />-->
