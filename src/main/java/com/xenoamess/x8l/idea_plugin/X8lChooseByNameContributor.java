@@ -1,5 +1,3 @@
-
-
 package com.xenoamess.x8l.idea_plugin;
 
 import com.intellij.navigation.ChooseByNameContributor;
