@@ -13,7 +13,7 @@ public class X8lBeautifyAction extends AnAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
         Project currentProject = event.getProject();
-        StringBuffer dlgMsg = new StringBuffer(event.getPresentation().getText() + " Selected!");
+        StringBuffer dlgMsg = new StringBuffer("Testing!! : " + event.getPresentation().getText() + " Selected!");
         String dlgTitle = event.getPresentation().getDescription();
 
         PsiElement psiElement = event.getData(CommonDataKeys.PSI_ELEMENT);
