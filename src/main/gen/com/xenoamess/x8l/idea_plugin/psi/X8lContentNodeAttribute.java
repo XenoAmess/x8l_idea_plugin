@@ -20,7 +20,9 @@ public interface X8lContentNodeAttribute extends PsiNameIdentifierOwner {
 
   PsiElement getNameIdentifier();
 
-  String getKey();
+  //WARNING: getKey(...) is skipped
+  //matching getKey(X8lContentNodeAttribute, ...)
+  //methods are not found in X8lPsiImplUtil
 
   String getValue();
 

@@ -51,11 +51,6 @@ public class X8lContentNodeAttributeImpl extends ASTWrapperPsiElement implements
   }
 
   @Override
-  public String getKey() {
-    return X8lPsiImplUtil.getKey(this);
-  }
-
-  @Override
   public String getValue() {
     return X8lPsiImplUtil.getValue(this);
   }

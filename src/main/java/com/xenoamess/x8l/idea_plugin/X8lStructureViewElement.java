@@ -7,11 +7,6 @@ import com.intellij.ide.util.treeView.smartTree.TreeElement;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.NavigatablePsiElement;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.xenoamess.x8l.idea_plugin.psi.X8lCommentNode;
-import com.xenoamess.x8l.idea_plugin.psi.X8lContentNode;
-import com.xenoamess.x8l.idea_plugin.psi.X8lFile;
-import com.xenoamess.x8l.idea_plugin.psi.X8lTextNode;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -60,14 +55,16 @@ public class X8lStructureViewElement implements StructureViewTreeElement, Sortab
 
     @Override
     public TreeElement[] getChildren() {
-        if (myElement instanceof X8lFile) {
-            List<PsiElement> properties = PsiTreeUtil.getChildrenOfAnyType(myElement, X8lContentNode.class, X8lTextNode.class, X8lCommentNode.class);
-            List<TreeElement> treeElements = new ArrayList<TreeElement>(properties.size());
-            for (PsiElement property : properties) {
+        PsiElement[] properties = myElement.getChildren();
+        List<TreeElement> treeElements = new ArrayList<>(properties.length);
+        for (PsiElement property : properties) {
+            if (property == myElement) {
+                continue;
+            }
+            if (property instanceof NavigatablePsiElement) {
                 treeElements.add(new X8lStructureViewElement((NavigatablePsiElement) property));
             }
-            return treeElements.toArray(new TreeElement[treeElements.size()]);
         }
-        return EMPTY_ARRAY;
+        return treeElements.toArray(new TreeElement[0]);
     }
 }

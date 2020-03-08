@@ -3,9 +3,10 @@ package com.xenoamess.x8l.idea_plugin.psi.impl.utils;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
-import com.xenoamess.x8l.X8lTree;
 import com.xenoamess.x8l.idea_plugin.X8lDataCenter;
-import com.xenoamess.x8l.idea_plugin.psi.*;
+import com.xenoamess.x8l.idea_plugin.psi.X8lContentNodeAttribute;
+import com.xenoamess.x8l.idea_plugin.psi.X8lElementFactory;
+import com.xenoamess.x8l.idea_plugin.psi.X8lTypes;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
@@ -21,18 +22,8 @@ public class X8lContentNodeAttributeUtil {
         return element;
     }
 
-    public static String getKey(X8lContentNodeAttribute element) {
-        X8lContentNodeAttributeKey keyNode = element.getContentNodeAttributeKey();
-        return X8lTree.untranscode(keyNode.getText());
-    }
-
     public static String getValue(X8lContentNodeAttribute element) {
-        X8lContentNodeAttributeValue valueNode = element.getContentNodeAttributeValue();
-        if (valueNode != null) {
-            return X8lTree.untranscode(valueNode.getText());
-        } else {
-            return EMPTY_VALUE_STRING;
-        }
+        return element.getText();
     }
 
     public static String getName(X8lContentNodeAttribute element) {
@@ -50,7 +41,7 @@ public class X8lContentNodeAttributeUtil {
             @Nullable
             @Override
             public String getPresentableText() {
-                return element.getKey();
+                return element.getName();
             }
 
             @Nullable

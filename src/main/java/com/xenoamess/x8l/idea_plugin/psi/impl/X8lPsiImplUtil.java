@@ -98,10 +98,6 @@ public class X8lPsiImplUtil {
         return X8lContentNodeAttributeUtil.getNameIdentifier(element);
     }
 
-    public static String getKey(X8lContentNodeAttribute element) {
-        return X8lContentNodeAttributeUtil.getKey(element);
-    }
-
     public static String getValue(X8lContentNodeAttribute element) {
         return X8lContentNodeAttributeUtil.getValue(element);
     }
