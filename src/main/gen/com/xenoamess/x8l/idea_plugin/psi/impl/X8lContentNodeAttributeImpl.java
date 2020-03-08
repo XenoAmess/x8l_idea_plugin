@@ -11,6 +11,7 @@ import static com.xenoamess.x8l.idea_plugin.psi.X8lTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.xenoamess.x8l.idea_plugin.psi.*;
 import com.intellij.navigation.ItemPresentation;
+import com.intellij.psi.tree.IElementType;
 
 public class X8lContentNodeAttributeImpl extends ASTWrapperPsiElement implements X8lContentNodeAttribute {
 
@@ -28,6 +29,28 @@ public class X8lContentNodeAttributeImpl extends ASTWrapperPsiElement implements
   }
 
   @Override
+  @NotNull
+  public X8lContentNodeAttributeKey getContentNodeAttributeKey() {
+    return findNotNullChildByClass(X8lContentNodeAttributeKey.class);
+  }
+
+  @Override
+  @Nullable
+  public X8lContentNodeAttributeValue getContentNodeAttributeValue() {
+    return findChildByClass(X8lContentNodeAttributeValue.class);
+  }
+
+  @Override
+  public IElementType getTokenType() {
+    return X8lPsiImplUtil.getTokenType(this);
+  }
+
+  @Override
+  public PsiElement getNameIdentifier() {
+    return X8lPsiImplUtil.getNameIdentifier(this);
+  }
+
+  @Override
   public String getKey() {
     return X8lPsiImplUtil.getKey(this);
   }
@@ -38,6 +61,11 @@ public class X8lContentNodeAttributeImpl extends ASTWrapperPsiElement implements
   }
 
   @Override
+  public ItemPresentation getPresentation() {
+    return X8lPsiImplUtil.getPresentation(this);
+  }
+
+  @Override
   public String getName() {
     return X8lPsiImplUtil.getName(this);
   }
@@ -45,16 +73,6 @@ public class X8lContentNodeAttributeImpl extends ASTWrapperPsiElement implements
   @Override
   public PsiElement setName(String newName) {
     return X8lPsiImplUtil.setName(this, newName);
-  }
-
-  @Override
-  public PsiElement getNameIdentifier() {
-    return X8lPsiImplUtil.getNameIdentifier(this);
-  }
-
-  @Override
-  public ItemPresentation getPresentation() {
-    return X8lPsiImplUtil.getPresentation(this);
   }
 
 }

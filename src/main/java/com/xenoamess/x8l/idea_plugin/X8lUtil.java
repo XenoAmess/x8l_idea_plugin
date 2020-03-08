@@ -7,6 +7,7 @@ import com.intellij.lexer.Lexer;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiLiteralValue;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
@@ -25,34 +26,63 @@ import java.util.Collections;
 import java.util.List;
 
 public class X8lUtil {
-
-    public static List<PsiElement> findPsiElements(Project project, String string, IElementType iElementType) {
+    @NotNull
+    public static List<PsiElement> findAllPsiElements(Project project) {
         List<PsiElement> result = new SmartList<>();
         Collection<VirtualFile> virtualFiles =
                 FileTypeIndex.getFiles(X8lFileType.INSTANCE, GlobalSearchScope.allScope(project));
         for (VirtualFile virtualFile : virtualFiles) {
             X8lFile x8lFile = (X8lFile) PsiManager.getInstance(project).findFile(virtualFile);
             if (x8lFile != null) {
-                result.addAll(getMostRemoteChildrenOfType(x8lFile, string, iElementType, X8L_GET_CHILD_ALL));
+                result.addAll(findAllPsiElements(x8lFile));
             }
         }
         return result;
     }
 
-    public static List<PsiElement> findPsiElementsIncludingTranscode(Project project, String string, IElementType iElementType) {
+    @NotNull
+    public static List<PsiElement> findAllPsiElements(PsiElement element) {
+        if (element == null) return Collections.emptyList();
+        List<PsiElement> result = new ArrayList<>();
+        for (PsiElement child = element.getFirstChild(); child != null; child = child.getNextSibling()) {
+            List<PsiElement> childResult = findAllPsiElements(child);
+            if (!childResult.isEmpty()) {
+                result.addAll(childResult);
+            }
+        }
+        result.add(element);
+        return result;
+    }
+
+    @NotNull
+    public static List<PsiElement> findMostRemotePsiElements(Project project, String string, IElementType iElementType) {
+        List<PsiElement> result = new SmartList<>();
+        Collection<VirtualFile> virtualFiles =
+                FileTypeIndex.getFiles(X8lFileType.INSTANCE, GlobalSearchScope.allScope(project));
+        for (VirtualFile virtualFile : virtualFiles) {
+            X8lFile x8lFile = (X8lFile) PsiManager.getInstance(project).findFile(virtualFile);
+            if (x8lFile != null) {
+                result.addAll(findMostRemoteChildrenOfType(x8lFile, string, iElementType, X8L_GET_CHILD_ALL));
+            }
+        }
+        return result;
+    }
+
+    @NotNull
+    public static List<PsiElement> findMostRemotePsiElementsIncludingTranscode(Project project, String string, IElementType iElementType) {
         final List<PsiElement> result = SetUniqueList.decorate(new ArrayList<PsiElement>());
 
         result.addAll(
-                X8lUtil.findPsiElements(project, string, iElementType)
+                X8lUtil.findMostRemotePsiElements(project, string, iElementType)
         );
         result.addAll(
-                X8lUtil.findPsiElements(project, X8lTree.transcode(string), iElementType)
+                X8lUtil.findMostRemotePsiElements(project, X8lTree.transcode(string), iElementType)
         );
         result.addAll(
-                X8lUtil.findPsiElements(project, X8lTree.transcodeComment(string), iElementType)
+                X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeComment(string), iElementType)
         );
         result.addAll(
-                X8lUtil.findPsiElements(project, X8lTree.transcodeWithWhitespace(string), iElementType)
+                X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeWithWhitespace(string), iElementType)
         );
         return result;
     }
@@ -69,7 +99,7 @@ public class X8lUtil {
      * @return
      */
     @NotNull
-    public static List<PsiElement> getMostRemoteChildrenOfType(@Nullable PsiElement element, @Nullable String string, @Nullable IElementType iElementType, int requiredNum) {
+    public static List<PsiElement> findMostRemoteChildrenOfType(@Nullable PsiElement element, @Nullable String string, @Nullable IElementType iElementType, int requiredNum) {
         if (element == null) return Collections.emptyList();
         if (requiredNum == 0) {
             return Collections.emptyList();
@@ -82,7 +112,7 @@ public class X8lUtil {
             if (childRequiredNum == 0) {
                 break;
             }
-            List<PsiElement> childResult = getMostRemoteChildrenOfType(child, string, iElementType, childRequiredNum);
+            List<PsiElement> childResult = findMostRemoteChildrenOfType(child, string, iElementType, childRequiredNum);
             if (!childResult.isEmpty()) {
                 if (result == null) {
                     result = new SmartList<>();
@@ -116,7 +146,7 @@ public class X8lUtil {
      * @return
      */
     @NotNull
-    public static List<PsiElement> getMostNearChildrenOfType(@Nullable PsiElement element, @Nullable String string, @Nullable IElementType iElementType, int requiredNum) {
+    public static List<PsiElement> findMostNearChildrenOfType(@Nullable PsiElement element, @Nullable String string, @Nullable IElementType iElementType, int requiredNum) {
         if (element == null) return Collections.emptyList();
         if (requiredNum == 0) {
             return Collections.emptyList();
@@ -142,7 +172,7 @@ public class X8lUtil {
             if (childRequiredNum == 0) {
                 break;
             }
-            List<PsiElement> childResult = getMostNearChildrenOfType(child, string, iElementType, childRequiredNum);
+            List<PsiElement> childResult = findMostNearChildrenOfType(child, string, iElementType, childRequiredNum);
             if (!childResult.isEmpty()) {
                 if (result == null) {
                     result = new SmartList<>();
@@ -188,7 +218,7 @@ public class X8lUtil {
 //        return result;
 //    }
 
-    public static PsiElement getX8lFileFromString(CharSequence text) {
+    public static PsiElement createX8lFileFromString(CharSequence text) {
 //        ParserDefinition definition = LanguageParserDefinitions.INSTANCE.forLanguage(X8lLanguage.INSTANCE);
 //        PsiBuilder builder = PsiBuilderFactory.getInstance().createBuilder(definition, definition.createLexer(null), text);
         IElementType type = X8lTypes.ROOT_NODE_CHILDREN_AREA;
@@ -202,5 +232,24 @@ public class X8lUtil {
         PsiElement psi = node.getPsi();
         assert psi != null : text;
         return psi;
+    }
+
+    @Nullable
+    public static String getStringFromElement(@Nullable PsiElement psiElement) {
+        if (psiElement == null) {
+            return null;
+        }
+
+        String string = null;
+        if (psiElement instanceof PsiLiteralValue) {
+            Object valueObject = ((PsiLiteralValue) psiElement).getValue();
+            string = valueObject.toString();
+        }
+
+        if (string == null) {
+            string = psiElement.getText();
+        }
+
+        return string;
     }
 }

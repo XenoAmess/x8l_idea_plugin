@@ -7,47 +7,39 @@ import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider;
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiLiteralExpression;
-import com.intellij.psi.PsiLiteralValue;
-import org.apache.commons.lang3.StringUtils;
+import com.intellij.psi.tree.IElementType;
+import com.intellij.util.SmartList;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.List;
 
-import static com.xenoamess.x8l.dealers.JsonDealer.ARRAY_ID_ATTRIBUTE;
-import static com.xenoamess.x8l.idea_plugin.X8lUtil.findPsiElementsIncludingTranscode;
+import static com.xenoamess.x8l.idea_plugin.X8lUtil.findMostRemotePsiElementsIncludingTranscode;
+import static com.xenoamess.x8l.idea_plugin.X8lUtil.getStringFromElement;
 
 public class X8lLineMarkerProvider extends RelatedItemLineMarkerProvider {
+
+    protected static final IElementType[] I_ELEMENT_TYPES = X8lAnnotator.I_ELEMENT_TYPES;
+
     @Override
     protected void collectNavigationMarkers(@NotNull PsiElement element,
                                             @NotNull Collection<? super RelatedItemLineMarkerInfo> result) {
-//        if (!(element instanceof PsiLiteralExpression)) return;
+        String string = getStringFromElement(element);
 
-        String string = null;
-        if (element instanceof PsiLiteralValue) {
-            Object valueObject = ((PsiLiteralValue) element).getValue();
-            if (valueObject instanceof String) {
-                string = (String) valueObject;
-            }
-        }
-
-        if (string == null) {
-            string = element.getText();
-        }
-
-        if (StringUtils.isBlank(string)) {
-            return;
-        }
-
-        if (!(element instanceof PsiLiteralExpression) && ARRAY_ID_ATTRIBUTE.equals(string)) {
+        if (ifIllegalString(element, string)) {
             return;
         }
 
         // Get the X8l language property usage
         Project project = element.getProject();
 
-        List<PsiElement> elements = findPsiElementsIncludingTranscode(project, string, null);
+        List<PsiElement> elements = new SmartList<>();
+
+        for (IElementType iElementType : I_ELEMENT_TYPES) {
+            elements.addAll(
+                    findMostRemotePsiElementsIncludingTranscode(project, string, iElementType)
+            );
+        }
 
         if (!elements.isEmpty()) {
             // Add the property to a collection of line marker info
@@ -57,5 +49,9 @@ public class X8lLineMarkerProvider extends RelatedItemLineMarkerProvider {
                             .setTooltipText("Navigate to X8l language elements");
             result.add(builder.createLineMarkerInfo(element));
         }
+    }
+
+    protected static boolean ifIllegalString(PsiElement element, String string) {
+        return X8lAnnotator.ifIllegalString(element, string);
     }
 }

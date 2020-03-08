@@ -16,34 +16,40 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import static com.xenoamess.x8l.dealers.JsonDealer.ARRAY_ID_ATTRIBUTE;
 import static com.xenoamess.x8l.idea_plugin.X8lSyntaxHighlighter.getTokenHighlightsStatic;
+import static com.xenoamess.x8l.idea_plugin.X8lUtil.getStringFromElement;
 
 
 public class X8lAnnotator implements Annotator {
+    protected static final IElementType[] I_ELEMENT_TYPES = new IElementType[]{
+            X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY,
+            X8lTypes.CONTENT_NODE_ATTRIBUTE_VALUE,
+            X8lTypes.TEXT_NODE_CONTENT,
+            X8lTypes.COMMENT_NODE_CONTENT,
+            X8lTypes.COMMENT_NODE,
+            X8lTypes.CONTENT_NODE_ATTRIBUTE,
+            X8lTypes.CONTENT_NODE_HEAD_AREA,
+            X8lTypes.CONTENT_NODE_CHILDREN_AREA,
+            X8lTypes.CONTENT_NODE,
+    };
 
     @Override
     public void annotate(@NotNull final PsiElement element, @NotNull AnnotationHolder holder) {
-        // Ensure the Psi Element is an expression
-        if (!(element instanceof PsiLiteralExpression)) return;
+//        // Ensure the Psi Element is an expression
+//        if (!(element instanceof PsiLiteralExpression)) return;
+//
+//        // Ensure the Psi element contains a string that starts with the key and separator
+//        PsiLiteralExpression literalExpression = (PsiLiteralExpression) element;
+//        String string = literalExpression.getValue() instanceof String ? (String) literalExpression.getValue() : null;
 
-        // Ensure the Psi element contains a string that starts with the key and separator
-        PsiLiteralExpression literalExpression = (PsiLiteralExpression) element;
-        String string = literalExpression.getValue() instanceof String ? (String) literalExpression.getValue() : null;
-        if (StringUtils.isBlank(string)) {
+        String string = getStringFromElement(element);
+
+        if (ifIllegalString(element, string)) {
             return;
         }
 
-        /*
-         * right now the algorithm is running for full O(4n)
-         * we can change it to <= O(4n), but I just keep it like this for readability.
-         */
-        IElementType[] iElementTypes = new IElementType[]{
-                X8lTypes.KEY,
-                X8lTypes.VALUE,
-                X8lTypes.TEXT_NODE_CONTENT,
-                X8lTypes.COMMENT_NODE_CONTENT,
-        };
-        for (IElementType iElementType : iElementTypes) {
+        for (IElementType iElementType : I_ELEMENT_TYPES) {
             if (tryAnnotate(holder, element, string, iElementType)) {
                 return;
             }
@@ -52,7 +58,7 @@ public class X8lAnnotator implements Annotator {
 
     public static boolean tryAnnotate(@NotNull AnnotationHolder holder, PsiElement element, String string, IElementType iElementType) {
         Project project = element.getProject();
-        List<PsiElement> properties = X8lUtil.findPsiElementsIncludingTranscode(project, string, iElementType);
+        List<PsiElement> properties = X8lUtil.findMostRemotePsiElementsIncludingTranscode(project, string, iElementType);
         if (properties.isEmpty()) {
             return false;
         }
@@ -62,5 +68,16 @@ public class X8lAnnotator implements Annotator {
             annotation.setTextAttributes(textAttributesKey);
         }
         return true;
+    }
+
+    protected static boolean ifIllegalString(PsiElement element, String string) {
+        if (StringUtils.isBlank(string)) {
+            return true;
+        }
+
+        if (!(element instanceof PsiLiteralExpression) && ARRAY_ID_ATTRIBUTE.equals(string)) {
+            return true;
+        }
+        return false;
     }
 }

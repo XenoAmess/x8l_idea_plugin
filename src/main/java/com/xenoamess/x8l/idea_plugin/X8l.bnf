@@ -47,24 +47,53 @@
 
 x8lFile ::= ROOT_NODE_CHILDREN_AREA
 ROOT_NODE_CHILDREN_AREA ::= CONTENT_NODE_CHILDREN_AREA
-CONTENT_NODE_CHILDREN_AREA ::= (TEXT_NODE (COMMENT_NODE|CONTENT_NODE))* TEXT_NODE
-CONTENT_NODE ::= LEFT_BRACKET CONTENT_NODE_HEAD_AREA RIGHT_BRACKET CONTENT_NODE_CHILDREN_AREA RIGHT_BRACKET
-CONTENT_NODE_HEAD_AREA ::= CONTENT_NODE_ATTRIBUTE*
-CONTENT_NODE_ATTRIBUTE ::= (KEY SEPARATOR VALUE) | KEY {
+
+CONTENT_NODE_CHILDREN_AREA ::= (TEXT_NODE (COMMENT_NODE|CONTENT_NODE))* TEXT_NODE {
+    implements=["com.intellij.psi.PsiNameIdentifierOwner"]
+    methods=[getTokenType getNameIdentifier getValue getPresentation getName setName]
+}
+
+CONTENT_NODE ::= LEFT_BRACKET CONTENT_NODE_HEAD_AREA RIGHT_BRACKET CONTENT_NODE_CHILDREN_AREA RIGHT_BRACKET {
+    implements=["com.intellij.psi.PsiNameIdentifierOwner"]
+    methods=[getTokenType getNameIdentifier getValue getPresentation getName setName]
+}
+
+CONTENT_NODE_HEAD_AREA ::= CONTENT_NODE_ATTRIBUTE* {
+    implements=["com.intellij.psi.PsiNameIdentifierOwner"]
+    methods=[getTokenType getNameIdentifier getValue getPresentation getName setName]
+}
+
+CONTENT_NODE_ATTRIBUTE ::= (CONTENT_NODE_ATTRIBUTE_KEY SEPARATOR CONTENT_NODE_ATTRIBUTE_VALUE) | CONTENT_NODE_ATTRIBUTE_KEY {
     implements="com.intellij.psi.PsiNameIdentifierOwner"
-    methods=[getKey getValue getName setName getNameIdentifier getPresentation]
+    methods=[getTokenType getNameIdentifier getKey getValue getPresentation getName setName]
 }
 
 COMMENT_NODE ::= COMMENT_NODE_LEFT_BRACKET COMMENT_NODE_CONTENT COMMENT_NODE_RIGHT_BRACKET {
-    implements=["com.intellij.psi.PsiComment" "com.intellij.psi.PsiLiteral"]
-    methods=[getTokenType getValue getPresentation]
+    implements=["com.intellij.psi.PsiComment" "com.intellij.psi.PsiLiteral" "com.intellij.psi.PsiNameIdentifierOwner"]
+    methods=[getTokenType getNameIdentifier getValue getPresentation getName setName]
 }
 
 TEXT_NODE ::= TEXT_NODE_CONTENT {
-    implements="com.intellij.psi.PsiLiteral"
-    methods=[getValue getPresentation]
+    implements=["com.intellij.psi.PsiLiteral" "com.intellij.psi.PsiNameIdentifierOwner"]
+    methods=[getTokenType getNameIdentifier getValue getPresentation getName setName]
 }
 
-TEXT_NODE_CONTENT ::= TEXT_NODE_CONTENT_STRING?
+TEXT_NODE_CONTENT ::= TEXT_NODE_CONTENT_STRING? {
+    implements=["com.intellij.psi.PsiLiteral" "com.intellij.psi.PsiNameIdentifierOwner"]
+    methods=[getTokenType getNameIdentifier getValue getPresentation getName setName]
+}
 
-COMMENT_NODE_CONTENT ::= COMMENT_NODE_CONTENT_STRING?
+COMMENT_NODE_CONTENT ::= COMMENT_NODE_CONTENT_STRING? {
+    implements=["com.intellij.psi.PsiLiteral" "com.intellij.psi.PsiNameIdentifierOwner"]
+    methods=[getTokenType getNameIdentifier getValue getPresentation getName setName]
+}
+
+CONTENT_NODE_ATTRIBUTE_KEY::= CONTENT_NODE_ATTRIBUTE_KEY_CONTENT_STRING {
+    implements=["com.intellij.psi.PsiLiteral" "com.intellij.psi.PsiNameIdentifierOwner"]
+    methods=[getTokenType getNameIdentifier getValue getPresentation getName setName]
+}
+
+CONTENT_NODE_ATTRIBUTE_VALUE ::= CONTENT_NODE_ATTRIBUTE_VALUE_CONTENT_STRING {
+    implements=["com.intellij.psi.PsiLiteral" "com.intellij.psi.PsiNameIdentifierOwner"]
+    methods=[getTokenType getNameIdentifier getValue getPresentation getName setName]
+}

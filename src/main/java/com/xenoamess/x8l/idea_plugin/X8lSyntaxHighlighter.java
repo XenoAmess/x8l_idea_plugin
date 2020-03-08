@@ -31,6 +31,18 @@ public class X8lSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey BRACKETS =
             createTextAttributesKey("X8L_BRACKETS", DefaultLanguageHighlighterColors.BRACKETS);
 
+    public static final TextAttributesKey ATTRIBUTE =
+            createTextAttributesKey("X8L_ATTRIBUTE", DefaultLanguageHighlighterColors.MARKUP_ATTRIBUTE);
+
+    public static final TextAttributesKey NODE =
+            createTextAttributesKey("X8L_NODE", DefaultLanguageHighlighterColors.MARKUP_ENTITY);
+
+    public static final TextAttributesKey NODE_HEAD =
+            createTextAttributesKey("X8L_NODE_HEAD", DefaultLanguageHighlighterColors.METADATA);
+
+    public static final TextAttributesKey NODE_CHILDREN =
+            createTextAttributesKey("X8L_NODE_CHILDREN", DefaultLanguageHighlighterColors.MARKUP_TAG);
+
 
     private static final TextAttributesKey[] BAD_CHAR_KEYS = new TextAttributesKey[]{BAD_CHARACTER};
     private static final TextAttributesKey[] SEPARATOR_KEYS = new TextAttributesKey[]{SEPARATOR};
@@ -41,6 +53,14 @@ public class X8lSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] TEXT_KEYS = new TextAttributesKey[]{TEXT};
 
     private static final TextAttributesKey[] BRACKETS_KEYS = new TextAttributesKey[]{BRACKETS};
+
+    private static final TextAttributesKey[] ATTRIBUTE_KEYS = new TextAttributesKey[]{ATTRIBUTE};
+
+    private static final TextAttributesKey[] NODE_KEYS = new TextAttributesKey[]{NODE};
+
+    private static final TextAttributesKey[] NODE_HEAD_KEYS = new TextAttributesKey[]{NODE_HEAD};
+
+    private static final TextAttributesKey[] NODE_CHILDREN_KEYS = new TextAttributesKey[]{NODE_CHILDREN};
 
     private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
 
@@ -59,16 +79,24 @@ public class X8lSyntaxHighlighter extends SyntaxHighlighterBase {
     public static TextAttributesKey[] getTokenHighlightsStatic(IElementType tokenType) {
         if (tokenType.equals(X8lTypes.SEPARATOR)) {
             return SEPARATOR_KEYS;
-        } else if (tokenType.equals(X8lTypes.KEY)) {
+        } else if (tokenType.equals(X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY) || tokenType.equals(X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY_CONTENT_STRING)) {
             return KEY_KEYS;
-        } else if (tokenType.equals(X8lTypes.VALUE)) {
+        } else if (tokenType.equals(X8lTypes.CONTENT_NODE_ATTRIBUTE_VALUE) || tokenType.equals(X8lTypes.CONTENT_NODE_ATTRIBUTE_VALUE_CONTENT_STRING)) {
             return VALUE_KEYS;
+        } else if (tokenType.equals(X8lTypes.CONTENT_NODE_ATTRIBUTE)) {
+            return ATTRIBUTE_KEYS;
         } else if (tokenType.equals(X8lTypes.COMMENT_NODE) || tokenType.equals(X8lTypes.COMMENT_NODE_CONTENT) || tokenType.equals(X8lTypes.COMMENT_NODE_LEFT_BRACKET) || tokenType.equals(X8lTypes.COMMENT_NODE_CONTENT_STRING) || tokenType.equals(X8lTypes.COMMENT_NODE_RIGHT_BRACKET)) {
             return COMMENT_KEYS;
         } else if (tokenType.equals(X8lTypes.TEXT_NODE) || tokenType.equals(X8lTypes.TEXT_NODE_CONTENT) || tokenType.equals(X8lTypes.TEXT_NODE_CONTENT_STRING)) {
             return TEXT_KEYS;
         } else if (tokenType.equals(X8lTypes.LEFT_BRACKET) || tokenType.equals(X8lTypes.RIGHT_BRACKET)) {
             return BRACKETS_KEYS;
+        } else if (tokenType.equals(X8lTypes.CONTENT_NODE)) {
+            return NODE_KEYS;
+        } else if (tokenType.equals(X8lTypes.CONTENT_NODE_HEAD_AREA)) {
+            return NODE_HEAD_KEYS;
+        } else if (tokenType.equals(X8lTypes.CONTENT_NODE_CHILDREN_AREA)) {
+            return NODE_CHILDREN_KEYS;
         } else if (tokenType.equals(TokenType.BAD_CHARACTER)) {
             return BAD_CHAR_KEYS;
         } else {

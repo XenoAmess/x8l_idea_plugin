@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class X8lCompletionContributor extends CompletionContributor {
     public X8lCompletionContributor() {
         extend(CompletionType.BASIC,
-                PlatformPatterns.psiElement(X8lTypes.KEY).withLanguage(X8lLanguage.INSTANCE),
+                PlatformPatterns.psiElement(X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY).withLanguage(X8lLanguage.INSTANCE),
                 new CompletionProvider<CompletionParameters>() {
                     public void addCompletions(@NotNull CompletionParameters parameters,
                                                ProcessingContext context,
@@ -20,7 +20,7 @@ public class X8lCompletionContributor extends CompletionContributor {
                 }
         );
         extend(CompletionType.BASIC,
-                PlatformPatterns.psiElement(X8lTypes.VALUE).withLanguage(X8lLanguage.INSTANCE),
+                PlatformPatterns.psiElement(X8lTypes.CONTENT_NODE_ATTRIBUTE_VALUE).withLanguage(X8lLanguage.INSTANCE),
                 new CompletionProvider<CompletionParameters>() {
                     public void addCompletions(@NotNull CompletionParameters parameters,
                                                ProcessingContext context,

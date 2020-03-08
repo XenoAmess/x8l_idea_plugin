@@ -510,7 +510,7 @@ class X8lLexer implements com.intellij.lexer.FlexLexer {
             // fall through
           case 15: break;
           case 5: 
-            { yybegin(HEAD_AREA); return X8lTypes.KEY;
+            { yybegin(HEAD_AREA); return X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY_CONTENT_STRING;
             } 
             // fall through
           case 16: break;
@@ -535,7 +535,7 @@ class X8lLexer implements com.intellij.lexer.FlexLexer {
             // fall through
           case 20: break;
           case 10: 
-            { yybegin(HEAD_AREA); return X8lTypes.VALUE;
+            { yybegin(HEAD_AREA); return X8lTypes.CONTENT_NODE_ATTRIBUTE_VALUE_CONTENT_STRING;
             } 
             // fall through
           case 21: break;

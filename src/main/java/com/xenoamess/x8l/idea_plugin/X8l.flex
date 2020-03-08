@@ -43,11 +43,11 @@ RIGHT_BRACKET = ">"
 <HEAD_AREA>         {WHITE_SPACE}+                                             { return TokenType.WHITE_SPACE; }
 <WAITING_VALUE>     {WHITE_SPACE}+                                             { return TokenType.WHITE_SPACE; }
 
-<HEAD_AREA>         {KEY_CHARACTER}+                                           { yybegin(HEAD_AREA); return X8lTypes.KEY; }
+<HEAD_AREA>         {KEY_CHARACTER}+                                           { yybegin(HEAD_AREA); return X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY_CONTENT_STRING; }
 <HEAD_AREA>         {SEPARATOR}                                                { yybegin(WAITING_VALUE); return X8lTypes.SEPARATOR; }
 <HEAD_AREA>         {RIGHT_BRACKET}                                              { yybegin(YYINITIAL); return X8lTypes.RIGHT_BRACKET; }
 <YYINITIAL>         {RIGHT_BRACKET}                                              { yybegin(YYINITIAL); return X8lTypes.RIGHT_BRACKET; }
 
-<WAITING_VALUE>     {VALUE_CHARACTER}+                                         { yybegin(HEAD_AREA); return X8lTypes.VALUE; }
+<WAITING_VALUE>     {VALUE_CHARACTER}+                                         { yybegin(HEAD_AREA); return X8lTypes.CONTENT_NODE_ATTRIBUTE_VALUE_CONTENT_STRING; }
 
 [^]                                                                            { return TokenType.BAD_CHARACTER; }

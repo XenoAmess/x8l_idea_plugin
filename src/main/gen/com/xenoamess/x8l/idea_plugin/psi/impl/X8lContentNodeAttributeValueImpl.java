@@ -13,14 +13,14 @@ import com.xenoamess.x8l.idea_plugin.psi.*;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.tree.IElementType;
 
-public class X8lCommentNodeContentImpl extends ASTWrapperPsiElement implements X8lCommentNodeContent {
+public class X8lContentNodeAttributeValueImpl extends ASTWrapperPsiElement implements X8lContentNodeAttributeValue {
 
-  public X8lCommentNodeContentImpl(@NotNull ASTNode node) {
+  public X8lContentNodeAttributeValueImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull X8lVisitor visitor) {
-    visitor.visitCommentNodeContent(this);
+    visitor.visitContentNodeAttributeValue(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {

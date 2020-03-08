@@ -76,25 +76,51 @@ public class X8lParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (KEY SEPARATOR VALUE) | KEY
+  // (CONTENT_NODE_ATTRIBUTE_KEY SEPARATOR CONTENT_NODE_ATTRIBUTE_VALUE) | CONTENT_NODE_ATTRIBUTE_KEY
   public static boolean CONTENT_NODE_ATTRIBUTE(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "CONTENT_NODE_ATTRIBUTE")) return false;
-    if (!nextTokenIs(b, KEY)) return false;
+    if (!nextTokenIs(b, CONTENT_NODE_ATTRIBUTE_KEY_CONTENT_STRING)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = CONTENT_NODE_ATTRIBUTE_0(b, l + 1);
-    if (!r) r = consumeToken(b, KEY);
+    if (!r) r = CONTENT_NODE_ATTRIBUTE_KEY(b, l + 1);
     exit_section_(b, m, CONTENT_NODE_ATTRIBUTE, r);
     return r;
   }
 
-  // KEY SEPARATOR VALUE
+  // CONTENT_NODE_ATTRIBUTE_KEY SEPARATOR CONTENT_NODE_ATTRIBUTE_VALUE
   private static boolean CONTENT_NODE_ATTRIBUTE_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "CONTENT_NODE_ATTRIBUTE_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, KEY, SEPARATOR, VALUE);
+    r = CONTENT_NODE_ATTRIBUTE_KEY(b, l + 1);
+    r = r && consumeToken(b, SEPARATOR);
+    r = r && CONTENT_NODE_ATTRIBUTE_VALUE(b, l + 1);
     exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // CONTENT_NODE_ATTRIBUTE_KEY_CONTENT_STRING
+  public static boolean CONTENT_NODE_ATTRIBUTE_KEY(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "CONTENT_NODE_ATTRIBUTE_KEY")) return false;
+    if (!nextTokenIs(b, CONTENT_NODE_ATTRIBUTE_KEY_CONTENT_STRING)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, CONTENT_NODE_ATTRIBUTE_KEY_CONTENT_STRING);
+    exit_section_(b, m, CONTENT_NODE_ATTRIBUTE_KEY, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // CONTENT_NODE_ATTRIBUTE_VALUE_CONTENT_STRING
+  public static boolean CONTENT_NODE_ATTRIBUTE_VALUE(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "CONTENT_NODE_ATTRIBUTE_VALUE")) return false;
+    if (!nextTokenIs(b, CONTENT_NODE_ATTRIBUTE_VALUE_CONTENT_STRING)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, CONTENT_NODE_ATTRIBUTE_VALUE_CONTENT_STRING);
+    exit_section_(b, m, CONTENT_NODE_ATTRIBUTE_VALUE, r);
     return r;
   }
 

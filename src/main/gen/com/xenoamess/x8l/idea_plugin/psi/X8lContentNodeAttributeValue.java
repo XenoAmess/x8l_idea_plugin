@@ -9,10 +9,7 @@ import com.intellij.psi.PsiNameIdentifierOwner;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.tree.IElementType;
 
-public interface X8lTextNode extends PsiLiteral, PsiNameIdentifierOwner {
-
-  @NotNull
-  X8lTextNodeContent getTextNodeContent();
+public interface X8lContentNodeAttributeValue extends PsiLiteral, PsiNameIdentifierOwner {
 
   IElementType getTokenType();
 

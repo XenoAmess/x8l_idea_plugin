@@ -18,7 +18,7 @@
 //    @Override
 //    public WordsScanner getWordsScanner() {
 //        return new DefaultWordsScanner(new X8lLexerAdapter(),
-//                TokenSet.create(X8lTypes.KEY),
+//                TokenSet.create(X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY),
 //                TokenSet.create(X8lTypes.COMMENT),
 //                TokenSet.EMPTY);
 //    }
