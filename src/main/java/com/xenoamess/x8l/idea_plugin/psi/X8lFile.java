@@ -3,15 +3,12 @@ package com.xenoamess.x8l.idea_plugin.psi;
 import com.intellij.extapi.psi.PsiFileBase;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.psi.FileViewProvider;
-import com.xenoamess.x8l.X8lTree;
 import com.xenoamess.x8l.idea_plugin.X8lFileType;
 import com.xenoamess.x8l.idea_plugin.X8lLanguage;
 import org.jetbrains.annotations.NotNull;
 
-import static com.xenoamess.x8l.idea_plugin.x8l.X8lTreeBuilder.buildX8lTreeFromPsi;
-
 public class X8lFile extends PsiFileBase {
-    private X8lTree x8lTree = null;
+//    private X8lTree x8lTree = null;
 
     public X8lFile(@NotNull FileViewProvider viewProvider) {
         super(viewProvider, X8lLanguage.INSTANCE);
@@ -28,10 +25,10 @@ public class X8lFile extends PsiFileBase {
         return "X8l File";
     }
 
-    public X8lTree getX8lTree() {
-        if (this.x8lTree == null) {
-            this.x8lTree = buildX8lTreeFromPsi(this);
-        }
-        return this.x8lTree;
-    }
+//    public X8lTree getX8lTree() {
+//        if (this.x8lTree == null) {
+//            this.x8lTree = buildX8lTreeFromPsi(this);
+//        }
+//        return this.x8lTree;
+//    }
 }
