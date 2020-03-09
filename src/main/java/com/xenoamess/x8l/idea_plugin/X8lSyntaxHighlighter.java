@@ -16,12 +16,11 @@ public class X8lSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey SEPARATOR =
             createTextAttributesKey("X8L_SEPARATOR", DefaultLanguageHighlighterColors.OPERATION_SIGN);
     public static final TextAttributesKey KEY =
-            createTextAttributesKey("X8L_KEY", DefaultLanguageHighlighterColors.MARKUP_ATTRIBUTE);
+            createTextAttributesKey("X8L_KEY", DefaultLanguageHighlighterColors.KEYWORD);
     public static final TextAttributesKey VALUE =
             createTextAttributesKey("X8L_VALUE", DefaultLanguageHighlighterColors.STRING);
     public static final TextAttributesKey COMMENT =
             createTextAttributesKey("X8L_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
-
     public static final TextAttributesKey TEXT =
             createTextAttributesKey("X8L_TEXT", HighlighterColors.TEXT);
 

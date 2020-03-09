@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.xenoamess'
-version '0.0.6'
+version '0.0.9-SNAPSHOT'
 
 sourceSets {
     main {
@@ -36,15 +36,15 @@ dependencies {
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
+// See https://www.jetbrains.org/intellij/sdk/docs/reference_guide/intellij_artifacts.html
 // See https://www.jetbrains.com/intellij-repository/releases/
+// See https://www.jetbrains.com/intellij-repository/snapshots/
 intellij {
-    version "IC-172.2103.15"
-//    version "IC-2019.3"
+//    version "IC-172.2103.15"
+    version "IU-201.6073.9-EAP-SNAPSHOT"
 }
 patchPluginXml {
-//    changeNotes """
-//      Add change notes here.<br>
-//      <em>most HTML tags may be used</em>"""
+    sinceBuild "172.2103.15"
     changeNotes ""
 }
 
