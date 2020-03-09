@@ -20,6 +20,7 @@
     <depends>com.intellij.modules.platform</depends>
     <!--    <depends>com.intellij.modules.java</depends>-->
     <extensions defaultExtensionNs="com.intellij">
+        <fileTypeFactory implementation="com.xenoamess.x8l.idea_plugin.X8lFileTypeFactory"/>
         <fileType
                 name="X8l file"
                 implementationClass="com.xenoamess.x8l.idea_plugin.X8lFileType"

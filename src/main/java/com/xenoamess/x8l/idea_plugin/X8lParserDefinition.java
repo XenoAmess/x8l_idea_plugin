@@ -64,7 +64,10 @@ public class X8lParserDefinition implements ParserDefinition {
         return new X8lFile(viewProvider);
     }
 
-    @Override
+    public SpaceRequirements spaceExistanceTypeBetweenTokens(ASTNode left, ASTNode right) {
+        return this.spaceExistenceTypeBetweenTokens(left, right);
+    }
+
     public SpaceRequirements spaceExistenceTypeBetweenTokens(ASTNode left, ASTNode right) {
 //        if (checkeElementTypeAllowSpaceBesides(left.getElementType()) && checkeElementTypeAllowSpaceBesides(right.getElementType())) {
 //            return SpaceRequirements.MAY;

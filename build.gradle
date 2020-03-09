@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.xenoamess'
-version '0.0.5'
+version '0.0.6'
 
 sourceSets {
     main {
@@ -36,9 +36,10 @@ dependencies {
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
+// See https://www.jetbrains.com/intellij-repository/releases/
 intellij {
-    version 'IC-2019.3'
-//    version 'CL-2019.3.4'
+    version "IC-172.2103.15"
+//    version "IC-2019.3"
 }
 patchPluginXml {
 //    changeNotes """
