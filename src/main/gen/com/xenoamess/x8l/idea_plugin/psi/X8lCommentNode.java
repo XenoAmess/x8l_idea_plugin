@@ -1,30 +1,29 @@
 // This is a generated file. Not intended for manual editing.
 package com.xenoamess.x8l.idea_plugin.psi;
 
-import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.PsiLiteral;
-import com.intellij.psi.PsiNameIdentifierOwner;
 import com.intellij.navigation.ItemPresentation;
+import com.intellij.psi.PsiComment;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiLiteralValue;
+import com.intellij.psi.PsiNameIdentifierOwner;
 import com.intellij.psi.tree.IElementType;
+import org.jetbrains.annotations.NotNull;
 
-public interface X8lCommentNode extends PsiComment, PsiLiteral, PsiNameIdentifierOwner {
+public interface X8lCommentNode extends PsiComment, PsiLiteralValue, PsiNameIdentifierOwner {
 
-  @NotNull
-  X8lCommentNodeContent getCommentNodeContent();
+    @NotNull
+    X8lCommentNodeContent getCommentNodeContent();
 
-  IElementType getTokenType();
+    IElementType getTokenType();
 
-  PsiElement getNameIdentifier();
+    PsiElement getNameIdentifier();
 
-  String getValue();
+    String getValue();
 
-  ItemPresentation getPresentation();
+    ItemPresentation getPresentation();
 
-  String getName();
+    String getName();
 
-  PsiElement setName(String newName);
+    PsiElement setName(String newName);
 
 }

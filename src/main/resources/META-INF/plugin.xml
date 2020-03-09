@@ -6,14 +6,19 @@
         XenoAmess
     </vendor>
 
-    <description>A plugin to deal with X8l format. X8l format is a type of data format, it is designed to be replace of
-        xml when you need it comes shorter. See https://github.com/cyanpotion/x8l
+    <description>
+        A plugin to deal with X8l format.
+
+        X8l format is a type of data format, it is designed to be replace of
+        xml when you need it comes shorter.
+
+        See https://github.com/cyanpotion/x8l
     </description>
 
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
-    <depends>com.intellij.modules.java</depends>
+    <!--    <depends>com.intellij.modules.java</depends>-->
     <extensions defaultExtensionNs="com.intellij">
         <fileType
                 name="X8l file"
@@ -21,6 +26,13 @@
                 fieldName="INSTANCE"
                 language="X8l"
                 extensions="X8L"
+        />
+        <annotator language="JAVA"
+                   implementationClass="com.xenoamess.x8l.idea_plugin.X8lAnnotator"
+        />
+        <codeInsight.lineMarkerProvider
+                language="JAVA"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lLineMarkerProvider"
         />
         <lang.parserDefinition
                 language="X8l"
@@ -32,13 +44,6 @@
         />
         <colorSettingsPage
                 implementation="com.xenoamess.x8l.idea_plugin.X8lColorSettingsPage"
-        />
-        <annotator language="JAVA"
-                   implementationClass="com.xenoamess.x8l.idea_plugin.X8lAnnotator"
-        />
-        <codeInsight.lineMarkerProvider
-                language="JAVA"
-                implementationClass="com.xenoamess.x8l.idea_plugin.X8lLineMarkerProvider"
         />
         <completion.contributor
                 language="X8l"

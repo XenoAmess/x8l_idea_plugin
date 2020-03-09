@@ -10,19 +10,22 @@ import org.jetbrains.annotations.NotNull;
 public class X8lReferenceContributor extends PsiReferenceContributor {
     @Override
     public void registerReferenceProviders(@NotNull PsiReferenceRegistrar registrar) {
-        registrar.registerReferenceProvider(PlatformPatterns.psiElement(PsiLiteralExpression.class),
+        registrar.registerReferenceProvider(
+                PlatformPatterns.psiElement(PsiElement.class),
                 new PsiReferenceProvider() {
                     @NotNull
                     @Override
                     public PsiReference[] getReferencesByElement(@NotNull PsiElement element,
                                                                  @NotNull ProcessingContext context) {
-                        PsiLiteralExpression literalExpression = (PsiLiteralExpression) element;
-                        String value = literalExpression.getValue() instanceof String ?
-                                (String) literalExpression.getValue() : null;
-                        if (value != null) {
-                            return new PsiReference[]{
-                                    new X8lReference(element, new TextRange(1, 1 + value.length()))
-                            };
+                        if (element instanceof PsiLiteralValue) {
+                            PsiLiteralValue literalExpression = (PsiLiteralValue) element;
+                            String value = literalExpression.getValue() instanceof String ?
+                                    (String) literalExpression.getValue() : null;
+                            if (value != null) {
+                                return new PsiReference[]{
+                                        new X8lReference(element, new TextRange(1, 1 + value.length()))
+                                };
+                            }
                         }
                         return PsiReference.EMPTY_ARRAY;
                     }

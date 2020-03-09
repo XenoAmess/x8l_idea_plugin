@@ -6,7 +6,7 @@ import com.intellij.lang.annotation.Annotator;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiLiteralExpression;
+import com.intellij.psi.PsiLiteralValue;
 import com.intellij.psi.tree.IElementType;
 import com.xenoamess.x8l.idea_plugin.psi.X8lTypes;
 import org.apache.commons.lang3.StringUtils;
@@ -73,7 +73,7 @@ public class X8lAnnotator implements Annotator {
             return true;
         }
 
-        if (!(element instanceof PsiLiteralExpression) && ARRAY_ID_ATTRIBUTE.equals(string)) {
+        if (!(element instanceof PsiLiteralValue) && ARRAY_ID_ATTRIBUTE.equals(string)) {
             return true;
         }
         return false;

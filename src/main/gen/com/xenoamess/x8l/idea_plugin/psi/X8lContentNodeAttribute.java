@@ -1,38 +1,40 @@
 // This is a generated file. Not intended for manual editing.
 package com.xenoamess.x8l.idea_plugin.psi;
 
-import java.util.List;
-import org.jetbrains.annotations.*;
+import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNameIdentifierOwner;
-import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.tree.IElementType;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public interface X8lContentNodeAttribute extends PsiNameIdentifierOwner {
 
-  @NotNull
-  X8lContentNodeAttributeKey getContentNodeAttributeKey();
+    @NotNull
+    X8lContentNodeAttributeKey getContentNodeAttributeKey();
 
-  @Nullable
-  X8lContentNodeAttributeValue getContentNodeAttributeValue();
+    @Nullable
+    X8lContentNodeAttributeValue getContentNodeAttributeValue();
 
-  @NotNull
-  List<X8lWhiteSpace> getWhiteSpaceList();
+    @NotNull
+    List<X8lWhiteSpace> getWhiteSpaceList();
 
-  IElementType getTokenType();
+    IElementType getTokenType();
 
-  PsiElement getNameIdentifier();
+    PsiElement getNameIdentifier();
 
-  //WARNING: getKey(...) is skipped
-  //matching getKey(X8lContentNodeAttribute, ...)
-  //methods are not found in X8lPsiImplUtil
+    //WARNING: getKey(...) is skipped
+    //matching getKey(X8lContentNodeAttribute, ...)
+    //methods are not found in X8lPsiImplUtil
 
-  String getValue();
+    String getValue();
 
-  ItemPresentation getPresentation();
+    ItemPresentation getPresentation();
 
-  String getName();
+    String getName();
 
-  PsiElement setName(String newName);
+    PsiElement setName(String newName);
 
 }
