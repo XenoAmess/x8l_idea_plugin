@@ -61,7 +61,7 @@ public class X8lLexer implements com.intellij.lexer.FlexLexer {
 
     /* The ZZ_CMAP_A table has 640 entries */
     static final char ZZ_CMAP_A[] = zzUnpackCMap(
-            "\11\0\1\1\1\2\2\1\1\3\22\0\1\1\4\0\1\6\26\0\1\5\1\7\1\10\23\0\1\4\62\0\1\1" +
+            "\11\0\1\1\1\2\2\1\1\3\22\0\1\1\4\0\1\6\26\0\1\7\1\5\1\10\23\0\1\4\62\0\1\1" +
                     "\32\0\1\1\337\0\1\1\177\0\13\1\35\0\2\1\5\0\1\1\57\0\1\1\40\0");
 
     /**
@@ -70,8 +70,8 @@ public class X8lLexer implements com.intellij.lexer.FlexLexer {
     private static final int[] ZZ_ACTION = zzUnpackAction();
 
     private static final String ZZ_ACTION_PACKED_0 =
-            "\5\0\1\1\1\2\1\3\1\4\1\5\2\6\2\3" +
-                    "\1\7\1\10\1\3\1\11\1\12\1\6\1\3\2\0" +
+            "\5\0\1\1\1\2\1\3\1\4\1\5\2\6\1\7" +
+                    "\2\2\1\10\1\2\1\11\1\12\1\6\1\2\2\0" +
                     "\1\13\1\0\1\5\2\0\1\12";
 
     private static int[] zzUnpackAction() {
@@ -102,7 +102,7 @@ public class X8lLexer implements com.intellij.lexer.FlexLexer {
     private static final String ZZ_ROWMAP_PACKED_0 =
             "\0\0\0\11\0\22\0\33\0\44\0\55\0\66\0\77" +
                     "\0\110\0\121\0\132\0\143\0\110\0\154\0\110\0\165" +
-                    "\0\176\0\110\0\207\0\220\0\231\0\77\0\66\0\110" +
+                    "\0\176\0\110\0\207\0\220\0\231\0\66\0\77\0\110" +
                     "\0\154\0\242\0\176\0\231\0\253";
 
     private static int[] zzUnpackRowMap() {
@@ -129,17 +129,17 @@ public class X8lLexer implements com.intellij.lexer.FlexLexer {
     private static final int[] ZZ_TRANS = zzUnpackTrans();
 
     private static final String ZZ_TRANS_PACKED_0 =
-            "\5\6\1\7\1\10\1\6\1\11\1\12\3\13\1\14" +
-                    "\1\15\1\16\1\17\1\11\11\15\6\20\1\21\1\20" +
-                    "\1\22\1\23\3\13\1\24\1\15\1\25\2\15\5\6" +
-                    "\1\0\1\26\1\6\2\0\4\27\1\30\3\0\11\6" +
-                    "\11\0\1\12\3\0\1\12\1\0\1\31\3\0\4\13" +
-                    "\4\0\1\12\3\13\1\14\1\0\1\31\2\0\3\12" +
-                    "\1\32\5\12\6\20\1\33\1\20\1\0\11\20\1\23" +
-                    "\3\0\1\23\1\0\1\34\2\0\1\23\3\13\1\24" +
-                    "\1\0\1\34\2\0\3\23\1\35\5\23\1\12\1\0" +
-                    "\1\12\1\0\1\12\1\0\1\31\2\0\1\23\1\0" +
-                    "\1\23\1\0\1\23\1\0\1\34\2\0";
+            "\6\6\1\7\1\10\1\11\1\12\3\13\1\14\1\15" +
+                    "\1\16\1\17\1\11\11\17\6\20\1\21\1\20\1\22" +
+                    "\1\23\3\13\1\24\1\23\1\25\2\17\6\6\1\26" +
+                    "\2\0\11\6\1\0\4\27\2\0\1\30\12\0\1\12" +
+                    "\3\0\1\12\1\0\1\31\3\0\4\13\4\0\1\12" +
+                    "\3\13\1\14\1\0\1\31\2\0\3\12\1\32\5\12" +
+                    "\6\20\1\33\1\20\1\0\11\20\1\23\3\0\2\23" +
+                    "\1\34\2\0\1\23\3\13\1\24\1\23\1\34\2\0" +
+                    "\3\23\1\35\5\23\1\12\1\0\1\12\1\0\1\12" +
+                    "\1\0\1\31\2\0\1\23\1\0\1\23\1\0\2\23" +
+                    "\1\34\2\0";
 
     private static int[] zzUnpackTrans() {
         int[] result = new int[180];
@@ -519,14 +519,14 @@ public class X8lLexer implements com.intellij.lexer.FlexLexer {
                     case 12:
                         break;
                     case 2: {
-                        yybegin(HEAD_AREA);
-                        return X8lTypes.LEFT_BRACKET;
+                        return TokenType.BAD_CHARACTER;
                     }
                     // fall through
                     case 13:
                         break;
                     case 3: {
-                        return TokenType.BAD_CHARACTER;
+                        yybegin(HEAD_AREA);
+                        return X8lTypes.LEFT_BRACKET;
                     }
                     // fall through
                     case 14:

@@ -17,8 +17,10 @@ import com.xenoamess.x8l.psi.X8lTypes;
 
 CRLF=\R
 WHITE_SPACE=[\s\R]
+//KEY_CHARACTER cannot contain '='
 KEY_CHARACTER=[^ \s=<>%] | "%". | "%"\R
-VALUE_CHARACTER=[^ \s=<>%] | "%". | "%"\R
+//but VALUE_CHARACTER can contain '='
+VALUE_CHARACTER=[^ \s<>%] | "%". | "%"\R
 SEPARATOR=[=]
 TEXT_CHARACTER=[^<>%] | "%". | "%"\R
 COMMENT_CHARACTER=[^>%] | "%". | "%"\R
