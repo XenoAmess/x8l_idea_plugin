@@ -12,6 +12,7 @@ import com.xenoamess.x8l.psi.X8lTreeBuildingUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -55,8 +56,11 @@ public abstract class X8lFileAction extends AnAction {
 
         VirtualFile file = psiFile.getVirtualFile();
 
-        try (OutputStream outputStream = file.getOutputStream(null)) {
-            X8lTree.save(outputStream, x8lTree);
+        try (
+                OutputStream outputStream = file.getOutputStream(null);
+                BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream)
+        ) {
+            X8lTree.save(bufferedOutputStream, x8lTree);
         } catch (IOException e) {
             e.printStackTrace();
         }

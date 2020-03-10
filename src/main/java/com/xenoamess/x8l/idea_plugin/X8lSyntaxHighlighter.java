@@ -30,6 +30,9 @@ public class X8lSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey BRACKETS =
             createTextAttributesKey("X8L_BRACKETS", DefaultLanguageHighlighterColors.BRACKETS);
 
+//    public static final TextAttributesKey BRACKETS =
+//            createTextAttributesKey("X8L_BRACKETS", XmlHighlighterColors.XML_PROLOGUE);
+
     public static final TextAttributesKey ATTRIBUTE =
             createTextAttributesKey("X8L_ATTRIBUTE", DefaultLanguageHighlighterColors.MARKUP_ATTRIBUTE);
 
