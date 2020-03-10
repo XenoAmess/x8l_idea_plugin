@@ -7,7 +7,7 @@ plugins {
 }
 
 group 'com.xenoamess'
-version '0.0.9-SNAPSHOT'
+version '0.0.9'
 
 sourceSets {
     main {
