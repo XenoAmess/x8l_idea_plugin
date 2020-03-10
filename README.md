@@ -16,6 +16,6 @@
   </br>
 </p>
 <br/>
-<p><img src="" width="500" height="480" alt="screenshot.png"/></p>
+<p><img src="https://raw.githubusercontent.com/XenoAmess/x8l_idea_plugin/master/pictures/screenshot.png" width="1080" height="720" alt="screenshot.png"/></p>
 <br/>
 <p><a href="https://github.com/XenoAmess/x8l_idea_plugin/issues">Send Feedback</a></p>
