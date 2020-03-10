@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNamedElement;
 import com.intellij.psi.tree.TokenSet;
 import com.xenoamess.x8l.X8lTree;
-import com.xenoamess.x8l.idea_plugin.psi.X8lTypes;
+import com.xenoamess.x8l.psi.X8lTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

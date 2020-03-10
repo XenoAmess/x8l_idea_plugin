@@ -18,9 +18,9 @@
 //import com.intellij.psi.search.FileTypeIndex;
 //import com.intellij.psi.search.GlobalSearchScope;
 //import com.intellij.util.IncorrectOperationException;
-//import com.xenoamess.x8l.idea_plugin.psi.X8lFile;
-//import com.xenoamess.x8l.idea_plugin.psi.X8lProperty;
-//import com.xenoamess.x8l.idea_plugin.psi.X8lElementFactory;
+//import com.xenoamess.x8l.com.xenoamess.x8l.psi.X8lFile;
+//import com.xenoamess.x8l.com.xenoamess.x8l.psi.X8lProperty;
+//import com.xenoamess.x8l.com.xenoamess.x8l.psi.X8lElementFactory;
 //import org.jetbrains.annotations.NotNull;
 //
 //import java.util.Collection;

@@ -12,9 +12,9 @@ import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
-import com.xenoamess.x8l.idea_plugin.parser.X8lParser;
-import com.xenoamess.x8l.idea_plugin.psi.X8lFile;
-import com.xenoamess.x8l.idea_plugin.psi.X8lTypes;
+import com.xenoamess.x8l.psi.X8lFile;
+import com.xenoamess.x8l.psi.X8lTypes;
+import com.xenoamess.x8l.psi.parser.X8lParser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

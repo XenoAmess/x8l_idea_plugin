@@ -5,7 +5,7 @@ import com.intellij.ide.structureView.StructureViewModelBase;
 import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.util.treeView.smartTree.Sorter;
 import com.intellij.psi.PsiFile;
-import com.xenoamess.x8l.idea_plugin.psi.X8lFile;
+import com.xenoamess.x8l.psi.X8lFile;
 import org.jetbrains.annotations.NotNull;
 
 public class X8lStructureViewModel extends StructureViewModelBase implements

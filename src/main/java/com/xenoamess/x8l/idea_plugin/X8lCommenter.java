@@ -12,8 +12,8 @@ import com.intellij.openapi.util.Couple;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.xenoamess.x8l.idea_plugin.psi.X8lCommentNode;
-import com.xenoamess.x8l.idea_plugin.psi.X8lTypes;
+import com.xenoamess.x8l.psi.X8lCommentNode;
+import com.xenoamess.x8l.psi.X8lTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

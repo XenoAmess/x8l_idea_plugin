@@ -9,7 +9,7 @@
 //import com.intellij.psi.PsiFile;
 //import com.intellij.psi.codeStyle.CodeStyleSettings;
 //import com.intellij.psi.tree.TokenSet;
-//import com.xenoamess.x8l.idea_plugin.psi.X8lTypes;
+//import com.xenoamess.x8l.com.xenoamess.x8l.psi.X8lTypes;
 //import org.jetbrains.annotations.NotNull;
 //import org.jetbrains.annotations.Nullable;
 //

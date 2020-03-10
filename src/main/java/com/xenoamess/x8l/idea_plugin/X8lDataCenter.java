@@ -1,13 +1,13 @@
 package com.xenoamess.x8l.idea_plugin;
 
-import com.intellij.openapi.util.IconLoader;
+import icons.X8lIcons;
 
 import javax.swing.*;
 
 public class X8lDataCenter {
     public static final String X8L_LANGUAGE_EXTENSION = "x8l";
     public static final String X8L_LANGUAGE_NAME = "X8l";
-    public static final Icon X8L_LANGUAGE_ICON = IconLoader.getIcon("/icons/x8l_language_icon.png");
+    public static final Icon X8L_LANGUAGE_ICON = X8lIcons.X8L_LANGUAGE_ICON;
     public static final String DEMO_X8L_TEXT = "<settingFile settingFormatVersion=0.3.0>\n" +
             "    <commonSettings\n" +
             "        gameName=CyanPotionRpgModuleDemo\n" +

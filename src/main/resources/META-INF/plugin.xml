@@ -35,8 +35,9 @@
                 language="X8l"
                 extensions="X8L"
         />
-        <annotator language="JAVA"
-                   implementationClass="com.xenoamess.x8l.idea_plugin.X8lAnnotator"
+        <annotator
+                language="JAVA"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lAnnotator"
         />
         <codeInsight.lineMarkerProvider
                 language="JAVA"
@@ -95,9 +96,25 @@
         />
     </extensions>
     <actions>
+        <action id="com.xenoamess.x8l.idea_plugin.actions.X8lCompressAction"
+                class="com.xenoamess.x8l.idea_plugin.actions.X8lCompressAction" text="X8l Compress"
+                description="Compress X8l File"
+                icon="X8lIcons.X8L_LANGUAGE_ICON"
+        >
+            <add-to-group group-id="ProjectViewPopupMenuModifyGroup" anchor="first"/>
+        </action>
         <action id="com.xenoamess.x8l.idea_plugin.actions.X8lBeautifyAction"
                 class="com.xenoamess.x8l.idea_plugin.actions.X8lBeautifyAction" text="X8l Beautify"
-                description="Beautify X8l File">
+                description="Beautify X8l File"
+                icon="X8lIcons.X8L_LANGUAGE_ICON"
+        >
+            <add-to-group group-id="ProjectViewPopupMenuModifyGroup" anchor="first"/>
+        </action>
+        <action id="com.xenoamess.x8l.idea_plugin.actions.X8lReformatAction"
+                class="com.xenoamess.x8l.idea_plugin.actions.X8lReformatAction" text="X8l Reformat"
+                description="Reformat X8l File"
+                icon="X8lIcons.X8L_LANGUAGE_ICON"
+        >
             <add-to-group group-id="ProjectViewPopupMenuModifyGroup" anchor="first"/>
         </action>
     </actions>
