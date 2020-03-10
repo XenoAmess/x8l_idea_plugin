@@ -259,6 +259,11 @@ public class X8lLexer implements com.intellij.lexer.FlexLexer {
      */
     private boolean zzEOFDone;
 
+    /* user code: */
+    public X8lLexer() {
+        this((java.io.Reader) null);
+    }
+
 
     /**
      * Creates a new scanner

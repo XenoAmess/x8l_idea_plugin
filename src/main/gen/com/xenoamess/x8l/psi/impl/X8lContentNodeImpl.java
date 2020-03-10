@@ -1,19 +1,15 @@
 // This is a generated file. Not intended for manual editing.
 package com.xenoamess.x8l.psi.impl;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.tree.IElementType;
-import com.xenoamess.x8l.psi.X8lContentNode;
-import com.xenoamess.x8l.psi.X8lContentNodeChildrenArea;
-import com.xenoamess.x8l.psi.X8lContentNodeHeadArea;
-import com.xenoamess.x8l.psi.X8lVisitor;
+import com.xenoamess.x8l.psi.*;
 import org.jetbrains.annotations.NotNull;
 
-public class X8lContentNodeImpl extends ASTWrapperPsiElement implements X8lContentNode {
+public class X8lContentNodeImpl extends X8lPsiElement implements X8lContentNode {
 
     public X8lContentNodeImpl(@NotNull ASTNode node) {
         super(node);

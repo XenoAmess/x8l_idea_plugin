@@ -1,14 +1,14 @@
 // This is a generated file. Not intended for manual editing.
 package com.xenoamess.x8l.psi.impl;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
+import com.xenoamess.x8l.psi.X8lPsiElement;
 import com.xenoamess.x8l.psi.X8lVisitor;
 import com.xenoamess.x8l.psi.X8lWhiteSpace;
 import org.jetbrains.annotations.NotNull;
 
-public class X8lWhiteSpaceImpl extends ASTWrapperPsiElement implements X8lWhiteSpace {
+public class X8lWhiteSpaceImpl extends X8lPsiElement implements X8lWhiteSpace {
 
     public X8lWhiteSpaceImpl(@NotNull ASTNode node) {
         super(node);

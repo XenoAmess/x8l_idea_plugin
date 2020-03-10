@@ -1,7 +1,6 @@
 // This is a generated file. Not intended for manual editing.
 package com.xenoamess.x8l.psi.impl;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
@@ -13,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class X8lContentNodeChildrenAreaImpl extends ASTWrapperPsiElement implements X8lContentNodeChildrenArea {
+public class X8lContentNodeChildrenAreaImpl extends X8lPsiElement implements X8lContentNodeChildrenArea {
 
     public X8lContentNodeChildrenAreaImpl(@NotNull ASTNode node) {
         super(node);

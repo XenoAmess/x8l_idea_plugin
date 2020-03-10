@@ -2,7 +2,7 @@
   parserClass="com.xenoamess.x8l.psi.parser.X8lParser"
   parserUtilClass="com.xenoamess.x8l.psi.parser.X8lParserUtil"
 
-  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+  extends="com.xenoamess.x8l.psi.X8lPsiElement"
 
   psiClassPrefix="X8l"
   psiImplClassSuffix="Impl"

@@ -4,6 +4,7 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.patterns.PlatformPatterns;
 import com.intellij.psi.*;
 import com.intellij.util.ProcessingContext;
+import com.xenoamess.x8l.psi.X8lPsiElement;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -11,7 +12,7 @@ public class X8lReferenceContributor extends PsiReferenceContributor {
     @Override
     public void registerReferenceProviders(@NotNull PsiReferenceRegistrar registrar) {
         registrar.registerReferenceProvider(
-                PlatformPatterns.psiElement(PsiElement.class),
+                PlatformPatterns.psiElement(X8lPsiElement.class),
                 new PsiReferenceProvider() {
                     @NotNull
                     @Override

@@ -1,17 +1,17 @@
 // This is a generated file. Not intended for manual editing.
 package com.xenoamess.x8l.psi.impl;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.tree.IElementType;
 import com.xenoamess.x8l.psi.X8lCommentNodeContent;
+import com.xenoamess.x8l.psi.X8lPsiElement;
 import com.xenoamess.x8l.psi.X8lVisitor;
 import org.jetbrains.annotations.NotNull;
 
-public class X8lCommentNodeContentImpl extends ASTWrapperPsiElement implements X8lCommentNodeContent {
+public class X8lCommentNodeContentImpl extends X8lPsiElement implements X8lCommentNodeContent {
 
     public X8lCommentNodeContentImpl(@NotNull ASTNode node) {
         super(node);

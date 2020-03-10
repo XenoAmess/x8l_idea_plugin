@@ -6,6 +6,12 @@ import com.xenoamess.x8l.psi.X8lTypes;
 
 %%
 
+%{
+  public X8lLexer() {
+    this((java.io.Reader)null);
+  }
+%}
+
 %public
 %class X8lLexer
 %implements com.intellij.lexer.FlexLexer
