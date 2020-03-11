@@ -65,16 +65,17 @@ public class X8lParserDefinition implements ParserDefinition {
     }
 
     public SpaceRequirements spaceExistanceTypeBetweenTokens(ASTNode left, ASTNode right) {
-        return this.spaceExistenceTypeBetweenTokens(left, right);
-    }
-
-    public SpaceRequirements spaceExistenceTypeBetweenTokens(ASTNode left, ASTNode right) {
-//        if (checkeElementTypeAllowSpaceBesides(left.getElementType()) && checkeElementTypeAllowSpaceBesides(right.getElementType())) {
+        //        if (checkeElementTypeAllowSpaceBesides(left.getElementType()) && checkeElementTypeAllowSpaceBesides(right.getElementType())) {
 //            return SpaceRequirements.MAY;
 //        } else {
 //            return SpaceRequirements.MUST_NOT;
 //        }
         return SpaceRequirements.MUST_NOT;
+    }
+
+    public SpaceRequirements spaceExistenceTypeBetweenTokens(ASTNode left, ASTNode right) {
+
+        return this.spaceExistanceTypeBetweenTokens(left, right);
     }
 
     public static boolean checkeElementTypeAllowSpaceBesides(@Nullable IElementType type) {

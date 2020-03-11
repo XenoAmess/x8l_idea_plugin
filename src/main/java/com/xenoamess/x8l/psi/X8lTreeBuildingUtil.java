@@ -28,7 +28,7 @@ public class X8lTreeBuildingUtil {
     }
 
     public static void buildContentNodeHeadArea(@NotNull ContentNode nowNode, @NotNull X8lContentNodeHeadArea x8lContentNodeHeadArea) {
-        boolean noSpaceEnd = true;
+//        boolean noSpaceEnd = true;
         for (PsiElement psiElement : x8lContentNodeHeadArea.getContentNodeAttributeList()) {
             if (psiElement instanceof X8lContentNodeAttribute) {
                 X8lContentNodeAttribute x8lContentNodeAttribute = (X8lContentNodeAttribute) psiElement;
@@ -39,20 +39,20 @@ public class X8lTreeBuildingUtil {
                 } else {
                     nowNode.addAttribute(keyString);
                 }
-                noSpaceEnd = true;
+//                noSpaceEnd = true;
             } else if (psiElement instanceof X8lWhiteSpace) {
                 X8lWhiteSpace x8lWhiteSpace = (X8lWhiteSpace) psiElement;
                 if (!nowNode.getAttributeSegments().isEmpty()) {
                     nowNode.getAttributeSegments().set(nowNode.getAttributeSegments().size() - 1, x8lWhiteSpace.getText());
                 }
-                noSpaceEnd = false;
+//                noSpaceEnd = false;
             }
         }
-        if (noSpaceEnd) {
-            if (!nowNode.getAttributeSegments().isEmpty()) {
-                nowNode.getAttributeSegments().set(nowNode.getAttributeSegments().size() - 1, "");
-            }
-        }
+//        if (noSpaceEnd) {
+//            if (!nowNode.getAttributeSegments().isEmpty()) {
+//                nowNode.getAttributeSegments().set(nowNode.getAttributeSegments().size() - 1, "");
+//            }
+//        }
     }
 
     public static void buildContentNodeChildrenArea(@NotNull ContentNode nowNode, @NotNull X8lContentNodeChildrenArea x8lContentNodeChildrenArea) {

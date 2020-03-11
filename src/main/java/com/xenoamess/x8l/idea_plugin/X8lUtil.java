@@ -246,8 +246,8 @@ public class X8lUtil {
 
         if (psiElement instanceof PsiLiteralValue) {
             Object valueObject = ((PsiLiteralValue) psiElement).getValue();
-            if (valueObject != null) {
-                string = valueObject.toString();
+            if (valueObject instanceof String) {
+                string = (String) valueObject;
             }
         }
 
