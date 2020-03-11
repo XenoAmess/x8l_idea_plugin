@@ -21,15 +21,11 @@ import static com.xenoamess.x8l.idea_plugin.X8lUtil.getStringFromElement;
 
 public class X8lAnnotator implements Annotator {
     protected static final IElementType[] I_ELEMENT_TYPES = new IElementType[]{
-            X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY,
-            X8lTypes.CONTENT_NODE_ATTRIBUTE_VALUE,
-            X8lTypes.TEXT_NODE_CONTENT,
-            X8lTypes.COMMENT_NODE_CONTENT,
+            X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY_CONTENT_STRING,
+            X8lTypes.CONTENT_NODE_ATTRIBUTE_VALUE_CONTENT_STRING,
+            X8lTypes.TEXT_NODE_CONTENT_STRING,
+            X8lTypes.COMMENT_NODE_CONTENT_STRING,
             X8lTypes.COMMENT_NODE,
-            X8lTypes.CONTENT_NODE_ATTRIBUTE,
-            X8lTypes.CONTENT_NODE_HEAD_AREA,
-            X8lTypes.CONTENT_NODE_CHILDREN_AREA,
-            X8lTypes.CONTENT_NODE,
     };
 
     @Override
