@@ -58,3 +58,4 @@ replay_pid*
 *.MF
 
 **/pom.xml.versionsBackup
+gradle.properties

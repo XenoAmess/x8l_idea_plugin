@@ -96,9 +96,9 @@ public class X8lUtil {
      * @param element      base element
      * @param string       text string, if==null then can be any string.
      * @param iElementType iElementType, if==null then can be any types.
-     * @param requiredNum  requiredNum, if requiredNum>0 then will return at least requiredNum number of elements(instead all of elements)
+     * @param requiredNum  requiredNum, if requiredNum&gt;0 then will return at least requiredNum number of elements(instead all of elements)
      *                     if do not have so many elements then return all of them.
-     * @return
+     * @return PsiElements
      */
     @NotNull
     public static List<PsiElement> findMostRemoteChildrenOfType(@Nullable PsiElement element, @Nullable String string, @Nullable IElementType iElementType, int requiredNum) {
@@ -143,9 +143,9 @@ public class X8lUtil {
      * @param element      base element
      * @param string       text string, if==null then can be any string.
      * @param iElementType iElementType, if==null then can be any types.
-     * @param requiredNum  requiredNum, if requiredNum>0 then will return at least requiredNum number of elements(instead all of elements)
+     * @param requiredNum  requiredNum, if requiredNum&gt;0 then will return at least requiredNum number of elements(instead all of elements)
      *                     if do not have so many elements then return all of them.
-     * @return
+     * @return PsiElements
      */
     @NotNull
     public static List<PsiElement> findMostNearChildrenOfType(@Nullable PsiElement element, @Nullable String string, @Nullable IElementType iElementType, int requiredNum) {
