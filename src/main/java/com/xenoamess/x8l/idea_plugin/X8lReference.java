@@ -13,6 +13,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.xenoamess.x8l.idea_plugin.X8lAnnotator.I_ELEMENT_TYPES;
+
 public class X8lReference extends PsiReferenceBase<PsiElement> implements PsiPolyVariantReference {
     private final String key;
 
@@ -37,14 +39,8 @@ public class X8lReference extends PsiReferenceBase<PsiElement> implements PsiPol
          * right now the algorithm is running for full O(4n)
          * we can change it to <= O(4n), but I just keep it like this for readability.
          */
-        IElementType[] iElementTypes = new IElementType[]{
-                X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY,
-                X8lTypes.CONTENT_NODE_ATTRIBUTE_VALUE,
-                X8lTypes.TEXT_NODE_CONTENT,
-                X8lTypes.COMMENT_NODE_CONTENT,
-        };
         List<PsiElement> resultPsiElements = new ArrayList<>();
-        for (IElementType iElementType : iElementTypes) {
+        for (IElementType iElementType : I_ELEMENT_TYPES) {
             final List<PsiElement> elements = X8lUtil.findMostRemotePsiElementsIncludingTranscode(myElement.getProject(), key, iElementType);
             for (PsiElement psiElement : elements) {
                 if (psiElement instanceof PsiNameIdentifierOwner) {

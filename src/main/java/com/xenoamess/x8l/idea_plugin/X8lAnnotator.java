@@ -22,7 +22,6 @@ import static com.xenoamess.x8l.idea_plugin.X8lUtil.getStringFromElement;
 public class X8lAnnotator implements Annotator {
     protected static final IElementType[] I_ELEMENT_TYPES = new IElementType[]{
             X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY_CONTENT_STRING,
-            X8lTypes.CONTENT_NODE_ATTRIBUTE_VALUE_CONTENT_STRING,
             X8lTypes.TEXT_NODE_CONTENT_STRING,
             X8lTypes.COMMENT_NODE_CONTENT_STRING,
             X8lTypes.COMMENT_NODE,
@@ -68,9 +67,14 @@ public class X8lAnnotator implements Annotator {
         if (StringUtils.isBlank(string)) {
             return true;
         }
-
-        if (!(element instanceof PsiLiteralValue) && ARRAY_ID_ATTRIBUTE.equals(string)) {
-            return true;
+        if (element instanceof PsiLiteralValue) {
+            if (!(((PsiLiteralValue) element).getValue() instanceof String)) {
+                return true;
+            }
+        } else {
+            if (ARRAY_ID_ATTRIBUTE.equals(string)) {
+                return true;
+            }
         }
         return false;
     }

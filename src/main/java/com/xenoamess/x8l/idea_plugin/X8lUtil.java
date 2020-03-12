@@ -78,7 +78,10 @@ public class X8lUtil {
                 X8lUtil.findMostRemotePsiElements(project, string, iElementType)
         );
         result.addAll(
-                X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeKeyAndValue(string), iElementType)
+                X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeKey(string), iElementType)
+        );
+        result.addAll(
+                X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeValue(string), iElementType)
         );
         result.addAll(
                 X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeText(string), iElementType)

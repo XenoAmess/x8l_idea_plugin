@@ -17,21 +17,12 @@ public class X8lFindUsagesProvider implements FindUsagesProvider {
     public WordsScanner getWordsScanner() {
         return new DefaultWordsScanner(new X8lLexerAdapter(),
                 TokenSet.create(
-                        X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY
-                        , X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY_CONTENT_STRING
-                        , X8lTypes.CONTENT_NODE_ATTRIBUTE_VALUE
-                        , X8lTypes.CONTENT_NODE_ATTRIBUTE_VALUE_CONTENT_STRING
-                        , X8lTypes.CONTENT_NODE_ATTRIBUTE
-                        , X8lTypes.TEXT_NODE
-                        , X8lTypes.TEXT_NODE_CONTENT
+                        X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY_CONTENT_STRING
                         , X8lTypes.TEXT_NODE_CONTENT_STRING
                 ),
                 TokenSet.create(
                         X8lTypes.COMMENT_NODE
-                        , X8lTypes.COMMENT_NODE_CONTENT
                         , X8lTypes.COMMENT_NODE_CONTENT_STRING
-                        , X8lTypes.COMMENT_NODE_LEFT_BRACKET
-                        , X8lTypes.COMMENT_NODE_RIGHT_BRACKET
                 ),
                 TokenSet.EMPTY);
     }

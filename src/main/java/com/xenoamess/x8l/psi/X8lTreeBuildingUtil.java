@@ -1,10 +1,7 @@
 package com.xenoamess.x8l.psi;
 
 import com.intellij.psi.PsiElement;
-import com.xenoamess.x8l.CommentNode;
-import com.xenoamess.x8l.ContentNode;
-import com.xenoamess.x8l.TextNode;
-import com.xenoamess.x8l.X8lTree;
+import com.xenoamess.x8l.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,7 +17,7 @@ public class X8lTreeBuildingUtil {
         if (rootNodeChildrenArea == null) {
             return x8lTree;
         }
-        ContentNode root = x8lTree.getRoot();
+        RootNode root = x8lTree.getRoot();
         X8lContentNodeChildrenArea contentNodeChildrenArea = rootNodeChildrenArea.getContentNodeChildrenArea();
         buildContentNodeChildrenArea(root, contentNodeChildrenArea);
 
