@@ -93,7 +93,7 @@ public class X8lFoldingBuilder extends FoldingBuilderEx implements DumbAware {
             X8lContentNodeHeadArea element = (X8lContentNodeHeadArea) psiElement;
             List<X8lContentNodeAttribute> x8lContentNodeAttributeList = element.getContentNodeAttributeList();
             String keyF = StringUtils.substring(x8lContentNodeAttributeList.isEmpty() ? "" :
-                    x8lContentNodeAttributeList.get(0).getContentNodeAttributeKey().getText().trim(), 0,
+                            x8lContentNodeAttributeList.get(0).getContentNodeAttributeKey().getText().trim(), 0,
                     maxPlaceHolderLength);
             res = keyF;
         } else if (psiElement instanceof X8lContentNodeChildrenArea) {

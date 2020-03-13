@@ -19,8 +19,6 @@ sourceSets {
 
 intellij {
 //    plugins 'java'
-//    plugins 'xml'
-//    plugins 'json'
 //    setPlugins("org.jetbrains.kotlin:1.3.11-release-IJ2018.3-1")
 }
 

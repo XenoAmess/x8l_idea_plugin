@@ -16,7 +16,7 @@ public class X8lReferenceContributor extends PsiReferenceContributor {
             if (element instanceof PsiLiteralValue) {
                 PsiLiteralValue literalExpression = (PsiLiteralValue) element;
                 String value = literalExpression.getValue() instanceof String ?
-                        (String) literalExpression.getValue() : null;
+                        literalExpression.getValue().toString() : null;
                 if (value != null) {
                     return new PsiReference[]{
                             new X8lReference(element, new TextRange(1, 1 + value.length()))

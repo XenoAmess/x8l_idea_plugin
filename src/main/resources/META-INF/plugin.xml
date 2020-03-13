@@ -43,7 +43,9 @@
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
-    <!--    <depends>com.intellij.modules.java</depends>-->
+    <depends optional="true" config-file="pluginWithJava.xml">
+        com.intellij.modules.java
+    </depends>
     <!--    <depends>com.intellij.modules.xml</depends>-->
     <!--    <depends>com.intellij.modules.json</depends>-->
     <extensions defaultExtensionNs="com.intellij">
@@ -55,14 +57,6 @@
                 fieldName="INSTANCE"
                 language="X8l"
                 extensions="X8L"
-        />
-        <annotator
-                language="JAVA"
-                implementationClass="com.xenoamess.x8l.idea_plugin.X8lAnnotator"
-        />
-        <codeInsight.lineMarkerProvider
-                language="JAVA"
-                implementationClass="com.xenoamess.x8l.idea_plugin.X8lLineMarkerProvider"
         />
         <lang.parserDefinition
                 language="X8l"

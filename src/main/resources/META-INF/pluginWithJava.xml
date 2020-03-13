@@ -1,0 +1,12 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="com.intellij">
+        <annotator
+                language="JAVA"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lAnnotator"
+        />
+        <codeInsight.lineMarkerProvider
+                language="JAVA"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lLineMarkerProvider"
+        />
+    </extensions>
+</idea-plugin>
