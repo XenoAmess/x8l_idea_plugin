@@ -19,7 +19,7 @@ public class X8lContentNodeAttributeUtil {
     }
 
     public static PsiElement getNameIdentifier(X8lContentNodeAttribute element) {
-        return element;
+        return element.getContentNodeAttributeKey();
     }
 
     public static String getValue(X8lContentNodeAttribute element) {
@@ -31,7 +31,8 @@ public class X8lContentNodeAttributeUtil {
     }
 
     public static PsiElement setName(X8lContentNodeAttribute element, String newName) {
-        X8lContentNodeAttribute x8lContentNodeAttribute = X8lElementFactory.createX8lContentNodeAttribute(element.getProject(), newName);
+        X8lContentNodeAttribute x8lContentNodeAttribute =
+                X8lElementFactory.createX8lContentNodeAttribute(element.getProject(), newName);
         element.getNode().getTreeParent().replaceChild(element.getNode(), x8lContentNodeAttribute.getNode());
         return element;
     }

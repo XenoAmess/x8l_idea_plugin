@@ -24,8 +24,10 @@ public class X8lContentNodeAttributeImpl extends X8lPsiElement implements X8lCon
     }
 
     public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof X8lVisitor) accept((X8lVisitor) visitor);
-        else super.accept(visitor);
+        if (visitor instanceof X8lVisitor)
+            accept((X8lVisitor) visitor);
+        else
+            super.accept(visitor);
     }
 
     @Override

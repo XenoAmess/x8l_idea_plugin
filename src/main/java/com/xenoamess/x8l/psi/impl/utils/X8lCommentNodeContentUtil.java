@@ -30,7 +30,8 @@ public class X8lCommentNodeContentUtil {
     }
 
     public static PsiElement setName(X8lCommentNodeContent element, String newName) {
-        X8lCommentNodeContent x8lCommentNodeContent = X8lElementFactory.createX8lCommentNodeContent(element.getProject(), newName);
+        X8lCommentNodeContent x8lCommentNodeContent =
+                X8lElementFactory.createX8lCommentNodeContent(element.getProject(), newName);
         element.getNode().getTreeParent().replaceChild(element.getNode(), x8lCommentNodeContent.getNode());
         return element;
     }

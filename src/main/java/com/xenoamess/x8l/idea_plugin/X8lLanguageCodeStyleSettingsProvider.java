@@ -15,7 +15,8 @@
 //    }
 //
 //    @Override
-//    public void customizeSettings(@NotNull CodeStyleSettingsCustomizable consumer, @NotNull SettingsType settingsType) {
+//    public void customizeSettings(@NotNull CodeStyleSettingsCustomizable consumer, @NotNull SettingsType
+//    settingsType) {
 ////        if (settingsType == SettingsType.SPACING_SETTINGS) {
 ////            consumer.showStandardOptions("SPACE_AROUND_ASSIGNMENT_OPERATORS");
 ////            consumer.renameStandardOption("SPACE_AROUND_ASSIGNMENT_OPERATORS", "Separator");

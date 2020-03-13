@@ -23,8 +23,10 @@ public class X8lContentNodeChildrenAreaImpl extends X8lPsiElement implements X8l
     }
 
     public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof X8lVisitor) accept((X8lVisitor) visitor);
-        else super.accept(visitor);
+        if (visitor instanceof X8lVisitor)
+            accept((X8lVisitor) visitor);
+        else
+            super.accept(visitor);
     }
 
     @Override

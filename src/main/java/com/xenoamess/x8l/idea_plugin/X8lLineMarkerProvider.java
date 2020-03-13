@@ -40,10 +40,18 @@ public class X8lLineMarkerProvider extends RelatedItemLineMarkerProvider {
         }
 
         if (!elements.isEmpty()) {
+            List<PsiElement> newElements = new SmartList<>();
+
+            for (PsiElement psiElement : elements) {
+                if (!(psiElement == element)) {
+                    newElements.add(psiElement);
+                }
+            }
+
             // Add the property to a collection of line marker info
             NavigationGutterIconBuilder<PsiElement> builder =
                     NavigationGutterIconBuilder.create(X8lDataCenter.X8L_LANGUAGE_ICON)
-                            .setTargets(elements)
+                            .setTargets(newElements)
                             .setTooltipText("Navigate to X8l language elements");
             result.add(builder.createLineMarkerInfo(element));
         }

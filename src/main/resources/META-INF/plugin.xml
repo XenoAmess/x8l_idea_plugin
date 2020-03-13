@@ -47,7 +47,8 @@
     <!--    <depends>com.intellij.modules.xml</depends>-->
     <!--    <depends>com.intellij.modules.json</depends>-->
     <extensions defaultExtensionNs="com.intellij">
-        <fileTypeFactory implementation="com.xenoamess.x8l.idea_plugin.X8lFileTypeFactory"/>
+        <fileTypeFactory
+                implementation="com.xenoamess.x8l.idea_plugin.X8lFileTypeFactory"/>
         <fileType
                 name="X8l file"
                 implementationClass="com.xenoamess.x8l.idea_plugin.X8lFileType"
@@ -122,7 +123,8 @@
                 description="Transcode to Json"
                 icon="X8lIcons.X8L_LANGUAGE_ICON"
         >
-            <add-to-group group-id="ProjectViewPopupMenuModifyGroup" anchor="first"/>
+            <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
+                          anchor="first"/>
         </action>
         <action id="com.xenoamess.x8l.idea_plugin.actions.XmlGenerateX8lAction"
                 class="com.xenoamess.x8l.idea_plugin.actions.XmlGenerateX8lAction"
@@ -130,7 +132,8 @@
                 description="Transcode to X8l"
                 icon="X8lIcons.X8L_LANGUAGE_ICON"
         >
-            <add-to-group group-id="ProjectViewPopupMenuModifyGroup" anchor="first"/>
+            <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
+                          anchor="first"/>
         </action>
         <action id="com.xenoamess.x8l.idea_plugin.actions.X8lGenerateXmlAction"
                 class="com.xenoamess.x8l.idea_plugin.actions.X8lGenerateXmlAction"
@@ -138,7 +141,8 @@
                 description="Transcode to Xml"
                 icon="X8lIcons.X8L_LANGUAGE_ICON"
         >
-            <add-to-group group-id="ProjectViewPopupMenuModifyGroup" anchor="first"/>
+            <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
+                          anchor="first"/>
         </action>
         <action id="com.xenoamess.x8l.idea_plugin.actions.X8lGenerateJsonAction"
                 class="com.xenoamess.x8l.idea_plugin.actions.X8lGenerateJsonAction"
@@ -146,7 +150,8 @@
                 description="Transcode to Json"
                 icon="X8lIcons.X8L_LANGUAGE_ICON"
         >
-            <add-to-group group-id="ProjectViewPopupMenuModifyGroup" anchor="first"/>
+            <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
+                          anchor="first"/>
         </action>
         <action id="com.xenoamess.x8l.idea_plugin.actions.X8lCompressAction"
                 class="com.xenoamess.x8l.idea_plugin.actions.X8lCompressAction"
@@ -154,7 +159,8 @@
                 description="Compress X8l File"
                 icon="X8lIcons.X8L_LANGUAGE_ICON"
         >
-            <add-to-group group-id="ProjectViewPopupMenuModifyGroup" anchor="first"/>
+            <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
+                          anchor="first"/>
         </action>
         <action id="com.xenoamess.x8l.idea_plugin.actions.X8lBeautifyAction"
                 class="com.xenoamess.x8l.idea_plugin.actions.X8lBeautifyAction"
@@ -162,7 +168,8 @@
                 description="Beautify X8l File"
                 icon="X8lIcons.X8L_LANGUAGE_ICON"
         >
-            <add-to-group group-id="ProjectViewPopupMenuModifyGroup" anchor="first"/>
+            <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
+                          anchor="first"/>
         </action>
         <action id="com.xenoamess.x8l.idea_plugin.actions.X8lReformatAction"
                 class="com.xenoamess.x8l.idea_plugin.actions.X8lReformatAction"
@@ -170,7 +177,8 @@
                 description="Reformat X8l File"
                 icon="X8lIcons.X8L_LANGUAGE_ICON"
         >
-            <add-to-group group-id="ProjectViewPopupMenuModifyGroup" anchor="first"/>
+            <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
+                          anchor="first"/>
         </action>
     </actions>
 </idea-plugin>

@@ -22,8 +22,10 @@ public class X8lCommentNodeContentImpl extends X8lPsiElement implements X8lComme
     }
 
     public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof X8lVisitor) accept((X8lVisitor) visitor);
-        else super.accept(visitor);
+        if (visitor instanceof X8lVisitor)
+            accept((X8lVisitor) visitor);
+        else
+            super.accept(visitor);
     }
 
     @Override

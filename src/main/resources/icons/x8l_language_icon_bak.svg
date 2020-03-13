@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" fill-opacity="1" width="16" height="16" stroke-width="0">
+<svg xmlns="http://www.w3.org/2000/svg" fill-opacity="1" width="16" height="16"
+     stroke-width="0">
     <defs id="xenoamess@gmail.com"/>
     <g transform="translate(8.0,8.0)">
         <circle cx="0" cy="0" r="8.0" fill="#FFFFFF"/>

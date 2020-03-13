@@ -21,9 +21,9 @@ import static com.xenoamess.x8l.idea_plugin.X8lUtil.getStringFromElement;
 
 public class X8lAnnotator implements Annotator {
     protected static final IElementType[] I_ELEMENT_TYPES = new IElementType[]{
-            X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY_CONTENT_STRING,
-            X8lTypes.TEXT_NODE_CONTENT_STRING,
-            X8lTypes.COMMENT_NODE_CONTENT_STRING,
+            X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY,
+            X8lTypes.TEXT_NODE_CONTENT,
+            X8lTypes.COMMENT_NODE_CONTENT,
             X8lTypes.COMMENT_NODE,
     };
 
@@ -49,9 +49,11 @@ public class X8lAnnotator implements Annotator {
         }
     }
 
-    public static boolean tryAnnotate(@NotNull AnnotationHolder holder, PsiElement element, String string, IElementType iElementType) {
+    public static boolean tryAnnotate(@NotNull AnnotationHolder holder, PsiElement element, String string,
+                                      IElementType iElementType) {
         Project project = element.getProject();
-        List<PsiElement> properties = X8lUtil.findMostRemotePsiElementsIncludingTranscode(project, string, iElementType);
+        List<PsiElement> properties = X8lUtil.findMostRemotePsiElementsIncludingTranscode(project, string,
+                iElementType);
         if (properties.isEmpty()) {
             return false;
         }

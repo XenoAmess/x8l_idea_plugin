@@ -18,7 +18,7 @@ public class X8lTextNodeUtil {
     }
 
     public static PsiElement getNameIdentifier(X8lTextNode element) {
-        return element;
+        return element.getTextNodeContent();
     }
 
     public static String getValue(X8lTextNode element) {

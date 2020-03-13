@@ -6,7 +6,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.*;
 import com.intellij.psi.tree.IElementType;
-import com.xenoamess.x8l.psi.X8lTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,7 +40,8 @@ public class X8lReference extends PsiReferenceBase<PsiElement> implements PsiPol
          */
         List<PsiElement> resultPsiElements = new ArrayList<>();
         for (IElementType iElementType : I_ELEMENT_TYPES) {
-            final List<PsiElement> elements = X8lUtil.findMostRemotePsiElementsIncludingTranscode(myElement.getProject(), key, iElementType);
+            final List<PsiElement> elements =
+                    X8lUtil.findMostRemotePsiElementsIncludingTranscode(myElement.getProject(), key, iElementType);
             for (PsiElement psiElement : elements) {
                 if (psiElement instanceof PsiNameIdentifierOwner) {
                     resultPsiElements.add(psiElement);

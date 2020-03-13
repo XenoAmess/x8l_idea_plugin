@@ -62,10 +62,13 @@ public class X8lCommenter implements EscapingCommenter, CustomUncommenter, SelfM
     public void escape(Document document, RangeMarker range) {
         int startOffset = range.getStartOffset();
         int endOffset = range.getEndOffset();
-        //        String content = document.getText(new TextRange(range.getStartOffset() + this.getBlockCommentPrefix().length(), range.getEndOffset() - this.getBlockCommentSuffix().length()));
+        //        String content = document.getText(new TextRange(range.getStartOffset() + this.getBlockCommentPrefix
+        //        ().length(), range.getEndOffset() - this.getBlockCommentSuffix().length()));
         //        String contentReplacement = X8lTree.transcodeComment(X8lTree.untranscode(content));
-        //        document.replaceString(range.getStartOffset() + this.getBlockCommentPrefix().length(), range.getEndOffset() - this.getBlockCommentSuffix().length(), contentReplacement);
-        String content = document.getText(new TextRange(startOffset + this.getBlockCommentPrefix().length(), endOffset - this.getBlockCommentSuffix().length()));
+        //        document.replaceString(range.getStartOffset() + this.getBlockCommentPrefix().length(), range
+        //        .getEndOffset() - this.getBlockCommentSuffix().length(), contentReplacement);
+        String content = document.getText(new TextRange(startOffset + this.getBlockCommentPrefix().length(),
+                endOffset - this.getBlockCommentSuffix().length()));
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < content.length(); i++) {
             char chr = content.charAt(i);
@@ -75,7 +78,8 @@ public class X8lCommenter implements EscapingCommenter, CustomUncommenter, SelfM
             stringBuilder.append(chr);
         }
         String contentReplacement = stringBuilder.toString();
-        document.replaceString(startOffset + this.getBlockCommentPrefix().length(), endOffset - this.getBlockCommentSuffix().length(), contentReplacement);
+        document.replaceString(startOffset + this.getBlockCommentPrefix().length(),
+                endOffset - this.getBlockCommentSuffix().length(), contentReplacement);
     }
 
 
@@ -110,7 +114,8 @@ public class X8lCommenter implements EscapingCommenter, CustomUncommenter, SelfM
 
         PsiElement psiElement = createX8lFileFromString(text);
         List<PsiElement> elements = X8lUtil.findMostNearChildrenOfType(psiElement, null, X8lTypes.COMMENT_NODE, 1);
-        if (elements.isEmpty()) return null;
+        if (elements.isEmpty())
+            return null;
         return elements.get(0).getNode().getTextRange();
     }
 
@@ -121,12 +126,15 @@ public class X8lCommenter implements EscapingCommenter, CustomUncommenter, SelfM
 //        X8lFile dummyFile = createFile(dummyProject, text.toString());
 
         PsiElement psiElement = createX8lFileFromString(text);
-        List<PsiElement> elements = X8lUtil.findMostNearChildrenOfType(psiElement, null, X8lTypes.COMMENT_NODE, X8lUtil.X8L_GET_CHILD_ALL);
+        List<PsiElement> elements = X8lUtil.findMostNearChildrenOfType(psiElement, null, X8lTypes.COMMENT_NODE,
+                X8lUtil.X8L_GET_CHILD_ALL);
         List<Couple<TextRange>> result = new ArrayList<>();
         for (PsiElement element : elements) {
             assert (element instanceof X8lCommentNode);
-            TextRange textRangeLeft = element.getNode().findChildByType(X8lTypes.COMMENT_NODE_LEFT_BRACKET).getTextRange();
-            TextRange textRangeRight = element.getNode().findChildByType(X8lTypes.COMMENT_NODE_RIGHT_BRACKET).getTextRange();
+            TextRange textRangeLeft =
+                    element.getNode().findChildByType(X8lTypes.COMMENT_NODE_LEFT_BRACKET).getTextRange();
+            TextRange textRangeRight =
+                    element.getNode().findChildByType(X8lTypes.COMMENT_NODE_RIGHT_BRACKET).getTextRange();
             result.add(new Couple<>(textRangeLeft, textRangeRight));
         }
         return result;
@@ -134,13 +142,15 @@ public class X8lCommenter implements EscapingCommenter, CustomUncommenter, SelfM
 
     @Nullable
     @Override
-    public CommenterDataHolder createLineCommentingState(int startLine, int endLine, @NotNull Document document, @NotNull PsiFile file) {
+    public CommenterDataHolder createLineCommentingState(int startLine, int endLine, @NotNull Document document,
+                                                         @NotNull PsiFile file) {
         return SelfManagingCommenter.EMPTY_STATE;
     }
 
     @Nullable
     @Override
-    public CommenterDataHolder createBlockCommentingState(int selectionStart, int selectionEnd, @NotNull Document document, @NotNull PsiFile file) {
+    public CommenterDataHolder createBlockCommentingState(int selectionStart, int selectionEnd,
+                                                          @NotNull Document document, @NotNull PsiFile file) {
         return SelfManagingCommenter.EMPTY_STATE;
     }
 
@@ -155,7 +165,8 @@ public class X8lCommenter implements EscapingCommenter, CustomUncommenter, SelfM
     }
 
     @Override
-    public boolean isLineCommented(int line, int offset, @NotNull Document document, @NotNull CommenterDataHolder data) {
+    public boolean isLineCommented(int line, int offset, @NotNull Document document,
+                                   @NotNull CommenterDataHolder data) {
 //        String lineString = document.getText(new TextRange(offset, document.getLineEndOffset(line)));
 //        int flag = 0;
 //        for (int i = 0; i < lineString.length(); i++) {
@@ -180,7 +191,8 @@ public class X8lCommenter implements EscapingCommenter, CustomUncommenter, SelfM
 //            }
 //        }
 //        return false;
-        return getBlockCommentRange(document.getLineStartOffset(line), document.getLineEndOffset(line), document, data) != null;
+        return getBlockCommentRange(document.getLineStartOffset(line), document.getLineEndOffset(line), document,
+                data) != null;
     }
 
     @Nullable
@@ -191,10 +203,12 @@ public class X8lCommenter implements EscapingCommenter, CustomUncommenter, SelfM
 
     @Nullable
     @Override
-    public TextRange getBlockCommentRange(int selectionStart, int selectionEnd, @NotNull Document document, @NotNull CommenterDataHolder data) {
+    public TextRange getBlockCommentRange(int selectionStart, int selectionEnd, @NotNull Document document,
+                                          @NotNull CommenterDataHolder data) {
         TextRange selectedTextRange = new TextRange(selectionStart, selectionEnd);
         PsiElement psiElement = createX8lFileFromString(document.getText());
-        List<PsiElement> elements = X8lUtil.findMostNearChildrenOfType(psiElement, null, X8lTypes.COMMENT_NODE, X8lUtil.X8L_GET_CHILD_ALL);
+        List<PsiElement> elements = X8lUtil.findMostNearChildrenOfType(psiElement, null, X8lTypes.COMMENT_NODE,
+                X8lUtil.X8L_GET_CHILD_ALL);
         for (PsiElement element : elements) {
             assert (element instanceof X8lCommentNode);
             TextRange textRange = element.getTextRange();
@@ -207,13 +221,15 @@ public class X8lCommenter implements EscapingCommenter, CustomUncommenter, SelfM
 
     @Nullable
     @Override
-    public String getBlockCommentPrefix(int selectionStart, @NotNull Document document, @NotNull CommenterDataHolder data) {
+    public String getBlockCommentPrefix(int selectionStart, @NotNull Document document,
+                                        @NotNull CommenterDataHolder data) {
         return getBlockCommentPrefix();
     }
 
     @Nullable
     @Override
-    public String getBlockCommentSuffix(int selectionEnd, @NotNull Document document, @NotNull CommenterDataHolder data) {
+    public String getBlockCommentSuffix(int selectionEnd, @NotNull Document document,
+                                        @NotNull CommenterDataHolder data) {
         return getBlockCommentSuffix();
     }
 
@@ -222,7 +238,8 @@ public class X8lCommenter implements EscapingCommenter, CustomUncommenter, SelfM
 
         while (true) {
             PsiElement psiElement = createX8lFileFromString(document.getText());
-            List<PsiElement> elements = X8lUtil.findMostNearChildrenOfType(psiElement, null, X8lTypes.COMMENT_NODE, X8lUtil.X8L_GET_CHILD_ALL);
+            List<PsiElement> elements = X8lUtil.findMostNearChildrenOfType(psiElement, null, X8lTypes.COMMENT_NODE,
+                    X8lUtil.X8L_GET_CHILD_ALL);
             boolean flag = false;
 
             for (PsiElement element : elements) {
@@ -270,9 +287,11 @@ public class X8lCommenter implements EscapingCommenter, CustomUncommenter, SelfM
     @NotNull
     @Override
     public TextRange insertBlockComment(int startOffset, int endOffset, Document document, CommenterDataHolder data) {
-        //        String content = document.getText(new TextRange(range.getStartOffset() + this.getBlockCommentPrefix().length(), range.getEndOffset() - this.getBlockCommentSuffix().length()));
+        //        String content = document.getText(new TextRange(range.getStartOffset() + this.getBlockCommentPrefix
+        //        ().length(), range.getEndOffset() - this.getBlockCommentSuffix().length()));
         //        String contentReplacement = X8lTree.transcodeComment(X8lTree.untranscode(content));
-        //        document.replaceString(range.getStartOffset() + this.getBlockCommentPrefix().length(), range.getEndOffset() - this.getBlockCommentSuffix().length(), contentReplacement);
+        //        document.replaceString(range.getStartOffset() + this.getBlockCommentPrefix().length(), range
+        //        .getEndOffset() - this.getBlockCommentSuffix().length(), contentReplacement);
         String content = document.getText(new TextRange(startOffset, endOffset));
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < content.length(); i++) {

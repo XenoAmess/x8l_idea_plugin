@@ -88,7 +88,8 @@ public class X8lLexer implements com.intellij.lexer.FlexLexer {
         while (i < l) {
             int count = packed.charAt(i++);
             int value = packed.charAt(i++);
-            do result[j++] = value; while (--count > 0);
+            do
+                result[j++] = value; while (--count > 0);
         }
         return j;
     }
@@ -156,7 +157,8 @@ public class X8lLexer implements com.intellij.lexer.FlexLexer {
             int count = packed.charAt(i++);
             int value = packed.charAt(i++);
             value--;
-            do result[j++] = value; while (--count > 0);
+            do
+                result[j++] = value; while (--count > 0);
         }
         return j;
     }
@@ -197,7 +199,8 @@ public class X8lLexer implements com.intellij.lexer.FlexLexer {
         while (i < l) {
             int count = packed.charAt(i++);
             int value = packed.charAt(i++);
-            do result[j++] = value; while (--count > 0);
+            do
+                result[j++] = value; while (--count > 0);
         }
         return j;
     }
@@ -292,7 +295,8 @@ public class X8lLexer implements com.intellij.lexer.FlexLexer {
         while (i < packed.length()) {
             int count = packed.charAt(i++);
             char value = packed.charAt(i++);
-            do map[j++] = value; while (--count > 0);
+            do
+                map[j++] = value; while (--count > 0);
         }
         return map;
     }
@@ -494,14 +498,16 @@ public class X8lLexer implements com.intellij.lexer.FlexLexer {
                         }
                     }
                     int zzNext = zzTransL[zzRowMapL[zzState] + ZZ_CMAP(zzInput)];
-                    if (zzNext == -1) break zzForAction;
+                    if (zzNext == -1)
+                        break zzForAction;
                     zzState = zzNext;
 
                     zzAttributes = zzAttrL[zzState];
                     if ((zzAttributes & 1) == 1) {
                         zzAction = zzState;
                         zzMarkedPosL = zzCurrentPosL;
-                        if ((zzAttributes & 8) == 8) break zzForAction;
+                        if ((zzAttributes & 8) == 8)
+                            break zzForAction;
                     }
 
                 }

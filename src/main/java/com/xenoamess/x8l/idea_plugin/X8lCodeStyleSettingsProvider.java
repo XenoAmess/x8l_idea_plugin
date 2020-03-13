@@ -24,7 +24,8 @@
 //
 //
 //    @NotNull
-//    public CodeStyleConfigurable createConfigurable(@NotNull CodeStyleSettings settings, @NotNull CodeStyleSettings modelSettings) {
+//    public CodeStyleConfigurable createConfigurable(@NotNull CodeStyleSettings settings, @NotNull CodeStyleSettings
+//    modelSettings) {
 //        return new CodeStyleAbstractConfigurable(settings, modelSettings, this.getConfigurableDisplayName()) {
 //            @Override
 //            protected CodeStyleAbstractPanel createPanel(CodeStyleSettings settings) {

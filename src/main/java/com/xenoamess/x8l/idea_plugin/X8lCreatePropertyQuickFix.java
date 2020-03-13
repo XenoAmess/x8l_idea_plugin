@@ -84,7 +84,8 @@
 //            X8lProperty property = X8lElementFactory.createProperty(project, key.replaceAll(" ", "\\\\ "), "");
 //            simpleFile.getNode().addChild(property.getNode());
 //            ((Navigatable) property.getLastChild().getNavigationElement()).navigate(true);
-//            FileEditorManager.getInstance(project).getSelectedTextEditor().getCaretModel().moveCaretRelatively(2, 0, false, false, false);
+//            FileEditorManager.getInstance(project).getSelectedTextEditor().getCaretModel().moveCaretRelatively(2,
+//            0, false, false, false);
 //        });
 //    }
 //}

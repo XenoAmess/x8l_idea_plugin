@@ -14,7 +14,8 @@ public class X8lDataCenter {
             "        gameVersion=0.161.4\n" +
             "        titleTextID=0\n" +
             "        textFilePath=resources/text/text.x8l\n" +
-            "        defaultFontResourceURI=[\"com.xenoamess.cyan_potion.base.visual.Font\",\"ttfFile\",\"resources/www/fonts/SourceHanSans-Normal.ttc\"]\n" +
+            "        defaultFontResourceURI=[\"com.xenoamess.cyan_potion.base.visual.Font\",\"ttfFile\"," +
+            "\"resources/www/fonts/SourceHanSans-Normal.ttc\"]\n" +
             "        language=english\n" +
             "        gameWindowClassName=com.xenoamess.cyan_potion.base.GameWindow\n" +
             "        titleClassName=com.xenoamess.cyan_potion.demo.world.WorldForDemo\n" +
@@ -33,11 +34,16 @@ public class X8lDataCenter {
             "    >>\n" +
             "    <specialSettings>>\n" +
             "    <codePlugins [>\n" +
-            "        <rightAfterResourceManagerCreate>SimpleFunctionObject:com.xenoamess.cyan_potion.base.render.Texture:PUT_TEXTURE_LOADERS>\n" +
-            "        <rightAfterResourceManagerCreate>SimpleFunctionObject:com.xenoamess.cyan_potion.base.audio.WaveData:PUT_WAVEDATA_LOADER_MUSIC>\n" +
-            "        <rightAfterResourceManagerCreate>SimpleFunctionObject:com.xenoamess.cyan_potion.base.visual.Font:PUT_FONT_LOADER_TTF_FILE>\n" +
-            "        <rightAfterResourceManagerCreate>SimpleFunctionObject:com.xenoamess.cyan_potion.rpg_module.plugins.CodePlugins:PLUGIN_RPG_MODULE_TEXTURE_LOADERS>\n" +
-            "        <rightAfterResourceManagerCreate>SimpleFunctionObject:com.xenoamess.cyan_potion.base.steam.SteamTextureUtils:PUT_TEXTURE_LOADER_STEAM_AVATAR>\n" +
+            "        <rightAfterResourceManagerCreate>SimpleFunctionObject:com.xenoamess.cyan_potion.base.render" +
+            ".Texture:PUT_TEXTURE_LOADERS>\n" +
+            "        <rightAfterResourceManagerCreate>SimpleFunctionObject:com.xenoamess.cyan_potion.base.audio" +
+            ".WaveData:PUT_WAVEDATA_LOADER_MUSIC>\n" +
+            "        <rightAfterResourceManagerCreate>SimpleFunctionObject:com.xenoamess.cyan_potion.base.visual" +
+            ".Font:PUT_FONT_LOADER_TTF_FILE>\n" +
+            "        <rightAfterResourceManagerCreate>SimpleFunctionObject:com.xenoamess.cyan_potion.rpg_module" +
+            ".plugins.CodePlugins:PLUGIN_RPG_MODULE_TEXTURE_LOADERS>\n" +
+            "        <rightAfterResourceManagerCreate>SimpleFunctionObject:com.xenoamess.cyan_potion.base.steam" +
+            ".SteamTextureUtils:PUT_TEXTURE_LOADER_STEAM_AVATAR>\n" +
             "    >\n" +
             "    <debug=1>>\n" +
             "    <keymap using>\n" +

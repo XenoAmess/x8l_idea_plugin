@@ -40,7 +40,8 @@ public class X8lUtil {
 
     @NotNull
     public static Collection<PsiElement> findAllPsiElements(PsiElement element) {
-        if (element == null) return Collections.emptyList();
+        if (element == null)
+            return Collections.emptyList();
         List<PsiElement> result = new ArrayList<>();
         for (PsiElement child = element.getFirstChild(); child != null; child = child.getNextSibling()) {
             Collection<PsiElement> childResult = findAllPsiElements(child);
@@ -54,7 +55,8 @@ public class X8lUtil {
     }
 
     @NotNull
-    public static List<PsiElement> findMostRemotePsiElements(Project project, String string, IElementType iElementType) {
+    public static List<PsiElement> findMostRemotePsiElements(Project project, String string,
+                                                             IElementType iElementType) {
         List<PsiElement> result = new SmartList<>();
         Collection<VirtualFile> virtualFiles =
                 FileTypeIndex.getFiles(X8lFileType.INSTANCE, GlobalSearchScope.allScope(project));
@@ -68,7 +70,8 @@ public class X8lUtil {
     }
 
     @NotNull
-    public static List<PsiElement> findMostRemotePsiElementsIncludingTranscode(Project project, String string, IElementType iElementType) {
+    public static List<PsiElement> findMostRemotePsiElementsIncludingTranscode(Project project, String string,
+                                                                               IElementType iElementType) {
         final List<PsiElement> result = SetUniqueList.decorate(new ArrayList<PsiElement>());
 
         result.addAll(
@@ -99,13 +102,16 @@ public class X8lUtil {
      * @param element      base element
      * @param string       text string, if==null then can be any string.
      * @param iElementType iElementType, if==null then can be any types.
-     * @param requiredNum  requiredNum, if requiredNum&gt;0 then will return at least requiredNum number of elements(instead all of elements)
+     * @param requiredNum  requiredNum, if requiredNum&gt;0 then will return at least requiredNum number of elements
+     *                     (instead all of elements)
      *                     if do not have so many elements then return all of them.
      * @return PsiElements
      */
     @NotNull
-    public static List<PsiElement> findMostRemoteChildrenOfType(@Nullable PsiElement element, @Nullable String string, @Nullable IElementType iElementType, int requiredNum) {
-        if (element == null) return Collections.emptyList();
+    public static List<PsiElement> findMostRemoteChildrenOfType(@Nullable PsiElement element, @Nullable String string
+            , @Nullable IElementType iElementType, int requiredNum) {
+        if (element == null)
+            return Collections.emptyList();
         if (requiredNum == 0) {
             return Collections.emptyList();
         }
@@ -146,13 +152,16 @@ public class X8lUtil {
      * @param element      base element
      * @param string       text string, if==null then can be any string.
      * @param iElementType iElementType, if==null then can be any types.
-     * @param requiredNum  requiredNum, if requiredNum&gt;0 then will return at least requiredNum number of elements(instead all of elements)
+     * @param requiredNum  requiredNum, if requiredNum&gt;0 then will return at least requiredNum number of elements
+     *                     (instead all of elements)
      *                     if do not have so many elements then return all of them.
      * @return PsiElements
      */
     @NotNull
-    public static List<PsiElement> findMostNearChildrenOfType(@Nullable PsiElement element, @Nullable String string, @Nullable IElementType iElementType, int requiredNum) {
-        if (element == null) return Collections.emptyList();
+    public static List<PsiElement> findMostNearChildrenOfType(@Nullable PsiElement element, @Nullable String string,
+                                                              @Nullable IElementType iElementType, int requiredNum) {
+        if (element == null)
+            return Collections.emptyList();
         if (requiredNum == 0) {
             return Collections.emptyList();
         }
@@ -225,7 +234,8 @@ public class X8lUtil {
 
     public static PsiElement createX8lFileFromString(CharSequence text) {
 //        ParserDefinition definition = LanguageParserDefinitions.INSTANCE.forLanguage(X8lLanguage.INSTANCE);
-//        PsiBuilder builder = PsiBuilderFactory.getInstance().createBuilder(definition, definition.createLexer(null), text);
+//        PsiBuilder builder = PsiBuilderFactory.getInstance().createBuilder(definition, definition.createLexer(null)
+//        , text);
         IElementType type = X8lTypes.ROOT_NODE_CHILDREN_AREA;
         Language language = type.getLanguage();
         ParserDefinition parserDefinition = LanguageParserDefinitions.INSTANCE.forLanguage(language);

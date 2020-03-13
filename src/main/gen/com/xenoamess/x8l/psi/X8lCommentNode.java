@@ -2,6 +2,7 @@
 package com.xenoamess.x8l.psi;
 
 import com.intellij.navigation.ItemPresentation;
+import com.intellij.navigation.NavigationItem;
 import com.intellij.psi.PsiComment;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiLiteralValue;
@@ -9,7 +10,7 @@ import com.intellij.psi.PsiNameIdentifierOwner;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 
-public interface X8lCommentNode extends PsiComment, PsiLiteralValue, PsiNameIdentifierOwner {
+public interface X8lCommentNode extends PsiComment, PsiLiteralValue, PsiNameIdentifierOwner, NavigationItem {
 
     @NotNull
     X8lCommentNodeContent getCommentNodeContent();

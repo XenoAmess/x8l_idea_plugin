@@ -4,7 +4,7 @@ import com.intellij.lang.cacheBuilder.DefaultWordsScanner;
 import com.intellij.lang.cacheBuilder.WordsScanner;
 import com.intellij.lang.findUsages.FindUsagesProvider;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiNamedElement;
+import com.intellij.psi.PsiLiteralValue;
 import com.intellij.psi.tree.TokenSet;
 import com.xenoamess.x8l.X8lTree;
 import com.xenoamess.x8l.psi.X8lTypes;
@@ -17,19 +17,22 @@ public class X8lFindUsagesProvider implements FindUsagesProvider {
     public WordsScanner getWordsScanner() {
         return new DefaultWordsScanner(new X8lLexerAdapter(),
                 TokenSet.create(
-                        X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY_CONTENT_STRING
-                        , X8lTypes.TEXT_NODE_CONTENT_STRING
+                        X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY
                 ),
                 TokenSet.create(
                         X8lTypes.COMMENT_NODE
-                        , X8lTypes.COMMENT_NODE_CONTENT_STRING
+                        , X8lTypes.COMMENT_NODE_CONTENT
                 ),
-                TokenSet.EMPTY);
+                TokenSet.create(
+                        X8lTypes.TEXT_NODE_CONTENT
+                        , X8lTypes.CONTENT_NODE_ATTRIBUTE_VALUE
+                )
+        );
     }
 
     @Override
     public boolean canFindUsagesFor(@NotNull PsiElement psiElement) {
-        return psiElement instanceof PsiNamedElement;
+        return psiElement instanceof PsiLiteralValue;
     }
 
     @Nullable

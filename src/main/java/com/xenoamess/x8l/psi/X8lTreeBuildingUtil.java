@@ -24,13 +24,15 @@ public class X8lTreeBuildingUtil {
         return x8lTree;
     }
 
-    public static void buildContentNodeHeadArea(@NotNull ContentNode nowNode, @NotNull X8lContentNodeHeadArea x8lContentNodeHeadArea) {
+    public static void buildContentNodeHeadArea(@NotNull ContentNode nowNode,
+                                                @NotNull X8lContentNodeHeadArea x8lContentNodeHeadArea) {
 //        boolean noSpaceEnd = true;
         for (PsiElement psiElement : x8lContentNodeHeadArea.getContentNodeAttributeList()) {
             if (psiElement instanceof X8lContentNodeAttribute) {
                 X8lContentNodeAttribute x8lContentNodeAttribute = (X8lContentNodeAttribute) psiElement;
                 String keyString = x8lContentNodeAttribute.getContentNodeAttributeKey().getValue();
-                X8lContentNodeAttributeValue x8lContentNodeAttributeValue = x8lContentNodeAttribute.getContentNodeAttributeValue();
+                X8lContentNodeAttributeValue x8lContentNodeAttributeValue =
+                        x8lContentNodeAttribute.getContentNodeAttributeValue();
                 if (x8lContentNodeAttributeValue != null) {
                     nowNode.addAttribute(keyString, x8lContentNodeAttributeValue.getValue());
                 } else {
@@ -40,7 +42,8 @@ public class X8lTreeBuildingUtil {
             } else if (psiElement instanceof X8lWhiteSpace) {
                 X8lWhiteSpace x8lWhiteSpace = (X8lWhiteSpace) psiElement;
                 if (!nowNode.getAttributeSegments().isEmpty()) {
-                    nowNode.getAttributeSegments().set(nowNode.getAttributeSegments().size() - 1, x8lWhiteSpace.getText());
+                    nowNode.getAttributeSegments().set(nowNode.getAttributeSegments().size() - 1,
+                            x8lWhiteSpace.getText());
                 }
 //                noSpaceEnd = false;
             }
@@ -52,7 +55,8 @@ public class X8lTreeBuildingUtil {
 //        }
     }
 
-    public static void buildContentNodeChildrenArea(@NotNull ContentNode nowNode, @NotNull X8lContentNodeChildrenArea x8lContentNodeChildrenArea) {
+    public static void buildContentNodeChildrenArea(@NotNull ContentNode nowNode,
+                                                    @NotNull X8lContentNodeChildrenArea x8lContentNodeChildrenArea) {
         for (PsiElement psiElement : x8lContentNodeChildrenArea.getChildren()) {
             if (psiElement instanceof X8lTextNode) {
                 buildTextNode(nowNode, (X8lTextNode) psiElement);
@@ -70,12 +74,14 @@ public class X8lTreeBuildingUtil {
     }
 
     @NotNull
-    public static CommentNode buildCommentNode(@NotNull ContentNode parentNode, @NotNull X8lCommentNode x8lCommentNode) {
+    public static CommentNode buildCommentNode(@NotNull ContentNode parentNode,
+                                               @NotNull X8lCommentNode x8lCommentNode) {
         return new CommentNode(parentNode, x8lCommentNode.getValue());
     }
 
     @NotNull
-    public static ContentNode buildContentNode(@NotNull ContentNode parentNode, @NotNull X8lContentNode x8lContentNode) {
+    public static ContentNode buildContentNode(@NotNull ContentNode parentNode,
+                                               @NotNull X8lContentNode x8lContentNode) {
         ContentNode nowNode = new ContentNode(parentNode);
 
         buildContentNodeHeadArea(nowNode, x8lContentNode.getContentNodeHeadArea());

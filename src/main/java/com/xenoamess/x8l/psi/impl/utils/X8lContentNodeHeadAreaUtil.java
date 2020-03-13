@@ -29,7 +29,8 @@ public class X8lContentNodeHeadAreaUtil {
     }
 
     public static PsiElement setName(X8lContentNodeHeadArea element, String newName) {
-        X8lContentNodeHeadArea x8lContentNodeHeadArea = X8lElementFactory.createX8lContentNodeHeadArea(element.getProject(), newName);
+        X8lContentNodeHeadArea x8lContentNodeHeadArea =
+                X8lElementFactory.createX8lContentNodeHeadArea(element.getProject(), newName);
         element.getNode().getTreeParent().replaceChild(element.getNode(), x8lContentNodeHeadArea.getNode());
         return element;
     }

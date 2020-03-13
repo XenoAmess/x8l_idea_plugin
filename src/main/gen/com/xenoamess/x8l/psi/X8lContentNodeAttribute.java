@@ -2,6 +2,7 @@
 package com.xenoamess.x8l.psi;
 
 import com.intellij.navigation.ItemPresentation;
+import com.intellij.navigation.NavigationItem;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNameIdentifierOwner;
 import com.intellij.psi.tree.IElementType;
@@ -10,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public interface X8lContentNodeAttribute extends PsiNameIdentifierOwner {
+public interface X8lContentNodeAttribute extends PsiNameIdentifierOwner, NavigationItem {
 
     @NotNull
     X8lContentNodeAttributeKey getContentNodeAttributeKey();

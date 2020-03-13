@@ -27,7 +27,8 @@ public class X8lChooseByNameContributor implements ChooseByNameContributor {
 
     @NotNull
     @Override
-    public NavigationItem[] getItemsByName(String name, String pattern, Project project, boolean includeNonProjectItems) {
+    public NavigationItem[] getItemsByName(String name, String pattern, Project project,
+                                           boolean includeNonProjectItems) {
         // TODO: include non project items
         List<PsiElement> psiElements = X8lUtil.findMostRemotePsiElementsIncludingTranscode(project, name, null);
         List<NavigationItem> navigationItems = new ArrayList<>();

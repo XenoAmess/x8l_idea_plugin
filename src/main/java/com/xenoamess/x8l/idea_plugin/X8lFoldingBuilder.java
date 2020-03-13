@@ -38,11 +38,14 @@ public class X8lFoldingBuilder extends FoldingBuilderEx implements DumbAware {
 //                X8lTextNode element = (X8lTextNode) psiElement;
 //                textRange = element.getTextRange();
 //            } else if (psiElement instanceof X8lContentNode) {
-//                textRange = new TextRange(psiElement.getTextRange().getStartOffset() + 1, psiElement.getTextRange().getEndOffset() - 1);
+//                textRange = new TextRange(psiElement.getTextRange().getStartOffset() + 1, psiElement.getTextRange()
+//                .getEndOffset() - 1);
             } else if (psiElement instanceof X8lContentNodeHeadArea) {
-                textRange = new TextRange(psiElement.getTextRange().getStartOffset(), psiElement.getTextRange().getEndOffset());
+                textRange = new TextRange(psiElement.getTextRange().getStartOffset(),
+                        psiElement.getTextRange().getEndOffset());
             } else if (psiElement instanceof X8lContentNodeChildrenArea) {
-                textRange = new TextRange(psiElement.getTextRange().getStartOffset(), psiElement.getTextRange().getEndOffset());
+                textRange = new TextRange(psiElement.getTextRange().getStartOffset(),
+                        psiElement.getTextRange().getEndOffset());
             }
 
             if (textRange != null && textRange.getLength() > 0) {
@@ -82,13 +85,16 @@ public class X8lFoldingBuilder extends FoldingBuilderEx implements DumbAware {
 //            res = StringUtils.substring(element.getText().trim(), 0, 5);
 //        } else if (psiElement instanceof X8lContentNode) {
 //            X8lContentNode element = (X8lContentNode) psiElement;
-//            List<X8lContentNodeAttribute> x8lContentNodeAttributeList = element.getContentNodeHeadArea().getContentNodeAttributeList();
+//            List<X8lContentNodeAttribute> x8lContentNodeAttributeList = element.getContentNodeHeadArea()
+//            .getContentNodeAttributeList();
 //            String keyF = x8lContentNodeAttributeList.isEmpty() ? "" : x8lContentNodeAttributeList.get(0).getKey();
 //            res = keyF + ">";
         } else if (psiElement instanceof X8lContentNodeHeadArea) {
             X8lContentNodeHeadArea element = (X8lContentNodeHeadArea) psiElement;
             List<X8lContentNodeAttribute> x8lContentNodeAttributeList = element.getContentNodeAttributeList();
-            String keyF = StringUtils.substring(x8lContentNodeAttributeList.isEmpty() ? "" : x8lContentNodeAttributeList.get(0).getContentNodeAttributeKey().getText().trim(), 0, maxPlaceHolderLength);
+            String keyF = StringUtils.substring(x8lContentNodeAttributeList.isEmpty() ? "" :
+                    x8lContentNodeAttributeList.get(0).getContentNodeAttributeKey().getText().trim(), 0,
+                    maxPlaceHolderLength);
             res = keyF;
         } else if (psiElement instanceof X8lContentNodeChildrenArea) {
             X8lContentNodeChildrenArea element = (X8lContentNodeChildrenArea) psiElement;

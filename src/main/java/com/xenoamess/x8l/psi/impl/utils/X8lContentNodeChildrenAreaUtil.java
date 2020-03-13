@@ -29,7 +29,8 @@ public class X8lContentNodeChildrenAreaUtil {
     }
 
     public static PsiElement setName(X8lContentNodeChildrenArea element, String newName) {
-        X8lContentNodeChildrenArea x8lContentNodeChildrenArea = X8lElementFactory.createX8lContentNodeChildrenArea(element.getProject(), newName);
+        X8lContentNodeChildrenArea x8lContentNodeChildrenArea =
+                X8lElementFactory.createX8lContentNodeChildrenArea(element.getProject(), newName);
         element.getNode().getTreeParent().replaceChild(element.getNode(), x8lContentNodeChildrenArea.getNode());
         return element;
     }
