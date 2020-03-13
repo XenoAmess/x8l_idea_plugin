@@ -1,18 +1,18 @@
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-    <idea-plugin xml:space="preserve">
-        <id>com.xenoamess.x8l_idea_plugin</id>
-        <name>X8l</name>
-        <vendor
-                email="xenoamess@gmail.com"
-                url="https://github.com/XenoAmess"
-        >XenoAmess</vendor>
-        <!--    <description>-->
-        <!--        X8l format is a type of data format, it is designed to be replace of-->
-        <!--        xml when you need it comes shorter.-->
-        <!--        See https://github.com/XenoAmess/x8l_idea_plugin-->
-        <!--        See https://github.com/cyanpotion/x8l-->
-        <!--    </description>-->
-        <description><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<idea-plugin>
+    <id>com.xenoamess.x8l_idea_plugin</id>
+    <name>X8l</name>
+    <vendor
+            email="xenoamess@gmail.com"
+            url="https://github.com/XenoAmess"
+    >XenoAmess</vendor>
+    <!--    <description>-->
+    <!--        X8l format is a type of data format, it is designed to be replace of-->
+    <!--        xml when you need it comes shorter.-->
+    <!--        See https://github.com/XenoAmess/x8l_idea_plugin-->
+    <!--        See https://github.com/cyanpotion/x8l-->
+    <!--    </description>-->
+    <description><![CDATA[
 <p><b>Plugin to deal with X8l data format.</b></p>
 <br/>
 <p>
@@ -34,147 +34,147 @@
 <p><a href="https://github.com/XenoAmess/x8l_idea_plugin/issues">Send Feedback</a></p>
     ]]></description>
 
-        <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-        <!-- See https://github.com/JetBrains/gradle-intellij-plugin/-->
-        <!-- See https://www.jetbrains.org/intellij/sdk/docs/reference_guide/intellij_artifacts.html-->
-        <!-- See https://www.jetbrains.com/intellij-repository/releases/-->
-        <!-- See https://www.jetbrains.com/intellij-repository/snapshots/-->
-        <idea-version since-build="172.2103.15"/>
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <!-- See https://github.com/JetBrains/gradle-intellij-plugin/-->
+    <!-- See https://www.jetbrains.org/intellij/sdk/docs/reference_guide/intellij_artifacts.html-->
+    <!-- See https://www.jetbrains.com/intellij-repository/releases/-->
+    <!-- See https://www.jetbrains.com/intellij-repository/snapshots/-->
+    <idea-version since-build="172.2103.15"/>
 
-        <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-             on how to target different products -->
-        <depends>com.intellij.modules.platform</depends>
-        <depends
-                optional="true"
-                config-file="pluginWithJava.xml"
-        >com.intellij.modules.java</depends>
-        <!--    <depends>com.intellij.modules.xml</depends>-->
-        <!--    <depends>com.intellij.modules.json</depends>-->
-        <extensions defaultExtensionNs="com.intellij">
-            <fileTypeFactory
-                    implementation="com.xenoamess.x8l.idea_plugin.X8lFileTypeFactory"/>
-            <fileType
-                    name="X8l file"
-                    implementationClass="com.xenoamess.x8l.idea_plugin.X8lFileType"
-                    fieldName="INSTANCE"
-                    language="X8l"
-                    extensions="X8L"
-            />
-            <lang.parserDefinition
-                    language="X8l"
-                    implementationClass="com.xenoamess.x8l.idea_plugin.X8lParserDefinition"
-            />
-            <lang.syntaxHighlighterFactory
-                    language="X8l"
-                    implementationClass="com.xenoamess.x8l.idea_plugin.X8lSyntaxHighlighterFactory"
-            />
-            <colorSettingsPage
-                    implementation="com.xenoamess.x8l.idea_plugin.X8lColorSettingsPage"
-            />
-            <completion.contributor
-                    language="X8l"
-                    implementationClass="com.xenoamess.x8l.idea_plugin.X8lCompletionContributor"
-            />
-            <psi.referenceContributor
-                    implementation="com.xenoamess.x8l.idea_plugin.X8lReferenceContributor"
-            />
-            <lang.refactoringSupport
-                    language="X8l"
-                    implementationClass="com.xenoamess.x8l.idea_plugin.X8lRefactoringSupportProvider"
-            />
-            <lang.findUsagesProvider
-                    language="X8l"
-                    implementationClass="com.xenoamess.x8l.idea_plugin.X8lFindUsagesProvider"
-            />
-            <lang.foldingBuilder
-                    language="X8l"
-                    implementationClass="com.xenoamess.x8l.idea_plugin.X8lFoldingBuilder"
-            />
-            <gotoSymbolContributor
-                    implementation="com.xenoamess.x8l.idea_plugin.X8lChooseByNameContributor"
-            />
-            <lang.psiStructureViewFactory
-                    language="X8l"
-                    implementationClass="com.xenoamess.x8l.idea_plugin.X8lStructureViewFactory"
-            />
-            <!--        <lang.formatter-->
-            <!--                language="X8l"-->
-            <!--                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFormattingModelBuilder"-->
-            <!--        />-->
-            <!--        <codeStyleSettingsProvider-->
-            <!--                implementation="com.xenoamess.x8l.idea_plugin.X8lCodeStyleSettingsProvider"-->
-            <!--        />-->
-            <!--        <langCodeStyleSettingsProvider-->
-            <!--                implementation="com.xenoamess.x8l.idea_plugin.X8lLanguageCodeStyleSettingsProvider"-->
-            <!--        />-->
-            <lang.commenter
-                    language="X8l"
-                    implementationClass="com.xenoamess.x8l.idea_plugin.X8lCommenter"
-            />
-        </extensions>
-        <actions>
-            <action id="com.xenoamess.x8l.idea_plugin.actions.JsonGenerateX8lAction"
-                    class="com.xenoamess.x8l.idea_plugin.actions.JsonGenerateX8lAction"
-                    text="Transcode to Json"
-                    description="Transcode to Json"
-                    icon="X8lIcons.X8L_LANGUAGE_ICON"
-            >
-                <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
-                              anchor="first"/>
-            </action>
-            <action id="com.xenoamess.x8l.idea_plugin.actions.XmlGenerateX8lAction"
-                    class="com.xenoamess.x8l.idea_plugin.actions.XmlGenerateX8lAction"
-                    text="Transcode to X8l"
-                    description="Transcode to X8l"
-                    icon="X8lIcons.X8L_LANGUAGE_ICON"
-            >
-                <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
-                              anchor="first"/>
-            </action>
-            <action id="com.xenoamess.x8l.idea_plugin.actions.X8lGenerateXmlAction"
-                    class="com.xenoamess.x8l.idea_plugin.actions.X8lGenerateXmlAction"
-                    text="Transcode to Xml"
-                    description="Transcode to Xml"
-                    icon="X8lIcons.X8L_LANGUAGE_ICON"
-            >
-                <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
-                              anchor="first"/>
-            </action>
-            <action id="com.xenoamess.x8l.idea_plugin.actions.X8lGenerateJsonAction"
-                    class="com.xenoamess.x8l.idea_plugin.actions.X8lGenerateJsonAction"
-                    text="Transcode to Json"
-                    description="Transcode to Json"
-                    icon="X8lIcons.X8L_LANGUAGE_ICON"
-            >
-                <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
-                              anchor="first"/>
-            </action>
-            <action id="com.xenoamess.x8l.idea_plugin.actions.X8lCompressAction"
-                    class="com.xenoamess.x8l.idea_plugin.actions.X8lCompressAction"
-                    text="X8l Compress"
-                    description="Compress X8l File"
-                    icon="X8lIcons.X8L_LANGUAGE_ICON"
-            >
-                <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
-                              anchor="first"/>
-            </action>
-            <action id="com.xenoamess.x8l.idea_plugin.actions.X8lBeautifyAction"
-                    class="com.xenoamess.x8l.idea_plugin.actions.X8lBeautifyAction"
-                    text="X8l Beautify"
-                    description="Beautify X8l File"
-                    icon="X8lIcons.X8L_LANGUAGE_ICON"
-            >
-                <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
-                              anchor="first"/>
-            </action>
-            <action id="com.xenoamess.x8l.idea_plugin.actions.X8lReformatAction"
-                    class="com.xenoamess.x8l.idea_plugin.actions.X8lReformatAction"
-                    text="X8l Reformat"
-                    description="Reformat X8l File"
-                    icon="X8lIcons.X8L_LANGUAGE_ICON"
-            >
-                <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
-                              anchor="first"/>
-            </action>
-        </actions>
-    </idea-plugin>
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends
+            optional="true"
+            config-file="pluginWithJava.xml"
+    >com.intellij.modules.java</depends>
+    <!--    <depends>com.intellij.modules.xml</depends>-->
+    <!--    <depends>com.intellij.modules.json</depends>-->
+    <extensions defaultExtensionNs="com.intellij">
+        <fileTypeFactory
+                implementation="com.xenoamess.x8l.idea_plugin.X8lFileTypeFactory"/>
+        <fileType
+                name="X8l file"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFileType"
+                fieldName="INSTANCE"
+                language="X8l"
+                extensions="X8L"
+        />
+        <lang.parserDefinition
+                language="X8l"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lParserDefinition"
+        />
+        <lang.syntaxHighlighterFactory
+                language="X8l"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lSyntaxHighlighterFactory"
+        />
+        <colorSettingsPage
+                implementation="com.xenoamess.x8l.idea_plugin.X8lColorSettingsPage"
+        />
+        <completion.contributor
+                language="X8l"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lCompletionContributor"
+        />
+        <psi.referenceContributor
+                implementation="com.xenoamess.x8l.idea_plugin.X8lReferenceContributor"
+        />
+        <lang.refactoringSupport
+                language="X8l"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lRefactoringSupportProvider"
+        />
+        <lang.findUsagesProvider
+                language="X8l"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFindUsagesProvider"
+        />
+        <lang.foldingBuilder
+                language="X8l"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFoldingBuilder"
+        />
+        <gotoSymbolContributor
+                implementation="com.xenoamess.x8l.idea_plugin.X8lChooseByNameContributor"
+        />
+        <lang.psiStructureViewFactory
+                language="X8l"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lStructureViewFactory"
+        />
+        <!--        <lang.formatter-->
+        <!--                language="X8l"-->
+        <!--                implementationClass="com.xenoamess.x8l.idea_plugin.X8lFormattingModelBuilder"-->
+        <!--        />-->
+        <!--        <codeStyleSettingsProvider-->
+        <!--                implementation="com.xenoamess.x8l.idea_plugin.X8lCodeStyleSettingsProvider"-->
+        <!--        />-->
+        <!--        <langCodeStyleSettingsProvider-->
+        <!--                implementation="com.xenoamess.x8l.idea_plugin.X8lLanguageCodeStyleSettingsProvider"-->
+        <!--        />-->
+        <lang.commenter
+                language="X8l"
+                implementationClass="com.xenoamess.x8l.idea_plugin.X8lCommenter"
+        />
+    </extensions>
+    <actions>
+        <action id="com.xenoamess.x8l.idea_plugin.actions.JsonGenerateX8lAction"
+                class="com.xenoamess.x8l.idea_plugin.actions.JsonGenerateX8lAction"
+                text="Transcode to Json"
+                description="Transcode to Json"
+                icon="X8lIcons.X8L_LANGUAGE_ICON"
+        >
+            <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
+                          anchor="first"/>
+        </action>
+        <action id="com.xenoamess.x8l.idea_plugin.actions.XmlGenerateX8lAction"
+                class="com.xenoamess.x8l.idea_plugin.actions.XmlGenerateX8lAction"
+                text="Transcode to X8l"
+                description="Transcode to X8l"
+                icon="X8lIcons.X8L_LANGUAGE_ICON"
+        >
+            <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
+                          anchor="first"/>
+        </action>
+        <action id="com.xenoamess.x8l.idea_plugin.actions.X8lGenerateXmlAction"
+                class="com.xenoamess.x8l.idea_plugin.actions.X8lGenerateXmlAction"
+                text="Transcode to Xml"
+                description="Transcode to Xml"
+                icon="X8lIcons.X8L_LANGUAGE_ICON"
+        >
+            <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
+                          anchor="first"/>
+        </action>
+        <action id="com.xenoamess.x8l.idea_plugin.actions.X8lGenerateJsonAction"
+                class="com.xenoamess.x8l.idea_plugin.actions.X8lGenerateJsonAction"
+                text="Transcode to Json"
+                description="Transcode to Json"
+                icon="X8lIcons.X8L_LANGUAGE_ICON"
+        >
+            <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
+                          anchor="first"/>
+        </action>
+        <action id="com.xenoamess.x8l.idea_plugin.actions.X8lCompressAction"
+                class="com.xenoamess.x8l.idea_plugin.actions.X8lCompressAction"
+                text="X8l Compress"
+                description="Compress X8l File"
+                icon="X8lIcons.X8L_LANGUAGE_ICON"
+        >
+            <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
+                          anchor="first"/>
+        </action>
+        <action id="com.xenoamess.x8l.idea_plugin.actions.X8lBeautifyAction"
+                class="com.xenoamess.x8l.idea_plugin.actions.X8lBeautifyAction"
+                text="X8l Beautify"
+                description="Beautify X8l File"
+                icon="X8lIcons.X8L_LANGUAGE_ICON"
+        >
+            <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
+                          anchor="first"/>
+        </action>
+        <action id="com.xenoamess.x8l.idea_plugin.actions.X8lReformatAction"
+                class="com.xenoamess.x8l.idea_plugin.actions.X8lReformatAction"
+                text="X8l Reformat"
+                description="Reformat X8l File"
+                icon="X8lIcons.X8L_LANGUAGE_ICON"
+        >
+            <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
+                          anchor="first"/>
+        </action>
+    </actions>
+</idea-plugin>
