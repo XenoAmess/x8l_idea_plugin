@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 
 public class X8lReferenceContributor extends PsiReferenceContributor {
-    public static final PsiReferenceProvider psiReferenceProvider = new PsiReferenceProvider() {
+    public static final PsiReferenceProvider PSI_REFERENCE_PROVIDER = new PsiReferenceProvider() {
         @NotNull
         @Override
         public PsiReference[] getReferencesByElement(@NotNull PsiElement element,
@@ -31,7 +31,7 @@ public class X8lReferenceContributor extends PsiReferenceContributor {
     public void registerReferenceProviders(@NotNull PsiReferenceRegistrar registrar) {
         registrar.registerReferenceProvider(
                 PlatformPatterns.psiElement(),
-                psiReferenceProvider
+                PSI_REFERENCE_PROVIDER
         );
     }
 }

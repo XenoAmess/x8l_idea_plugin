@@ -12,8 +12,9 @@ public class X8lCompletionContributor extends CompletionContributor {
         extend(CompletionType.BASIC,
                 PlatformPatterns.psiElement(X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY).withLanguage(X8lLanguage.INSTANCE),
                 new CompletionProvider<CompletionParameters>() {
+                    @Override
                     public void addCompletions(@NotNull CompletionParameters parameters,
-                                               ProcessingContext context,
+                                               @NotNull ProcessingContext context,
                                                @NotNull CompletionResultSet resultSet) {
                         resultSet.addElement(LookupElementBuilder.create("key"));
                     }
@@ -22,8 +23,9 @@ public class X8lCompletionContributor extends CompletionContributor {
         extend(CompletionType.BASIC,
                 PlatformPatterns.psiElement(X8lTypes.CONTENT_NODE_ATTRIBUTE_VALUE).withLanguage(X8lLanguage.INSTANCE),
                 new CompletionProvider<CompletionParameters>() {
+                    @Override
                     public void addCompletions(@NotNull CompletionParameters parameters,
-                                               ProcessingContext context,
+                                               @NotNull ProcessingContext context,
                                                @NotNull CompletionResultSet resultSet) {
                         resultSet.addElement(LookupElementBuilder.create("value"));
                     }
@@ -32,8 +34,9 @@ public class X8lCompletionContributor extends CompletionContributor {
         extend(CompletionType.BASIC,
                 PlatformPatterns.psiElement(X8lTypes.SEPARATOR).withLanguage(X8lLanguage.INSTANCE),
                 new CompletionProvider<CompletionParameters>() {
+                    @Override
                     public void addCompletions(@NotNull CompletionParameters parameters,
-                                               ProcessingContext context,
+                                               @NotNull ProcessingContext context,
                                                @NotNull CompletionResultSet resultSet) {
                         resultSet.addElement(LookupElementBuilder.create("="));
                     }
@@ -42,8 +45,9 @@ public class X8lCompletionContributor extends CompletionContributor {
         extend(CompletionType.BASIC,
                 PlatformPatterns.psiElement(X8lTypes.LEFT_BRACKET).withLanguage(X8lLanguage.INSTANCE),
                 new CompletionProvider<CompletionParameters>() {
+                    @Override
                     public void addCompletions(@NotNull CompletionParameters parameters,
-                                               ProcessingContext context,
+                                               @NotNull ProcessingContext context,
                                                @NotNull CompletionResultSet resultSet) {
                         resultSet.addElement(LookupElementBuilder.create("<"));
                     }
@@ -52,8 +56,9 @@ public class X8lCompletionContributor extends CompletionContributor {
         extend(CompletionType.BASIC,
                 PlatformPatterns.psiElement(X8lTypes.RIGHT_BRACKET).withLanguage(X8lLanguage.INSTANCE),
                 new CompletionProvider<CompletionParameters>() {
+                    @Override
                     public void addCompletions(@NotNull CompletionParameters parameters,
-                                               ProcessingContext context,
+                                               @NotNull ProcessingContext context,
                                                @NotNull CompletionResultSet resultSet) {
                         resultSet.addElement(LookupElementBuilder.create(">"));
                     }

@@ -16,6 +16,7 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+@SuppressWarnings("AlibabaAbstractClassShouldStartWithAbstractNaming")
 public abstract class X8lFileAction extends AnAction {
     @Override
     public void update(AnActionEvent event) {
@@ -42,7 +43,6 @@ public abstract class X8lFileAction extends AnAction {
         return X8lTreeBuildingUtil.buildX8lTreeFromX8lFile((X8lFile) psiElement);
     }
 
-    @Nullable
     public void saveX8lTreeToFile(@Nullable X8lTree x8lTree, @NotNull AnActionEvent event) {
         if (x8lTree == null) {
             return;

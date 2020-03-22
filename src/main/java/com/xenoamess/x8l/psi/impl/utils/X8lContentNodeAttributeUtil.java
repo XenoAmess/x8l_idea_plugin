@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 
 public class X8lContentNodeAttributeUtil {
-    public static final String EMPTY_VALUE_STRING = "".intern();
+    public static final String EMPTY_VALUE_STRING = "";
 
     public static IElementType getTokenType(final X8lContentNodeAttribute element) {
         return X8lTypes.CONTENT_NODE_ATTRIBUTE;

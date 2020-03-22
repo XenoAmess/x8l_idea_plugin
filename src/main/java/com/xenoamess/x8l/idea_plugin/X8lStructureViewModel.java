@@ -14,6 +14,7 @@ public class X8lStructureViewModel extends StructureViewModelBase implements
         super(psiFile, new X8lStructureViewElement(psiFile));
     }
 
+    @Override
     @NotNull
     public Sorter[] getSorters() {
         return new Sorter[]{Sorter.ALPHA_SORTER};

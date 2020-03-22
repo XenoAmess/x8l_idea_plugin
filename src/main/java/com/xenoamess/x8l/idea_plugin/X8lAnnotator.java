@@ -70,14 +70,9 @@ public class X8lAnnotator implements Annotator {
             return true;
         }
         if (element instanceof PsiLiteralValue) {
-            if (!(((PsiLiteralValue) element).getValue() instanceof String)) {
-                return true;
-            }
+            return !(((PsiLiteralValue) element).getValue() instanceof String);
         } else {
-            if (ARRAY_ID_ATTRIBUTE.equals(string)) {
-                return true;
-            }
+            return ARRAY_ID_ATTRIBUTE.equals(string);
         }
-        return false;
     }
 }

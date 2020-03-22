@@ -64,6 +64,8 @@ public class X8lParserDefinition implements ParserDefinition {
         return new X8lFile(viewProvider);
     }
 
+    @Override
+    @SuppressWarnings({"deprecation", "AliDeprecation"})
     public SpaceRequirements spaceExistanceTypeBetweenTokens(ASTNode left, ASTNode right) {
         //        if (checkeElementTypeAllowSpaceBesides(left.getElementType()) && checkeElementTypeAllowSpaceBesides
         //        (right.getElementType())) {
@@ -74,6 +76,8 @@ public class X8lParserDefinition implements ParserDefinition {
         return SpaceRequirements.MUST_NOT;
     }
 
+    @Override
+    @SuppressWarnings("MissingRecentApi")
     public SpaceRequirements spaceExistenceTypeBetweenTokens(ASTNode left, ASTNode right) {
 
         return this.spaceExistanceTypeBetweenTokens(left, right);
@@ -98,10 +102,7 @@ public class X8lParserDefinition implements ParserDefinition {
         if (X8lTypes.CONTENT_NODE_HEAD_AREA.equals(type)) {
             return false;
         }
-        if (X8lTypes.CONTENT_NODE_CHILDREN_AREA.equals(type)) {
-            return false;
-        }
-        return true;
+        return !X8lTypes.CONTENT_NODE_CHILDREN_AREA.equals(type);
     }
 
     @NotNull

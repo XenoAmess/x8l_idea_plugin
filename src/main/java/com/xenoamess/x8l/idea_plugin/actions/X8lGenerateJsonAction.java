@@ -23,7 +23,7 @@ public class X8lGenerateJsonAction extends X8lFileAction {
         x8lTree.setLanguageDealer(JsonDealer.INSTANCE);
     }
 
-    @Nullable
+    @Override
     public void saveX8lTreeToFile(@Nullable X8lTree x8lTree, @NotNull AnActionEvent event) {
         if (x8lTree == null) {
             return;

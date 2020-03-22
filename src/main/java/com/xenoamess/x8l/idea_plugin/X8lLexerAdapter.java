@@ -7,6 +7,6 @@ import java.io.Reader;
 
 public class X8lLexerAdapter extends FlexAdapter {
     public X8lLexerAdapter() {
-        super(new X8lLexer((Reader) null));
+        super(new X8lLexer(null));
     }
 }

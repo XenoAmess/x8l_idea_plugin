@@ -10,6 +10,7 @@ import com.intellij.psi.*;
 import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.tree.IElementType;
+import com.xenoamess.x8l.psi.X8lPsiElement;
 import org.apache.commons.collections.list.SetUniqueList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -38,7 +39,7 @@ public class X8lReference extends PsiReferenceBase<PsiElement> implements PsiPol
                 results.add(new PsiElementResolveResult(psiElement));
             }
         }
-        return results.toArray(new ResolveResult[results.size()]);
+        return results.toArray(new ResolveResult[0]);
     }
 
     protected List<PsiElement> getResultPsiElements() {
@@ -56,14 +57,16 @@ public class X8lReference extends PsiReferenceBase<PsiElement> implements PsiPol
                 }
             }
         }
-        resultPsiElements.addAll(
-                tryAddJavaElement()
-        );
+        if (this.myElement instanceof X8lPsiElement) {
+            resultPsiElements.addAll(
+                    tryAddJavaElement()
+            );
+        }
         return resultPsiElements;
     }
 
     public List<PsiElement> tryAddJavaElement() {
-        List<PsiElement> result = SetUniqueList.decorate(new ArrayList<PsiElement>());
+        @SuppressWarnings("unchecked") List<PsiElement> result = SetUniqueList.decorate(new ArrayList<PsiElement>());
         try {
             Project project = myElement.getProject();
             FileType javaFileType =
@@ -115,7 +118,7 @@ public class X8lReference extends PsiReferenceBase<PsiElement> implements PsiPol
     public Object[] getVariants() {
         Project project = myElement.getProject();
         List<PsiElement> psiElements = X8lUtil.findAllPsiElements(project);
-        List<LookupElement> variants = new ArrayList<LookupElement>();
+        List<LookupElement> variants = new ArrayList<>();
         for (final PsiElement psiElement : psiElements) {
             if (psiElement.getText() != null && psiElement.getText().length() > 0) {
                 variants.add(LookupElementBuilder

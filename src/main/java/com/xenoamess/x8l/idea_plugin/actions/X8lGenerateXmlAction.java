@@ -23,7 +23,7 @@ public class X8lGenerateXmlAction extends X8lFileAction {
         x8lTree.setLanguageDealer(XmlDealer.INSTANCE);
     }
 
-    @Nullable
+    @Override
     public void saveX8lTreeToFile(@Nullable X8lTree x8lTree, @NotNull AnActionEvent event) {
         if (x8lTree == null) {
             return;

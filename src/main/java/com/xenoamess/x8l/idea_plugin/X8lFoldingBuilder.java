@@ -60,7 +60,7 @@ public class X8lFoldingBuilder extends FoldingBuilderEx implements DumbAware {
             // Add a folding descriptor for the literal expression at this node.
 
         }
-        return descriptors.toArray(new FoldingDescriptor[descriptors.size()]);
+        return descriptors.toArray(new FoldingDescriptor[0]);
     }
 
     /**

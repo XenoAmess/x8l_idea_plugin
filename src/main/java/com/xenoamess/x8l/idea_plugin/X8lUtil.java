@@ -40,8 +40,9 @@ public class X8lUtil {
 
     @NotNull
     public static Collection<PsiElement> findAllPsiElements(PsiElement element) {
-        if (element == null)
+        if (element == null) {
             return Collections.emptyList();
+        }
         List<PsiElement> result = new ArrayList<>();
         for (PsiElement child = element.getFirstChild(); child != null; child = child.getNextSibling()) {
             Collection<PsiElement> childResult = findAllPsiElements(child);
@@ -72,7 +73,7 @@ public class X8lUtil {
     @NotNull
     public static List<PsiElement> findMostRemotePsiElementsIncludingTranscode(Project project, String string,
                                                                                IElementType iElementType) {
-        final List<PsiElement> result = SetUniqueList.decorate(new ArrayList<PsiElement>());
+        @SuppressWarnings("unchecked") final List<PsiElement> result = SetUniqueList.decorate(new ArrayList<PsiElement>());
 
         result.addAll(
                 X8lUtil.findMostRemotePsiElements(project, X8lTree.untranscode(string), iElementType)
@@ -110,8 +111,9 @@ public class X8lUtil {
     @NotNull
     public static List<PsiElement> findMostRemoteChildrenOfType(@Nullable PsiElement element, @Nullable String string
             , @Nullable IElementType iElementType, int requiredNum) {
-        if (element == null)
+        if (element == null) {
             return Collections.emptyList();
+        }
         if (requiredNum == 0) {
             return Collections.emptyList();
         }
@@ -160,8 +162,9 @@ public class X8lUtil {
     @NotNull
     public static List<PsiElement> findMostNearChildrenOfType(@Nullable PsiElement element, @Nullable String string,
                                                               @Nullable IElementType iElementType, int requiredNum) {
-        if (element == null)
+        if (element == null) {
             return Collections.emptyList();
+        }
         if (requiredNum == 0) {
             return Collections.emptyList();
         }

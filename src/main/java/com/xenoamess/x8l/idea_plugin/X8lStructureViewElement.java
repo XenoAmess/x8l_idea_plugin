@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class X8lStructureViewElement implements StructureViewTreeElement, SortableTreeElement {
-    private NavigatablePsiElement myElement;
+    private final NavigatablePsiElement myElement;
 
     public X8lStructureViewElement(NavigatablePsiElement element) {
         this.myElement = element;
@@ -53,6 +53,7 @@ public class X8lStructureViewElement implements StructureViewTreeElement, Sortab
         return presentation != null ? presentation : new PresentationData();
     }
 
+    @NotNull
     @Override
     public TreeElement[] getChildren() {
         PsiElement[] properties = myElement.getChildren();

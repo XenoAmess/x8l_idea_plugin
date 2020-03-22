@@ -114,8 +114,9 @@ public class X8lCommenter implements EscapingCommenter, CustomUncommenter, SelfM
 
         PsiElement psiElement = createX8lFileFromString(text);
         List<PsiElement> elements = X8lUtil.findMostNearChildrenOfType(psiElement, null, X8lTypes.COMMENT_NODE, 1);
-        if (elements.isEmpty())
+        if (elements.isEmpty()) {
             return null;
+        }
         return elements.get(0).getNode().getTextRange();
     }
 
