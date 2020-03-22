@@ -7,6 +7,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.*;
+import com.intellij.psi.impl.source.resolve.reference.impl.providers.AttributeValueSelfReference;
 import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.tree.IElementType;
@@ -21,7 +22,7 @@ import java.util.List;
 
 import static com.xenoamess.x8l.idea_plugin.X8lAnnotator.I_ELEMENT_TYPES;
 
-public class X8lReference extends PsiReferenceBase<PsiElement> implements PsiPolyVariantReference {
+public class X8lReference extends AttributeValueSelfReference implements PsiPolyVariantReference {
     private final String key;
 
     public X8lReference(@NotNull PsiElement element, TextRange textRange) {
