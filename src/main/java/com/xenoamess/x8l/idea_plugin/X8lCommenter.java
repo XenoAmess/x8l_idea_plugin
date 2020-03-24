@@ -20,6 +20,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import static com.xenoamess.x8l.idea_plugin.X8lUtil.createX8lFileFromString;
 
@@ -113,7 +114,7 @@ public class X8lCommenter implements EscapingCommenter, CustomUncommenter, SelfM
 //        X8lFile dummyFile = createFile(dummyProject, text.toString());
 
         PsiElement psiElement = createX8lFileFromString(text);
-        List<PsiElement> elements = X8lUtil.findMostNearChildrenOfType(psiElement, null, X8lTypes.COMMENT_NODE, 1);
+        List<PsiElement> elements = X8lUtil.findMostNearChildrenOfType(psiElement, (Set<String>) null, X8lTypes.COMMENT_NODE, 1);
         if (elements.isEmpty()) {
             return null;
         }
@@ -127,7 +128,7 @@ public class X8lCommenter implements EscapingCommenter, CustomUncommenter, SelfM
 //        X8lFile dummyFile = createFile(dummyProject, text.toString());
 
         PsiElement psiElement = createX8lFileFromString(text);
-        List<PsiElement> elements = X8lUtil.findMostNearChildrenOfType(psiElement, null, X8lTypes.COMMENT_NODE,
+        List<PsiElement> elements = X8lUtil.findMostNearChildrenOfType(psiElement, (Set<String>) null, X8lTypes.COMMENT_NODE,
                 X8lUtil.X8L_GET_CHILD_ALL);
         List<Couple<TextRange>> result = new ArrayList<>();
         for (PsiElement element : elements) {
@@ -208,7 +209,7 @@ public class X8lCommenter implements EscapingCommenter, CustomUncommenter, SelfM
                                           @NotNull CommenterDataHolder data) {
         TextRange selectedTextRange = new TextRange(selectionStart, selectionEnd);
         PsiElement psiElement = createX8lFileFromString(document.getText());
-        List<PsiElement> elements = X8lUtil.findMostNearChildrenOfType(psiElement, null, X8lTypes.COMMENT_NODE,
+        List<PsiElement> elements = X8lUtil.findMostNearChildrenOfType(psiElement, (Set<String>) null, X8lTypes.COMMENT_NODE,
                 X8lUtil.X8L_GET_CHILD_ALL);
         for (PsiElement element : elements) {
             assert (element instanceof X8lCommentNode);
@@ -239,7 +240,7 @@ public class X8lCommenter implements EscapingCommenter, CustomUncommenter, SelfM
 
         while (true) {
             PsiElement psiElement = createX8lFileFromString(document.getText());
-            List<PsiElement> elements = X8lUtil.findMostNearChildrenOfType(psiElement, null, X8lTypes.COMMENT_NODE,
+            List<PsiElement> elements = X8lUtil.findMostNearChildrenOfType(psiElement, (Set<String>) null, X8lTypes.COMMENT_NODE,
                     X8lUtil.X8L_GET_CHILD_ALL);
             boolean flag = false;
 

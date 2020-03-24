@@ -14,104 +14,152 @@ import com.intellij.util.SmartList;
 import com.xenoamess.x8l.X8lTree;
 import com.xenoamess.x8l.psi.X8lFile;
 import com.xenoamess.x8l.psi.X8lTypes;
-import org.apache.commons.collections.list.SetUniqueList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.*;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.function.Consumer;
 
 public class X8lUtil {
+    public static <T> Set<T> createSet(T... ts) {
+        Set<T> res = new HashSet<>();
+        for (T t : ts) {
+            res.add(t);
+        }
+        return res;
+    }
+
     @NotNull
     public static List<PsiElement> findAllPsiElements(Project project) {
         if (project == null) {
             return Collections.emptyList();
         }
         PsiManager psiManager = PsiManager.getInstance(project);
-        List<PsiElement> result = new SmartList<>();
+        final ConcurrentLinkedDeque<PsiElement> result = new ConcurrentLinkedDeque<>();
+
         Collection<VirtualFile> virtualFiles =
                 FileTypeIndex.getFiles(X8lFileType.INSTANCE, GlobalSearchScope.allScope(project));
 
-        final ExecutorService executorService = Executors.newCachedThreadPool();
-        final List<Callable<Collection<PsiElement>>> returnValueList = new ArrayList<>();
-        for (VirtualFile virtualFile : virtualFiles) {
-            final VirtualFile tmpVirtualFile = virtualFile;
-            returnValueList.add(
-                    new Callable<Collection<PsiElement>>() {
-                        @Override
-                        public Collection<PsiElement> call() throws Exception {
-                            X8lFile x8lFile = (X8lFile) (psiManager.findFile(tmpVirtualFile));
-                            if (x8lFile != null) {
-                                return findAllPsiElements(x8lFile);
-                            }
-                            return Collections.emptyList();
+        virtualFiles.parallelStream().forEach(
+                new Consumer<VirtualFile>() {
+                    @Override
+                    public void accept(VirtualFile virtualFile) {
+                        X8lFile x8lFile = (X8lFile) (psiManager.findFile(virtualFile));
+                        if (x8lFile != null) {
+                            result.addAll(findAllPsiElements(x8lFile));
                         }
                     }
-            );
-        }
-
-        try {
-            List<Future<Collection<PsiElement>>> resultFuture = executorService.invokeAll(returnValueList);
-            for (Future<Collection<PsiElement>> au : resultFuture) {
-                result.addAll(au.get());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        executorService.shutdown();
-
-        return result;
+                }
+        );
+        return new ArrayList<>(result);
     }
+//    @NotNull
+//    public static List<PsiElement> findAllPsiElements(Project project) {
+//        if (project == null) {
+//            return Collections.emptyList();
+//        }
+//        PsiManager psiManager = PsiManager.getInstance(project);
+//        List<PsiElement> result = new SmartList<>();
+//        Collection<VirtualFile> virtualFiles =
+//                FileTypeIndex.getFiles(X8lFileType.INSTANCE, GlobalSearchScope.allScope(project));
+//
+//        final ExecutorService executorService = Executors.newCachedThreadPool();
+//        final List<Callable<Collection<PsiElement>>> returnValueList = new ArrayList<>();
+//        for (VirtualFile virtualFile : virtualFiles) {
+//            final VirtualFile tmpVirtualFile = virtualFile;
+//            returnValueList.add(
+//                    new Callable<Collection<PsiElement>>() {
+//                        @Override
+//                        public Collection<PsiElement> call() throws Exception {
+//                            X8lFile x8lFile = (X8lFile) (psiManager.findFile(tmpVirtualFile));
+//                            if (x8lFile != null) {
+//                                return findAllPsiElements(x8lFile);
+//                            }
+//                            return Collections.emptyList();
+//                        }
+//                    }
+//            );
+//        }
+//
+//        try {
+//            List<Future<Collection<PsiElement>>> resultFuture = executorService.invokeAll(returnValueList);
+//            for (Future<Collection<PsiElement>> au : resultFuture) {
+//                result.addAll(au.get());
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        executorService.shutdown();
+//
+//        return result;
+//    }
 
     @NotNull
     public static Collection<PsiElement> findAllPsiElements(PsiElement element) {
         if (element == null) {
             return Collections.emptyList();
         }
-        List<PsiElement> result = new SmartList<>();
-        PsiElement[] children =
-                element.getChildren();
-
-        final ExecutorService executorService = Executors.newCachedThreadPool();
-        final List<Callable<Collection<PsiElement>>> returnValueList = new ArrayList<>();
-        for (PsiElement child : children) {
-            final PsiElement tmpChild = child;
-            returnValueList.add(
-                    new Callable<Collection<PsiElement>>() {
-                        @Override
-                        public Collection<PsiElement> call() throws Exception {
-                            if (tmpChild != null) {
-                                return findAllPsiElements(tmpChild);
-                            }
-                            return Collections.emptyList();
-                        }
-                    }
-            );
-        }
-
-        try {
-            List<Future<Collection<PsiElement>>> resultFuture = executorService.invokeAll(returnValueList);
-            for (Future<Collection<PsiElement>> au : resultFuture) {
-                result.addAll(au.get());
+        List<PsiElement> result = new ArrayList<>();
+        for (PsiElement child = element.getFirstChild(); child != null; child = child.getNextSibling()) {
+            Collection<PsiElement> childResult = findAllPsiElements(child);
+            if (!childResult.isEmpty()) {
+                result.addAll(childResult);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
-        executorService.shutdown();
-
+        result.add(element);
         return result;
+//        return PsiTreeUtil.findChildrenOfType(element, PsiElement.class);
+    }
+
+//    @NotNull
+//    public static Collection<PsiElement> findAllPsiElements(PsiElement element) {
+//        if (element == null) {
+//            return Collections.emptyList();
+//        }
+//        List<PsiElement> result = new SmartList<>();
+//        PsiElement[] children =
+//                element.getChildren();
+//
+//        final ExecutorService executorService = Executors.newCachedThreadPool();
+//        final List<Callable<Collection<PsiElement>>> returnValueList = new ArrayList<>();
+//        for (PsiElement child : children) {
+//            final PsiElement tmpChild = child;
+//            returnValueList.add(
+//                    new Callable<Collection<PsiElement>>() {
+//                        @Override
+//                        public Collection<PsiElement> call() throws Exception {
+//                            if (tmpChild != null) {
+//                                return findAllPsiElements(tmpChild);
+//                            }
+//                            return Collections.emptyList();
+//                        }
+//                    }
+//            );
+//        }
+//
+//        try {
+//            List<Future<Collection<PsiElement>>> resultFuture = executorService.invokeAll(returnValueList);
+//            for (Future<Collection<PsiElement>> au : resultFuture) {
+//                result.addAll(au.get());
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        executorService.shutdown();
+//
+//        return result;
+//    }
+
+    @NotNull
+    public static List<PsiElement> findMostRemotePsiElements(Project project, String string, IElementType iElementType) {
+        return findMostRemotePsiElements(project, createSet(string), iElementType);
     }
 
     @NotNull
-    public static List<PsiElement> findMostRemotePsiElements(Project project, String string,
+    public static List<PsiElement> findMostRemotePsiElements(Project project, Set<String> strings,
                                                              IElementType iElementType) {
         List<PsiElement> result = new SmartList<>();
         Collection<VirtualFile> virtualFiles =
@@ -119,7 +167,7 @@ public class X8lUtil {
         for (VirtualFile virtualFile : virtualFiles) {
             X8lFile x8lFile = (X8lFile) PsiManager.getInstance(project).findFile(virtualFile);
             if (x8lFile != null) {
-                result.addAll(findMostRemoteChildrenOfType(x8lFile, string, iElementType, X8L_GET_CHILD_ALL));
+                result.addAll(findMostRemoteChildrenOfType(x8lFile, strings, iElementType, X8L_GET_CHILD_ALL));
             }
         }
         return result;
@@ -128,72 +176,24 @@ public class X8lUtil {
     @NotNull
     public static List<PsiElement> findMostRemotePsiElementsIncludingTranscode(@NotNull final Project project, @NotNull final String string,
                                                                                IElementType iElementType) {
-        @SuppressWarnings("unchecked") final List<PsiElement> result = SetUniqueList.decorate(new ArrayList<PsiElement>());
+        return findMostRemotePsiElementsIncludingTranscode(
+                project
+                , createSet(
+                        string
+                        , X8lTree.untranscode(string)
+                        , X8lTree.transcodeKey(string)
+                        , X8lTree.transcodeValue(string)
+                        , X8lTree.transcodeText(string)
+                        , X8lTree.transcodeComment(string)
+                )
+                , iElementType);
+    }
 
+    @NotNull
+    public static List<PsiElement> findMostRemotePsiElementsIncludingTranscode(@NotNull final Project project, @NotNull final Set<String> strings,
+                                                                               IElementType iElementType) {
 
-        final ExecutorService executorService = Executors.newCachedThreadPool();
-        final List<Callable<Collection<PsiElement>>> returnValueList = new ArrayList<>();
-        returnValueList.add(
-                new Callable<Collection<PsiElement>>() {
-                    @Override
-                    public Collection<PsiElement> call() throws Exception {
-                        return X8lUtil.findMostRemotePsiElements(project, X8lTree.untranscode(string), iElementType);
-                    }
-                }
-        );
-        returnValueList.add(
-                new Callable<Collection<PsiElement>>() {
-                    @Override
-                    public Collection<PsiElement> call() throws Exception {
-                        return X8lUtil.findMostRemotePsiElements(project, string, iElementType);
-                    }
-                }
-        );
-        returnValueList.add(
-                new Callable<Collection<PsiElement>>() {
-                    @Override
-                    public Collection<PsiElement> call() throws Exception {
-                        return X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeKey(string), iElementType);
-                    }
-                }
-        );
-        returnValueList.add(
-                new Callable<Collection<PsiElement>>() {
-                    @Override
-                    public Collection<PsiElement> call() throws Exception {
-                        return X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeValue(string), iElementType);
-                    }
-                }
-        );
-        returnValueList.add(
-                new Callable<Collection<PsiElement>>() {
-                    @Override
-                    public Collection<PsiElement> call() throws Exception {
-                        return X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeText(string), iElementType);
-                    }
-                }
-        );
-        returnValueList.add(
-                new Callable<Collection<PsiElement>>() {
-                    @Override
-                    public Collection<PsiElement> call() throws Exception {
-                        return X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeComment(string), iElementType);
-                    }
-                }
-        );
-
-        try {
-            List<Future<Collection<PsiElement>>> resultFuture = executorService.invokeAll(returnValueList);
-            for (Future<Collection<PsiElement>> au : resultFuture) {
-                result.addAll(au.get());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        executorService.shutdown();
-
-        return new ArrayList<>(result);
+        return X8lUtil.findMostRemotePsiElements(project, strings, iElementType);
     }
 
     public static final int X8L_GET_CHILD_ALL = -1;
@@ -211,6 +211,26 @@ public class X8lUtil {
     @NotNull
     public static List<PsiElement> findMostRemoteChildrenOfType(@Nullable PsiElement element, @Nullable String string
             , @Nullable IElementType iElementType, int requiredNum) {
+        return findMostRemoteChildrenOfType(
+                element
+                , (Set<String>) (string == null ? null : createSet(string))
+                , iElementType
+                , requiredNum
+        );
+    }
+
+    /**
+     * @param element      base element
+     * @param strings      text string, if==null then can be any string.
+     * @param iElementType iElementType, if==null then can be any types.
+     * @param requiredNum  requiredNum, if requiredNum&gt;0 then will return at least requiredNum number of elements
+     *                     (instead all of elements)
+     *                     if do not have so many elements then return all of them.
+     * @return PsiElements
+     */
+    @NotNull
+    public static List<PsiElement> findMostRemoteChildrenOfType(@Nullable PsiElement element, @Nullable Set<String> strings
+            , @Nullable IElementType iElementType, int requiredNum) {
         if (element == null) {
             return Collections.emptyList();
         }
@@ -225,7 +245,7 @@ public class X8lUtil {
             if (childRequiredNum == 0) {
                 break;
             }
-            List<PsiElement> childResult = findMostRemoteChildrenOfType(child, string, iElementType, childRequiredNum);
+            List<PsiElement> childResult = findMostRemoteChildrenOfType(child, strings, iElementType, childRequiredNum);
             if (!childResult.isEmpty()) {
                 if (result == null) {
                     result = new SmartList<>();
@@ -239,7 +259,7 @@ public class X8lUtil {
         }
 
         if (iElementType == null || element.getNode().getElementType().equals(iElementType)) {
-            if (string == null || string.equals(element.getText())) {
+            if (strings == null || strings.contains(element.getText())) {
                 if (result == null) {
                     result = new SmartList<>();
                 }
@@ -249,6 +269,7 @@ public class X8lUtil {
 
         return result == null ? Collections.emptyList() : result;
     }
+
 
     /**
      * @param element      base element
@@ -260,7 +281,27 @@ public class X8lUtil {
      * @return PsiElements
      */
     @NotNull
-    public static List<PsiElement> findMostNearChildrenOfType(@Nullable PsiElement element, @Nullable String string,
+    public static List<PsiElement> findMostNearChildrenOfType(@Nullable PsiElement element, @Nullable String string
+            , @Nullable IElementType iElementType, int requiredNum) {
+        return findMostNearChildrenOfType(
+                element
+                , (Set<String>) (string == null ? null : createSet(string))
+                , iElementType
+                , requiredNum
+        );
+    }
+
+    /**
+     * @param element      base element
+     * @param strings      text string, if==null then can be any string.
+     * @param iElementType iElementType, if==null then can be any types.
+     * @param requiredNum  requiredNum, if requiredNum&gt;0 then will return at least requiredNum number of elements
+     *                     (instead all of elements)
+     *                     if do not have so many elements then return all of them.
+     * @return PsiElements
+     */
+    @NotNull
+    public static List<PsiElement> findMostNearChildrenOfType(@Nullable PsiElement element, @Nullable Set<String> strings,
                                                               @Nullable IElementType iElementType, int requiredNum) {
         if (element == null) {
             return Collections.emptyList();
@@ -272,7 +313,7 @@ public class X8lUtil {
         List<PsiElement> result = null;
 
         if (iElementType == null || element.getNode().getElementType().equals(iElementType)) {
-            if (string == null || string.equals(element.getText())) {
+            if (strings == null || strings.contains(element.getText())) {
                 if (result == null) {
                     result = new SmartList<>();
                 }
@@ -289,7 +330,7 @@ public class X8lUtil {
             if (childRequiredNum == 0) {
                 break;
             }
-            List<PsiElement> childResult = findMostNearChildrenOfType(child, string, iElementType, childRequiredNum);
+            List<PsiElement> childResult = findMostNearChildrenOfType(child, strings, iElementType, childRequiredNum);
             if (!childResult.isEmpty()) {
                 if (result == null) {
                     result = new SmartList<>();
