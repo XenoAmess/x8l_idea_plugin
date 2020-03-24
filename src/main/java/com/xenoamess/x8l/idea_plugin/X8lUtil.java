@@ -22,11 +22,10 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.function.Consumer;
 
 public class X8lUtil {
+    @SafeVarargs
     public static <T> Set<T> createSet(T... ts) {
         Set<T> res = new HashSet<>();
-        for (T t : ts) {
-            res.add(t);
-        }
+        res.addAll(Arrays.asList(ts));
         return res;
     }
 
