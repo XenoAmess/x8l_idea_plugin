@@ -22,19 +22,51 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class X8lUtil {
     @NotNull
     public static List<PsiElement> findAllPsiElements(Project project) {
+        if (project == null) {
+            return Collections.emptyList();
+        }
+        PsiManager psiManager = PsiManager.getInstance(project);
         List<PsiElement> result = new SmartList<>();
         Collection<VirtualFile> virtualFiles =
                 FileTypeIndex.getFiles(X8lFileType.INSTANCE, GlobalSearchScope.allScope(project));
+
+        final ExecutorService executorService = Executors.newCachedThreadPool();
+        final List<Callable<Collection<PsiElement>>> returnValueList = new ArrayList<>();
         for (VirtualFile virtualFile : virtualFiles) {
-            X8lFile x8lFile = (X8lFile) PsiManager.getInstance(project).findFile(virtualFile);
-            if (x8lFile != null) {
-                result.addAll(findAllPsiElements(x8lFile));
-            }
+            final VirtualFile tmpVirtualFile = virtualFile;
+            returnValueList.add(
+                    new Callable<Collection<PsiElement>>() {
+                        @Override
+                        public Collection<PsiElement> call() throws Exception {
+                            X8lFile x8lFile = (X8lFile) (psiManager.findFile(tmpVirtualFile));
+                            if (x8lFile != null) {
+                                return findAllPsiElements(x8lFile);
+                            }
+                            return Collections.emptyList();
+                        }
+                    }
+            );
         }
+
+        try {
+            List<Future<Collection<PsiElement>>> resultFuture = executorService.invokeAll(returnValueList);
+            for (Future<Collection<PsiElement>> au : resultFuture) {
+                result.addAll(au.get());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        executorService.shutdown();
+
         return result;
     }
 
@@ -43,16 +75,39 @@ public class X8lUtil {
         if (element == null) {
             return Collections.emptyList();
         }
-        List<PsiElement> result = new ArrayList<>();
-        for (PsiElement child = element.getFirstChild(); child != null; child = child.getNextSibling()) {
-            Collection<PsiElement> childResult = findAllPsiElements(child);
-            if (!childResult.isEmpty()) {
-                result.addAll(childResult);
-            }
+        List<PsiElement> result = new SmartList<>();
+        PsiElement[] children =
+                element.getChildren();
+
+        final ExecutorService executorService = Executors.newCachedThreadPool();
+        final List<Callable<Collection<PsiElement>>> returnValueList = new ArrayList<>();
+        for (PsiElement child : children) {
+            final PsiElement tmpChild = child;
+            returnValueList.add(
+                    new Callable<Collection<PsiElement>>() {
+                        @Override
+                        public Collection<PsiElement> call() throws Exception {
+                            if (tmpChild != null) {
+                                return findAllPsiElements(tmpChild);
+                            }
+                            return Collections.emptyList();
+                        }
+                    }
+            );
         }
-        result.add(element);
+
+        try {
+            List<Future<Collection<PsiElement>>> resultFuture = executorService.invokeAll(returnValueList);
+            for (Future<Collection<PsiElement>> au : resultFuture) {
+                result.addAll(au.get());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        executorService.shutdown();
+
         return result;
-//        return PsiTreeUtil.findChildrenOfType(element, PsiElement.class);
     }
 
     @NotNull
@@ -71,28 +126,73 @@ public class X8lUtil {
     }
 
     @NotNull
-    public static List<PsiElement> findMostRemotePsiElementsIncludingTranscode(Project project, String string,
+    public static List<PsiElement> findMostRemotePsiElementsIncludingTranscode(@NotNull final Project project, @NotNull final String string,
                                                                                IElementType iElementType) {
         @SuppressWarnings("unchecked") final List<PsiElement> result = SetUniqueList.decorate(new ArrayList<PsiElement>());
 
-        result.addAll(
-                X8lUtil.findMostRemotePsiElements(project, X8lTree.untranscode(string), iElementType)
+
+        final ExecutorService executorService = Executors.newCachedThreadPool();
+        final List<Callable<Collection<PsiElement>>> returnValueList = new ArrayList<>();
+        returnValueList.add(
+                new Callable<Collection<PsiElement>>() {
+                    @Override
+                    public Collection<PsiElement> call() throws Exception {
+                        return X8lUtil.findMostRemotePsiElements(project, X8lTree.untranscode(string), iElementType);
+                    }
+                }
         );
-        result.addAll(
-                X8lUtil.findMostRemotePsiElements(project, string, iElementType)
+        returnValueList.add(
+                new Callable<Collection<PsiElement>>() {
+                    @Override
+                    public Collection<PsiElement> call() throws Exception {
+                        return X8lUtil.findMostRemotePsiElements(project, string, iElementType);
+                    }
+                }
         );
-        result.addAll(
-                X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeKey(string), iElementType)
+        returnValueList.add(
+                new Callable<Collection<PsiElement>>() {
+                    @Override
+                    public Collection<PsiElement> call() throws Exception {
+                        return X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeKey(string), iElementType);
+                    }
+                }
         );
-        result.addAll(
-                X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeValue(string), iElementType)
+        returnValueList.add(
+                new Callable<Collection<PsiElement>>() {
+                    @Override
+                    public Collection<PsiElement> call() throws Exception {
+                        return X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeValue(string), iElementType);
+                    }
+                }
         );
-        result.addAll(
-                X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeText(string), iElementType)
+        returnValueList.add(
+                new Callable<Collection<PsiElement>>() {
+                    @Override
+                    public Collection<PsiElement> call() throws Exception {
+                        return X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeText(string), iElementType);
+                    }
+                }
         );
-        result.addAll(
-                X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeComment(string), iElementType)
+        returnValueList.add(
+                new Callable<Collection<PsiElement>>() {
+                    @Override
+                    public Collection<PsiElement> call() throws Exception {
+                        return X8lUtil.findMostRemotePsiElements(project, X8lTree.transcodeComment(string), iElementType);
+                    }
+                }
         );
+
+        try {
+            List<Future<Collection<PsiElement>>> resultFuture = executorService.invokeAll(returnValueList);
+            for (Future<Collection<PsiElement>> au : resultFuture) {
+                result.addAll(au.get());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        executorService.shutdown();
+
         return new ArrayList<>(result);
     }
 
