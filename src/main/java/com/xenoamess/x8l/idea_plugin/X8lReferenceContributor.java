@@ -4,6 +4,7 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.patterns.PlatformPatterns;
 import com.intellij.psi.*;
 import com.intellij.util.ProcessingContext;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -19,21 +20,7 @@ public class X8lReferenceContributor extends PsiReferenceContributor {
                         literalExpression.getValue().toString() : null;
                 if (value != null
                 ) {
-                    boolean isPrimitive = false;
-                    try {
-                        Double.parseDouble(value);
-                        isPrimitive = true;
-                    } catch (Exception e) {
-                    }
-                    if (!isPrimitive) {
-                        try {
-                            Boolean.parseBoolean(value);
-                            isPrimitive = true;
-                        } catch (Exception e) {
-                        }
-                    }
-
-                    return isPrimitive ?
+                    return ifPrimitiveValue(value) ?
                             PsiReference.EMPTY_ARRAY :
                             new PsiReference[]{
                                     new X8lReference(element, new TextRange(1, 1 + value.length()))
@@ -50,5 +37,25 @@ public class X8lReferenceContributor extends PsiReferenceContributor {
                 PlatformPatterns.psiElement(),
                 PSI_REFERENCE_PROVIDER
         );
+    }
+
+    public static boolean ifPrimitiveValue(String value) {
+        if (StringUtils.isNumeric(value)) {
+            return true;
+        }
+        if (StringUtils.isNumeric(value)) {
+            return true;
+        }
+        try {
+            double d = Double.parseDouble(value);
+            if (!Double.isNaN(d)) {
+                return true;
+            }
+        } catch (Exception e) {
+        }
+        if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
+            return true;
+        }
+        return false;
     }
 }

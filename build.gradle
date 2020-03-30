@@ -1,13 +1,13 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.4.16'
+    id 'org.jetbrains.intellij' version '0.4.17'
 
     id 'application'
     id 'maven'
 }
 
 group 'com.xenoamess'
-version '0.0.15'
+version '0.0.16'
 
 sourceSets {
     main {
@@ -45,7 +45,7 @@ dependencies {
 // See https://www.jetbrains.com/intellij-repository/snapshots/
 intellij {
 //    version "IC-172.2103.15"
-    version "IU-201.6073.9-EAP-SNAPSHOT"
+    version "IU-201.6668.13-EAP-SNAPSHOT"
 //    https://www.jetbrains.com/intellij-repository/snapshots/com/jetbrains/intellij/idea/ideaIU/201-EAP-SNAPSHOT/ideaIU-201-EAP-SNAPSHOT.pom
 }
 patchPluginXml {
