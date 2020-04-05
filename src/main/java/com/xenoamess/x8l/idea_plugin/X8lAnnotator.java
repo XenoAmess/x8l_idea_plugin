@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import static com.xenoamess.x8l.dealers.JsonDealer.ARRAY_ID_ATTRIBUTE;
+import static com.xenoamess.x8l.idea_plugin.X8lReferenceContributor.ifPrimitiveValue;
 import static com.xenoamess.x8l.idea_plugin.X8lSyntaxHighlighter.getTokenHighlightsStatic;
 import static com.xenoamess.x8l.idea_plugin.X8lUtil.getStringFromElement;
 
@@ -39,6 +40,10 @@ public class X8lAnnotator implements Annotator {
         String string = getStringFromElement(element);
 
         if (ifIllegalString(element, string)) {
+            return;
+        }
+
+        if (ifPrimitiveValue(string)) {
             return;
         }
 

@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.List;
 
+import static com.xenoamess.x8l.idea_plugin.X8lReferenceContributor.ifPrimitiveValue;
 import static com.xenoamess.x8l.idea_plugin.X8lUtil.findMostRemotePsiElementsIncludingTranscode;
 import static com.xenoamess.x8l.idea_plugin.X8lUtil.getStringFromElement;
 
@@ -25,6 +26,10 @@ public class X8lLineMarkerProvider extends RelatedItemLineMarkerProvider {
         String string = getStringFromElement(element);
 
         if (ifIllegalString(element, string)) {
+            return;
+        }
+
+        if (ifPrimitiveValue(string)) {
             return;
         }
 
