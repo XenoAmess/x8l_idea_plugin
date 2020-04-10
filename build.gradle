@@ -8,7 +8,7 @@ plugins {
 }
 
 group 'com.xenoamess'
-version '0.0.17'
+version '0.0.18-SNAPSHOT'
 
 sourceSets {
     main {
@@ -46,7 +46,7 @@ dependencies {
 // See https://www.jetbrains.com/intellij-repository/snapshots/
 intellij {
 //    version "IC-172.2103.15"
-    version "IU-201.6668.13-EAP-SNAPSHOT"
+    version "IU-201.6668.121"
 //    https://www.jetbrains.com/intellij-repository/snapshots/com/jetbrains/intellij/idea/ideaIU/201-EAP-SNAPSHOT/ideaIU-201-EAP-SNAPSHOT.pom
 }
 patchPluginXml {
