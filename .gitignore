@@ -59,3 +59,4 @@ replay_pid*
 
 **/pom.xml.versionsBackup
 gradle.properties
+!gradle-wrapper.jar
