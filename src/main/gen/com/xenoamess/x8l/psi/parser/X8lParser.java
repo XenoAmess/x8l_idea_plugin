@@ -157,7 +157,7 @@ public class X8lParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
-    // (TEXT_NODE (COMMENT_NODE|CONTENT_NODE))* TEXT_NODE
+    // (TEXT_NODE (TEXT_SEPARATOR TEXT_NODE)* (COMMENT_NODE|CONTENT_NODE))* TEXT_NODE (TEXT_SEPARATOR TEXT_NODE)*
     public static boolean CONTENT_NODE_CHILDREN_AREA(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "CONTENT_NODE_CHILDREN_AREA"))
             return false;
@@ -165,11 +165,12 @@ public class X8lParser implements PsiParser, LightPsiParser {
         Marker m = enter_section_(b, l, _NONE_, CONTENT_NODE_CHILDREN_AREA, "<content node children area>");
         r = CONTENT_NODE_CHILDREN_AREA_0(b, l + 1);
         r = r && TEXT_NODE(b, l + 1);
+        r = r && CONTENT_NODE_CHILDREN_AREA_2(b, l + 1);
         exit_section_(b, l, m, r, false, null);
         return r;
     }
 
-    // (TEXT_NODE (COMMENT_NODE|CONTENT_NODE))*
+    // (TEXT_NODE (TEXT_SEPARATOR TEXT_NODE)* (COMMENT_NODE|CONTENT_NODE))*
     private static boolean CONTENT_NODE_CHILDREN_AREA_0(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "CONTENT_NODE_CHILDREN_AREA_0"))
             return false;
@@ -183,7 +184,7 @@ public class X8lParser implements PsiParser, LightPsiParser {
         return true;
     }
 
-    // TEXT_NODE (COMMENT_NODE|CONTENT_NODE)
+    // TEXT_NODE (TEXT_SEPARATOR TEXT_NODE)* (COMMENT_NODE|CONTENT_NODE)
     private static boolean CONTENT_NODE_CHILDREN_AREA_0_0(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "CONTENT_NODE_CHILDREN_AREA_0_0"))
             return false;
@@ -191,18 +192,71 @@ public class X8lParser implements PsiParser, LightPsiParser {
         Marker m = enter_section_(b);
         r = TEXT_NODE(b, l + 1);
         r = r && CONTENT_NODE_CHILDREN_AREA_0_0_1(b, l + 1);
+        r = r && CONTENT_NODE_CHILDREN_AREA_0_0_2(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // (TEXT_SEPARATOR TEXT_NODE)*
+    private static boolean CONTENT_NODE_CHILDREN_AREA_0_0_1(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "CONTENT_NODE_CHILDREN_AREA_0_0_1"))
+            return false;
+        while (true) {
+            int c = current_position_(b);
+            if (!CONTENT_NODE_CHILDREN_AREA_0_0_1_0(b, l + 1))
+                break;
+            if (!empty_element_parsed_guard_(b, "CONTENT_NODE_CHILDREN_AREA_0_0_1", c))
+                break;
+        }
+        return true;
+    }
+
+    // TEXT_SEPARATOR TEXT_NODE
+    private static boolean CONTENT_NODE_CHILDREN_AREA_0_0_1_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "CONTENT_NODE_CHILDREN_AREA_0_0_1_0"))
+            return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeToken(b, TEXT_SEPARATOR);
+        r = r && TEXT_NODE(b, l + 1);
         exit_section_(b, m, null, r);
         return r;
     }
 
     // COMMENT_NODE|CONTENT_NODE
-    private static boolean CONTENT_NODE_CHILDREN_AREA_0_0_1(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "CONTENT_NODE_CHILDREN_AREA_0_0_1"))
+    private static boolean CONTENT_NODE_CHILDREN_AREA_0_0_2(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "CONTENT_NODE_CHILDREN_AREA_0_0_2"))
             return false;
         boolean r;
         r = COMMENT_NODE(b, l + 1);
         if (!r)
             r = CONTENT_NODE(b, l + 1);
+        return r;
+    }
+
+    // (TEXT_SEPARATOR TEXT_NODE)*
+    private static boolean CONTENT_NODE_CHILDREN_AREA_2(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "CONTENT_NODE_CHILDREN_AREA_2"))
+            return false;
+        while (true) {
+            int c = current_position_(b);
+            if (!CONTENT_NODE_CHILDREN_AREA_2_0(b, l + 1))
+                break;
+            if (!empty_element_parsed_guard_(b, "CONTENT_NODE_CHILDREN_AREA_2", c))
+                break;
+        }
+        return true;
+    }
+
+    // TEXT_SEPARATOR TEXT_NODE
+    private static boolean CONTENT_NODE_CHILDREN_AREA_2_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "CONTENT_NODE_CHILDREN_AREA_2_0"))
+            return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeToken(b, TEXT_SEPARATOR);
+        r = r && TEXT_NODE(b, l + 1);
+        exit_section_(b, m, null, r);
         return r;
     }
 

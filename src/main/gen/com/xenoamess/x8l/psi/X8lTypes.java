@@ -32,6 +32,7 @@ public interface X8lTypes {
     IElementType RIGHT_BRACKET = new X8lTokenType("RIGHT_BRACKET");
     IElementType SEPARATOR = new X8lTokenType("SEPARATOR");
     IElementType TEXT_NODE_CONTENT_STRING = new X8lTokenType("TEXT_NODE_CONTENT_STRING");
+    IElementType TEXT_SEPARATOR = new X8lTokenType("TEXT_SEPARATOR");
     IElementType WHITE_SPACE_CONTENT_STRING = new X8lTokenType("WHITE_SPACE_CONTENT_STRING");
 
     class Factory {

@@ -28,10 +28,11 @@ KEY_CHARACTER=[^ \s=<>%] | "%". | "%"\R
 //but VALUE_CHARACTER can contain '='
 VALUE_CHARACTER=[^ \s<>%] | "%". | "%"\R
 SEPARATOR=[=]
-TEXT_CHARACTER=[^<>%] | "%". | "%"\R
+TEXT_CHARACTER=[^<>%&] | "%". | "%"\R
 COMMENT_CHARACTER=[^>%] | "%". | "%"\R
 LEFT_BRACKET = "<"
 RIGHT_BRACKET = ">"
+TEXT_SEPARATOR = "&"
 
 
 %state HEAD_AREA
@@ -42,6 +43,7 @@ RIGHT_BRACKET = ">"
 
 %%
 <YYINITIAL>         {TEXT_CHARACTER}+                                          { yybegin(YYINITIAL); return X8lTypes.TEXT_NODE_CONTENT_STRING; }
+<YYINITIAL>         {TEXT_SEPARATOR}                                          { yybegin(YYINITIAL); return X8lTypes.TEXT_SEPARATOR; }
 
 <YYINITIAL>         {LEFT_BRACKET}                                               { yybegin(HEAD_AREA); return X8lTypes.LEFT_BRACKET; }
 <YYINITIAL>         {LEFT_BRACKET}{WHITE_SPACE}*{LEFT_BRACKET}                   { yybegin(COMMENT_AREA); return X8lTypes.COMMENT_NODE_LEFT_BRACKET; }
