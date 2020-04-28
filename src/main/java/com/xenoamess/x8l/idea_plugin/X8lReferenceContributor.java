@@ -53,7 +53,7 @@ public class X8lReferenceContributor extends PsiReferenceContributor {
             }
         } catch (Exception e) {
         }
-        if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
+        if ("true".equalsIgnoreCase(value) || "false".equalsIgnoreCase(value)) {
             return true;
         }
         return false;

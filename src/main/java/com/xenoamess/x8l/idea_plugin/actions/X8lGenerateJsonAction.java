@@ -16,7 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class X8lGenerateJsonAction extends X8lFileAction {
+public class X8lGenerateJsonAction extends AbstractX8lFileAction {
 
     @Override
     public void doJob(@NotNull X8lTree x8lTree) {

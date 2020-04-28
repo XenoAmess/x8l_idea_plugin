@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 
-public class JsonGenerateX8lAction extends X8lFileAction {
+public class JsonGenerateX8lAction extends AbstractX8lFileAction {
     public static final String ORIGINAL_PATH_END = ".json";
 
     @Override

@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 @SuppressWarnings("AlibabaAbstractClassShouldStartWithAbstractNaming")
-public abstract class X8lFileAction extends AnAction {
+public abstract class AbstractX8lFileAction extends AnAction {
     @Override
     public void update(AnActionEvent event) {
         // Set the availability based on whether a project is open
