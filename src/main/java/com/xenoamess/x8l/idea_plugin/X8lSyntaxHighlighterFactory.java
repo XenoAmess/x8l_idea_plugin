@@ -6,6 +6,9 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lSyntaxHighlighterFactory extends SyntaxHighlighterFactory {
     @NotNull
     @Override

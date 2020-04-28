@@ -4,6 +4,9 @@ import icons.X8lIcons;
 
 import javax.swing.*;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lDataCenter {
     public static final String X8L_LANGUAGE_EXTENSION = "x8l";
     public static final String X8L_LANGUAGE_NAME = "X8l";

@@ -16,6 +16,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lGenerateJsonAction extends AbstractX8lFileAction {
 
     @Override

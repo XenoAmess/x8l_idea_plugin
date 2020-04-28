@@ -7,11 +7,16 @@ import com.xenoamess.x8l.idea_plugin.X8lDataCenter;
 import com.xenoamess.x8l.psi.X8lContentNodeChildrenArea;
 import com.xenoamess.x8l.psi.X8lElementFactory;
 import com.xenoamess.x8l.psi.X8lTypes;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lContentNodeChildrenAreaUtil {
+    @SuppressWarnings({"SameReturnValue", "unused"})
     public static IElementType getTokenType(final X8lContentNodeChildrenArea element) {
         return X8lTypes.CONTENT_NODE_CHILDREN_AREA;
     }
@@ -43,7 +48,7 @@ public class X8lContentNodeChildrenAreaUtil {
                 return element.getValue();
             }
 
-            @Nullable
+            @NotNull
             @Override
             public String getLocationString() {
                 return element.getContainingFile().getName();

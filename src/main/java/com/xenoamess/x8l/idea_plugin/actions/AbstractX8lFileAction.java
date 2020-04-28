@@ -16,7 +16,9 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-@SuppressWarnings("AlibabaAbstractClassShouldStartWithAbstractNaming")
+/**
+ * @author XenoAmess
+ */
 public abstract class AbstractX8lFileAction extends AnAction {
     @Override
     public void update(AnActionEvent event) {
@@ -77,5 +79,9 @@ public abstract class AbstractX8lFileAction extends AnAction {
         this.saveX8lTreeToFile(x8lTree, event);
     }
 
+    /**
+     * what should this action do with the x8lTree
+     * @param x8lTree x8lTree gotten from the event.
+     */
     public abstract void doJob(@NotNull X8lTree x8lTree);
 }

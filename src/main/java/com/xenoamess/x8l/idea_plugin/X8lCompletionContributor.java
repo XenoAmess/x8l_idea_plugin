@@ -7,6 +7,9 @@ import com.intellij.util.ProcessingContext;
 import com.xenoamess.x8l.psi.X8lTypes;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lCompletionContributor extends CompletionContributor {
     public X8lCompletionContributor() {
         extend(CompletionType.BASIC,

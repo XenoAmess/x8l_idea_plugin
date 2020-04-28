@@ -7,6 +7,9 @@ import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lRefactoringSupportProvider extends RefactoringSupportProvider {
     protected static final IElementType[] I_ELEMENT_TYPES = X8lAnnotator.I_ELEMENT_TYPES;
 

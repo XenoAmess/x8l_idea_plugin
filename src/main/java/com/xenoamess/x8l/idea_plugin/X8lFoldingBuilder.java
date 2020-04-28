@@ -19,7 +19,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-
+/**
+ * @author XenoAmess
+ */
 public class X8lFoldingBuilder extends FoldingBuilderEx implements DumbAware {
     @NotNull
     @Override
@@ -92,6 +94,7 @@ public class X8lFoldingBuilder extends FoldingBuilderEx implements DumbAware {
         } else if (psiElement instanceof X8lContentNodeHeadArea) {
             X8lContentNodeHeadArea element = (X8lContentNodeHeadArea) psiElement;
             List<X8lContentNodeAttribute> x8lContentNodeAttributeList = element.getContentNodeAttributeList();
+            //noinspection UnnecessaryLocalVariable
             String keyF = StringUtils.substring(x8lContentNodeAttributeList.isEmpty() ? "" :
                             x8lContentNodeAttributeList.get(0).getContentNodeAttributeKey().getText().trim(), 0,
                     maxPlaceHolderLength);

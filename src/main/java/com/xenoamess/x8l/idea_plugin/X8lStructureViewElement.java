@@ -12,6 +12,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lStructureViewElement implements StructureViewTreeElement, SortableTreeElement {
     private final NavigatablePsiElement myElement;
 

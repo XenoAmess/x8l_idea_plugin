@@ -14,6 +14,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 
+/**
+ * @author XenoAmess
+ */
 public class JsonGenerateX8lAction extends AbstractX8lFileAction {
     public static final String ORIGINAL_PATH_END = ".json";
 
@@ -68,6 +71,7 @@ public class JsonGenerateX8lAction extends AbstractX8lFileAction {
         boolean result = true;
         try {
             genFile = new File(genFilePath);
+            //noinspection ResultOfMethodCallIgnored
             genFile.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();

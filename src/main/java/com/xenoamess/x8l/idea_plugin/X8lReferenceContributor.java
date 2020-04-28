@@ -7,7 +7,9 @@ import com.intellij.util.ProcessingContext;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
-
+/**
+ * @author XenoAmess
+ */
 public class X8lReferenceContributor extends PsiReferenceContributor {
     public static final PsiReferenceProvider PSI_REFERENCE_PROVIDER = new PsiReferenceProvider() {
         @NotNull
@@ -18,8 +20,7 @@ public class X8lReferenceContributor extends PsiReferenceContributor {
                 PsiLiteralValue literalExpression = (PsiLiteralValue) element;
                 String value = literalExpression.getValue() instanceof String ?
                         literalExpression.getValue().toString() : null;
-                if (value != null
-                ) {
+                if (value != null) {
                     return ifPrimitiveValue(value) ?
                             PsiReference.EMPTY_ARRAY :
                             new PsiReference[]{
@@ -39,7 +40,7 @@ public class X8lReferenceContributor extends PsiReferenceContributor {
         );
     }
 
-    public static boolean ifPrimitiveValue(String value) {
+    public static boolean ifPrimitiveValue(@NotNull String value) {
         if (StringUtils.isNumeric(value)) {
             return true;
         }
@@ -51,11 +52,9 @@ public class X8lReferenceContributor extends PsiReferenceContributor {
             if (!Double.isNaN(d)) {
                 return true;
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
+            //do nothing
         }
-        if ("true".equalsIgnoreCase(value) || "false".equalsIgnoreCase(value)) {
-            return true;
-        }
-        return false;
+        return StringUtils.equalsAnyIgnoreCase(value, "true", "false");
     }
 }

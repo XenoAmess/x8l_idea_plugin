@@ -12,6 +12,9 @@ import org.jetbrains.annotations.NotNull;
 
 import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAttributesKey;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey SEPARATOR =
             createTextAttributesKey("X8L_SEPARATOR", DefaultLanguageHighlighterColors.OPERATION_SIGN);

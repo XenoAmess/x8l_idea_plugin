@@ -22,6 +22,9 @@ import java.util.List;
 
 import static com.xenoamess.x8l.idea_plugin.X8lAnnotator.I_ELEMENT_TYPES;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lReference extends AttributeValueSelfReference implements PsiPolyVariantReference {
     private final String key;
 

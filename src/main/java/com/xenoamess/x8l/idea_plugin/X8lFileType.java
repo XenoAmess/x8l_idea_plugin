@@ -6,6 +6,9 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lFileType extends LanguageFileType {
     public static final X8lFileType INSTANCE = new X8lFileType();
 
@@ -16,7 +19,7 @@ public class X8lFileType extends LanguageFileType {
     @NotNull
     @Override
     public String getName() {
-        return "X8l file";
+        return "X8l File";
     }
 
     @NotNull

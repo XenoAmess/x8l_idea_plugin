@@ -5,6 +5,9 @@ import com.xenoamess.x8l.idea_plugin.X8lLanguage;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lTokenType extends IElementType {
 
     public X8lTokenType(@NotNull @NonNls String debugName) {

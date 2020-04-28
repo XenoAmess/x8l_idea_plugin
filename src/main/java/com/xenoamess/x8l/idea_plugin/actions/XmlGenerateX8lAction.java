@@ -14,6 +14,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 
+/**
+ * @author XenoAmess
+ */
 public class XmlGenerateX8lAction extends AbstractX8lFileAction {
     public static final String ORIGINAL_PATH_END = ".xml";
 
