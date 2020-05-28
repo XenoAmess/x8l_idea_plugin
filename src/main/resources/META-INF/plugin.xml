@@ -34,7 +34,9 @@
 <br/>
 <p><a href="https://github.com/XenoAmess/x8l_idea_plugin/issues">Send Feedback</a></p>
     ]]></description>
-
+    <change-notes>
+        try to delete until-build version number so we can run it in newer ide.
+    </change-notes>
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
     <!-- See https://github.com/JetBrains/gradle-intellij-plugin/-->
     <!-- See https://www.jetbrains.org/intellij/sdk/docs/reference_guide/intellij_artifacts.html-->
@@ -58,7 +60,7 @@
         <fileTypeFactory
                 implementation="com.xenoamess.x8l.idea_plugin.X8lFileTypeFactory"/>
         <fileType
-                name="X8l file"
+                name="X8l File"
                 implementationClass="com.xenoamess.x8l.idea_plugin.X8lFileType"
                 fieldName="INSTANCE"
                 language="X8l"
