@@ -50,8 +50,7 @@
     <depends
             optional="true"
             config-file="pluginWithJava.xml"
-    >com.intellij.modules.java
-    </depends>
+    >com.intellij.modules.java</depends>
 
     <!--    <depends>com.intellij.modules.xml</depends>-->
     <!--    <depends>com.intellij.modules.json</depends>-->
