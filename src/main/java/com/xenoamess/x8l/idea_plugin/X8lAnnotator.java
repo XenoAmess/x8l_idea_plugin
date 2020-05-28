@@ -19,7 +19,9 @@ import static com.xenoamess.x8l.idea_plugin.X8lReferenceContributor.ifPrimitiveV
 import static com.xenoamess.x8l.idea_plugin.X8lSyntaxHighlighter.getTokenHighlightsStatic;
 import static com.xenoamess.x8l.idea_plugin.X8lUtil.getStringFromElement;
 
-
+/**
+ * @author XenoAmess
+ */
 public class X8lAnnotator implements Annotator {
     protected static final IElementType[] I_ELEMENT_TYPES = new IElementType[]{
             X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY,

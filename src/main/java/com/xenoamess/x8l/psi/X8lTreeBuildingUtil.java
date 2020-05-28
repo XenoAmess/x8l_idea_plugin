@@ -5,6 +5,9 @@ import com.xenoamess.x8l.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lTreeBuildingUtil {
     @NotNull
     public static X8lTree buildX8lTreeFromX8lFile(@Nullable X8lFile x8lFile) {
@@ -68,17 +71,20 @@ public class X8lTreeBuildingUtil {
         }
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     @NotNull
     public static TextNode buildTextNode(@NotNull ContentNode parentNode, @NotNull X8lTextNode x8lTextNode) {
         return new TextNode(parentNode, x8lTextNode.getValue());
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     @NotNull
     public static CommentNode buildCommentNode(@NotNull ContentNode parentNode,
                                                @NotNull X8lCommentNode x8lCommentNode) {
         return new CommentNode(parentNode, x8lCommentNode.getValue());
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     @NotNull
     public static ContentNode buildContentNode(@NotNull ContentNode parentNode,
                                                @NotNull X8lContentNode x8lContentNode) {

@@ -16,13 +16,18 @@ import static com.xenoamess.x8l.idea_plugin.X8lReferenceContributor.ifPrimitiveV
 import static com.xenoamess.x8l.idea_plugin.X8lUtil.findMostRemotePsiElementsIncludingTranscode;
 import static com.xenoamess.x8l.idea_plugin.X8lUtil.getStringFromElement;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lLineMarkerProvider extends RelatedItemLineMarkerProvider {
 
     protected static final IElementType[] I_ELEMENT_TYPES = X8lAnnotator.I_ELEMENT_TYPES;
 
     @Override
-    protected void collectNavigationMarkers(@NotNull PsiElement element,
-                                            @NotNull Collection<? super RelatedItemLineMarkerInfo> result) {
+    protected void collectNavigationMarkers(
+            @NotNull PsiElement element,
+            @NotNull Collection<? super RelatedItemLineMarkerInfo<?>> result
+    ) {
         String string = getStringFromElement(element);
 
         if (ifIllegalString(element, string)) {
@@ -48,7 +53,7 @@ public class X8lLineMarkerProvider extends RelatedItemLineMarkerProvider {
             List<PsiElement> newElements = new SmartList<>();
 
             for (PsiElement psiElement : elements) {
-                if (!(psiElement == element)) {
+                if (psiElement != element) {
                     newElements.add(psiElement);
                 }
             }

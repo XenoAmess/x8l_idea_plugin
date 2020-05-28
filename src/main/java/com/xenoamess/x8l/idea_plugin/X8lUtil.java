@@ -21,12 +21,13 @@ import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.function.Consumer;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lUtil {
     @SafeVarargs
     public static <T> Set<T> createSet(T... ts) {
-        Set<T> res = new HashSet<>();
-        res.addAll(Arrays.asList(ts));
-        return res;
+        return new HashSet<>(Arrays.asList(ts));
     }
 
     @NotNull
@@ -153,7 +154,8 @@ public class X8lUtil {
 //    }
 
     @NotNull
-    public static List<PsiElement> findMostRemotePsiElements(Project project, String string, IElementType iElementType) {
+    public static List<PsiElement> findMostRemotePsiElements(Project project, String string,
+                                                             IElementType iElementType) {
         return findMostRemotePsiElements(project, createSet(string), iElementType);
     }
 
@@ -173,7 +175,8 @@ public class X8lUtil {
     }
 
     @NotNull
-    public static List<PsiElement> findMostRemotePsiElementsIncludingTranscode(@NotNull final Project project, @NotNull final String string,
+    public static List<PsiElement> findMostRemotePsiElementsIncludingTranscode(@NotNull final Project project,
+                                                                               @NotNull final String string,
                                                                                IElementType iElementType) {
         return findMostRemotePsiElementsIncludingTranscode(
                 project
@@ -189,13 +192,15 @@ public class X8lUtil {
     }
 
     @NotNull
-    public static List<PsiElement> findMostRemotePsiElementsIncludingTranscode(@NotNull final Project project, @NotNull final Set<String> strings,
+    public static List<PsiElement> findMostRemotePsiElementsIncludingTranscode(@NotNull final Project project,
+                                                                               @NotNull final Set<String> strings,
                                                                                IElementType iElementType) {
 
         return X8lUtil.findMostRemotePsiElements(project, strings, iElementType);
     }
 
     public static final int X8L_GET_CHILD_ALL = -1;
+    @SuppressWarnings("unused")
     public static final int X8L_GET_CHILD_NONE = 0;
 
     /**
@@ -208,13 +213,17 @@ public class X8lUtil {
      * @return PsiElements
      */
     @NotNull
-    public static List<PsiElement> findMostRemoteChildrenOfType(@Nullable PsiElement element, @Nullable String string
-            , @Nullable IElementType iElementType, int requiredNum) {
+    public static List<PsiElement> findMostRemoteChildrenOfType(
+            @Nullable PsiElement element,
+            @Nullable String string,
+            @Nullable IElementType iElementType,
+            int requiredNum
+    ) {
         return findMostRemoteChildrenOfType(
-                element
-                , (Set<String>) (string == null ? null : createSet(string))
-                , iElementType
-                , requiredNum
+                element,
+                (string == null ? null : createSet(string)),
+                iElementType,
+                requiredNum
         );
     }
 
@@ -228,7 +237,8 @@ public class X8lUtil {
      * @return PsiElements
      */
     @NotNull
-    public static List<PsiElement> findMostRemoteChildrenOfType(@Nullable PsiElement element, @Nullable Set<String> strings
+    public static List<PsiElement> findMostRemoteChildrenOfType(@Nullable PsiElement element,
+                                                                @Nullable Set<String> strings
             , @Nullable IElementType iElementType, int requiredNum) {
         if (element == null) {
             return Collections.emptyList();
@@ -280,13 +290,17 @@ public class X8lUtil {
      * @return PsiElements
      */
     @NotNull
-    public static List<PsiElement> findMostNearChildrenOfType(@Nullable PsiElement element, @Nullable String string
-            , @Nullable IElementType iElementType, int requiredNum) {
+    public static List<PsiElement> findMostNearChildrenOfType(
+            @Nullable PsiElement element,
+            @Nullable String string,
+            @Nullable IElementType iElementType,
+            int requiredNum
+    ) {
         return findMostNearChildrenOfType(
-                element
-                , (Set<String>) (string == null ? null : createSet(string))
-                , iElementType
-                , requiredNum
+                element,
+                (string == null ? null : createSet(string)),
+                iElementType,
+                requiredNum
         );
     }
 
@@ -300,7 +314,8 @@ public class X8lUtil {
      * @return PsiElements
      */
     @NotNull
-    public static List<PsiElement> findMostNearChildrenOfType(@Nullable PsiElement element, @Nullable Set<String> strings,
+    public static List<PsiElement> findMostNearChildrenOfType(@Nullable PsiElement element,
+                                                              @Nullable Set<String> strings,
                                                               @Nullable IElementType iElementType, int requiredNum) {
         if (element == null) {
             return Collections.emptyList();
@@ -341,7 +356,7 @@ public class X8lUtil {
         return result == null ? Collections.emptyList() : result;
     }
 
-    protected static int calculateRequiredNum(int requiredNum, List list) {
+    protected static <T> int calculateRequiredNum(int requiredNum, List<T> list) {
         int listSize = getSize(list);
         if (requiredNum < 0) {
             return -1;
@@ -352,7 +367,7 @@ public class X8lUtil {
         return requiredNum - listSize;
     }
 
-    protected static int getSize(List list) {
+    protected static <T> int getSize(List<T> list) {
         if (list == null) {
             return 0;
         }

@@ -9,15 +9,16 @@ import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.TokenType;
-import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
 import com.xenoamess.x8l.psi.X8lFile;
 import com.xenoamess.x8l.psi.X8lTypes;
 import com.xenoamess.x8l.psi.parser.X8lParser;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lParserDefinition implements ParserDefinition {
     public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
     public static final TokenSet COMMENTS = TokenSet.create(X8lTypes.COMMENT_NODE);
@@ -65,7 +66,7 @@ public class X8lParserDefinition implements ParserDefinition {
     }
 
     @Override
-    @SuppressWarnings({"deprecation", "AliDeprecation"})
+    @SuppressWarnings({"deprecation"})
     public SpaceRequirements spaceExistanceTypeBetweenTokens(ASTNode left, ASTNode right) {
         //        if (checkeElementTypeAllowSpaceBesides(left.getElementType()) && checkeElementTypeAllowSpaceBesides
         //        (right.getElementType())) {
@@ -83,27 +84,27 @@ public class X8lParserDefinition implements ParserDefinition {
         return this.spaceExistanceTypeBetweenTokens(left, right);
     }
 
-    public static boolean checkeElementTypeAllowSpaceBesides(@Nullable IElementType type) {
-        if (X8lTypes.TEXT_NODE.equals(type)) {
-            return false;
-        }
-        if (X8lTypes.TEXT_NODE_CONTENT.equals(type)) {
-            return false;
-        }
-        if (X8lTypes.TEXT_NODE_CONTENT_STRING.equals(type)) {
-            return false;
-        }
-        if (X8lTypes.COMMENT_NODE_CONTENT.equals(type)) {
-            return false;
-        }
-        if (X8lTypes.COMMENT_NODE_CONTENT_STRING.equals(type)) {
-            return false;
-        }
-        if (X8lTypes.CONTENT_NODE_HEAD_AREA.equals(type)) {
-            return false;
-        }
-        return !X8lTypes.CONTENT_NODE_CHILDREN_AREA.equals(type);
-    }
+//    public static boolean checkeElementTypeAllowSpaceBesides(@Nullable IElementType type) {
+//        if (X8lTypes.TEXT_NODE.equals(type)) {
+//            return false;
+//        }
+//        if (X8lTypes.TEXT_NODE_CONTENT.equals(type)) {
+//            return false;
+//        }
+//        if (X8lTypes.TEXT_NODE_CONTENT_STRING.equals(type)) {
+//            return false;
+//        }
+//        if (X8lTypes.COMMENT_NODE_CONTENT.equals(type)) {
+//            return false;
+//        }
+//        if (X8lTypes.COMMENT_NODE_CONTENT_STRING.equals(type)) {
+//            return false;
+//        }
+//        if (X8lTypes.CONTENT_NODE_HEAD_AREA.equals(type)) {
+//            return false;
+//        }
+//        return !X8lTypes.CONTENT_NODE_CHILDREN_AREA.equals(type);
+//    }
 
     @NotNull
     @Override

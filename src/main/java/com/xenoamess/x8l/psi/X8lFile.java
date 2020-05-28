@@ -7,6 +7,9 @@ import com.xenoamess.x8l.idea_plugin.X8lFileType;
 import com.xenoamess.x8l.idea_plugin.X8lLanguage;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lFile extends PsiFileBase {
 //    private X8lTree x8lTree = null;
 

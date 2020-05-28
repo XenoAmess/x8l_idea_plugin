@@ -15,6 +15,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lFindUsagesProvider implements FindUsagesProvider {
     @Nullable
     @Override
@@ -33,6 +36,7 @@ public class X8lFindUsagesProvider implements FindUsagesProvider {
 
         try {
             //java:
+            //noinspection rawtypes
             Class javaClass = Class.forName("com.intellij.psi.JavaTokenType");
             //
             identifierTokens.add(
@@ -52,9 +56,8 @@ public class X8lFindUsagesProvider implements FindUsagesProvider {
             literalTokens.add(
                     (IElementType) javaClass.getField("TEXT_BLOCK_LITERAL").get(null)
             );
-
-        } catch (Exception e) {
-
+        } catch (Exception ignored) {
+            //do nothing
         }
         return new DefaultWordsScanner(new X8lLexerAdapter(),
                 TokenSet.create(

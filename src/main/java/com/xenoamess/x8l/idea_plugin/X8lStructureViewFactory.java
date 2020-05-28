@@ -9,6 +9,9 @@ import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lStructureViewFactory implements PsiStructureViewFactory {
     @Nullable
     @Override

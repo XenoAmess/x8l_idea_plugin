@@ -1,14 +1,32 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.4.18'
+    id 'org.jetbrains.intellij' version '0.4.21'
 
     id 'application'
     id 'maven'
     id "com.github.ben-manes.versions" version "0.28.0"
 }
 
+allprojects {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+    compileJava.options.encoding = 'UTF-8'
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        google()
+        jcenter()
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+        maven {
+            url 'https://dl.bintray.com/jetbrains/intellij-plugin-service'
+        }
+    }
+}
+
 group 'com.xenoamess'
-version '0.0.19'
+version '0.0.20'
 
 sourceSets {
     main {
@@ -23,19 +41,8 @@ intellij {
 //    setPlugins("org.jetbrains.kotlin:1.3.11-release-IJ2018.3-1")
 }
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-    maven {
-        url "https://oss.sonatype.org/content/repositories/snapshots/"
-    }
-    maven {
-        url 'https://dl.bintray.com/jetbrains/intellij-plugin-service'
-    }
-}
-
 dependencies {
-    compile group: 'com.xenoamess', name: 'x8l', version: '2.2.1'
+    compile group: 'com.xenoamess', name: 'x8l', version: '2.2.3'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.10'
     testCompile group: 'junit', name: 'junit', version: '4.13'
 }
@@ -46,12 +53,12 @@ dependencies {
 // See https://www.jetbrains.com/intellij-repository/snapshots/
 intellij {
 //    version "IC-172.2103.15"
-    version "IU-201.6668.121"
-//    https://www.jetbrains.com/intellij-repository/snapshots/com/jetbrains/intellij/idea/ideaIU/201-EAP-SNAPSHOT/ideaIU-201-EAP-SNAPSHOT.pom
+    version "202.4357.23-EAP-SNAPSHOT"
+    updateSinceUntilBuild false
 }
-patchPluginXml {
-    sinceBuild "172.2103.15"
-    changeNotes ""
-}
+
+//patchPluginXml {
+//    changeNotes ""
+//}
 
 apply plugin: 'org.jetbrains.intellij'

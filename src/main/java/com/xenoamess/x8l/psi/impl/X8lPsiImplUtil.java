@@ -6,9 +6,13 @@ import com.intellij.psi.tree.IElementType;
 import com.xenoamess.x8l.psi.*;
 import com.xenoamess.x8l.psi.impl.utils.*;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lPsiImplUtil {
 
     //-----X8lTextNodeUtils starts
+
     public static IElementType getTokenType(final X8lTextNode element) {
         return X8lTextNodeUtil.getTokenType(element);
     }
@@ -64,6 +68,7 @@ public class X8lPsiImplUtil {
     //-----X8lCommentNodeUtil ends
 
     //-----X8lCommentNodeUtilContent starts
+
     public static IElementType getTokenType(final X8lCommentNodeContent element) {
         return X8lCommentNodeContentUtil.getTokenType(element);
     }
@@ -90,6 +95,7 @@ public class X8lPsiImplUtil {
     //-----X8lCommentNodeUtilContent ends
 
     //-----X8lContentNodeAttributeUtil starts
+
     public static IElementType getTokenType(final X8lContentNodeAttribute element) {
         return X8lContentNodeAttributeUtil.getTokenType(element);
     }
@@ -145,6 +151,7 @@ public class X8lPsiImplUtil {
     //-----X8lContentNodeAttributeValueUtil ends
 
     //-----X8lContentNodeAttributeKeyUtil starts
+
     public static IElementType getTokenType(final X8lContentNodeAttributeKey element) {
         return X8lContentNodeAttributeKeyUtil.getTokenType(element);
     }
@@ -171,6 +178,7 @@ public class X8lPsiImplUtil {
     //-----X8lContentNodeAttributeKeyUtil ends
 
     //-----X8lTextNodeContentUtil starts
+
     public static IElementType getTokenType(final X8lTextNodeContent element) {
         return X8lTextNodeContentUtil.getTokenType(element);
     }
@@ -197,6 +205,7 @@ public class X8lPsiImplUtil {
     //-----X8lTextNodeContentUtil ends
 
     //-----X8lContentNodeUtil starts
+
     public static IElementType getTokenType(final X8lContentNode element) {
         return X8lContentNodeUtil.getTokenType(element);
     }
@@ -223,6 +232,7 @@ public class X8lPsiImplUtil {
     //-----X8lContentNodeUtil ends
 
     //-----X8lContentNodeHeadAreaUtil starts
+
     public static IElementType getTokenType(final X8lContentNodeHeadArea element) {
         return X8lContentNodeHeadAreaUtil.getTokenType(element);
     }
@@ -249,6 +259,7 @@ public class X8lPsiImplUtil {
     //-----X8lContentNodeHeadAreaUtil ends
 
     //-----X8lContentNodeChildrenAreaUtil starts
+
     public static IElementType getTokenType(final X8lContentNodeChildrenArea element) {
         return X8lContentNodeChildrenAreaUtil.getTokenType(element);
     }

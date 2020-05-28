@@ -1,0 +1,27 @@
+language: java
+sudo: true
+dist: trusty
+before_install:
+  - chmod +x gradlew
+cache:
+  directories:
+    - $HOME/.m2
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+install: true
+matrix:
+  include:
+    - jdk: openjdk8
+    - jdk: openjdk9
+    - jdk: openjdk10
+    - jdk: openjdk11
+    - jdk: openjdk12
+    - jdk: openjdk13
+    - jdk: openjdk14
+    - jdk: openjdk-ea
+  allow_failures:
+    - jdk: openjdk9
+    - jdk: openjdk14
+    - jdk: openjdk-ea
+script:
+  - "travis_wait ./gradlew buildPlugin -s"

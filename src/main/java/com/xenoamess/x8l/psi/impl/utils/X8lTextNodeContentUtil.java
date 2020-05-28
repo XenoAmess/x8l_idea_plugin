@@ -8,11 +8,16 @@ import com.xenoamess.x8l.idea_plugin.X8lDataCenter;
 import com.xenoamess.x8l.psi.X8lElementFactory;
 import com.xenoamess.x8l.psi.X8lTextNodeContent;
 import com.xenoamess.x8l.psi.X8lTypes;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lTextNodeContentUtil {
+    @SuppressWarnings({"SameReturnValue", "unused"})
     public static IElementType getTokenType(final X8lTextNodeContent element) {
         return X8lTypes.TEXT_NODE_CONTENT;
     }
@@ -43,7 +48,7 @@ public class X8lTextNodeContentUtil {
                 return element.getValue();
             }
 
-            @Nullable
+            @NotNull
             @Override
             public String getLocationString() {
                 return element.getContainingFile().getName();

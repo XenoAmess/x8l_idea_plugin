@@ -8,6 +8,9 @@ import com.intellij.psi.PsiFile;
 import com.xenoamess.x8l.psi.X8lFile;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lStructureViewModel extends StructureViewModelBase implements
         StructureViewModel.ElementInfoProvider {
     public X8lStructureViewModel(PsiFile psiFile) {

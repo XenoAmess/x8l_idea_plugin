@@ -14,6 +14,9 @@ import java.util.Map;
 import static com.xenoamess.x8l.idea_plugin.X8lDataCenter.X8L_LANGUAGE_ICON;
 import static com.xenoamess.x8l.idea_plugin.X8lDataCenter.X8L_LANGUAGE_NAME;
 
+/**
+ * @author XenoAmess
+ */
 public class X8lColorSettingsPage implements ColorSettingsPage {
     private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{
             new AttributesDescriptor("Key", X8lSyntaxHighlighter.KEY),
