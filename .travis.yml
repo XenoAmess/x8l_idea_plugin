@@ -24,4 +24,4 @@ matrix:
     - jdk: openjdk14
     - jdk: openjdk-ea
 script:
-  - "./gradlew buildPlugin -s"
+  - "travis_wait ./gradlew buildPlugin -s"
