@@ -24,8 +24,10 @@ public class X8lLineMarkerProvider extends RelatedItemLineMarkerProvider {
     protected static final IElementType[] I_ELEMENT_TYPES = X8lAnnotator.I_ELEMENT_TYPES;
 
     @Override
-    protected void collectNavigationMarkers(@NotNull PsiElement element,
-                                            @NotNull Collection<? super RelatedItemLineMarkerInfo> result) {
+    protected void collectNavigationMarkers(
+            @NotNull PsiElement element,
+            @NotNull Collection<? super RelatedItemLineMarkerInfo<?>> result
+    ) {
         String string = getStringFromElement(element);
 
         if (ifIllegalString(element, string)) {
