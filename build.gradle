@@ -35,7 +35,7 @@ repositories {
 }
 
 dependencies {
-    compile group: 'com.xenoamess', name: 'x8l', version: '2.2.2'
+    compile group: 'com.xenoamess', name: 'x8l', version: '2.2.3'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.10'
     testCompile group: 'junit', name: 'junit', version: '4.13'
 }
@@ -46,12 +46,12 @@ dependencies {
 // See https://www.jetbrains.com/intellij-repository/snapshots/
 intellij {
 //    version "IC-172.2103.15"
-    version "IU-201.6668.121"
-//    https://www.jetbrains.com/intellij-repository/snapshots/com/jetbrains/intellij/idea/ideaIU/201-EAP-SNAPSHOT/ideaIU-201-EAP-SNAPSHOT.pom
+    version "202.4357.23-EAP-SNAPSHOT"
+    updateSinceUntilBuild false
 }
-patchPluginXml {
-    sinceBuild "172.2103.15"
-    changeNotes ""
-}
+
+//patchPluginXml {
+//    changeNotes ""
+//}
 
 apply plugin: 'org.jetbrains.intellij'
