@@ -1,3 +1,12 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version '0.4.21'
+
+    id 'application'
+    id 'maven'
+    id "com.github.ben-manes.versions" version "0.28.0"
+}
+
 allprojects {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -14,15 +23,6 @@ allprojects {
             url 'https://dl.bintray.com/jetbrains/intellij-plugin-service'
         }
     }
-}
-
-plugins {
-    id 'java'
-    id 'org.jetbrains.intellij' version '0.4.21'
-
-    id 'application'
-    id 'maven'
-    id "com.github.ben-manes.versions" version "0.28.0"
 }
 
 group 'com.xenoamess'
