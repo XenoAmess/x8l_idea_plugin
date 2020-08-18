@@ -53,7 +53,7 @@ dependencies {
 // See https://www.jetbrains.com/intellij-repository/snapshots/
 intellij {
 //    version "IC-172.2103.15"
-    version "202.4357.23-EAP-SNAPSHOT"
+    version "202.6948-EAP-CANDIDATE-SNAPSHOT"
     updateSinceUntilBuild false
 }
 
