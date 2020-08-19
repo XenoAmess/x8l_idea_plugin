@@ -3,8 +3,26 @@ package com.xenoamess.x8l.psi.impl;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
-import com.xenoamess.x8l.psi.*;
-import com.xenoamess.x8l.psi.impl.utils.*;
+import com.xenoamess.x8l.psi.X8lCommentNode;
+import com.xenoamess.x8l.psi.X8lCommentNodeContent;
+import com.xenoamess.x8l.psi.X8lContentNode;
+import com.xenoamess.x8l.psi.X8lContentNodeAttribute;
+import com.xenoamess.x8l.psi.X8lContentNodeAttributeKey;
+import com.xenoamess.x8l.psi.X8lContentNodeAttributeValue;
+import com.xenoamess.x8l.psi.X8lContentNodeChildrenArea;
+import com.xenoamess.x8l.psi.X8lContentNodeHeadArea;
+import com.xenoamess.x8l.psi.X8lTextNode;
+import com.xenoamess.x8l.psi.X8lTextNodeContent;
+import com.xenoamess.x8l.psi.impl.utils.X8lCommentNodeContentUtil;
+import com.xenoamess.x8l.psi.impl.utils.X8lCommentNodeUtil;
+import com.xenoamess.x8l.psi.impl.utils.X8lContentNodeAttributeKeyUtil;
+import com.xenoamess.x8l.psi.impl.utils.X8lContentNodeAttributeUtil;
+import com.xenoamess.x8l.psi.impl.utils.X8lContentNodeAttributeValueUtil;
+import com.xenoamess.x8l.psi.impl.utils.X8lContentNodeChildrenAreaUtil;
+import com.xenoamess.x8l.psi.impl.utils.X8lContentNodeHeadAreaUtil;
+import com.xenoamess.x8l.psi.impl.utils.X8lContentNodeUtil;
+import com.xenoamess.x8l.psi.impl.utils.X8lTextNodeContentUtil;
+import com.xenoamess.x8l.psi.impl.utils.X8lTextNodeUtil;
 
 /**
  * @author XenoAmess

@@ -7,9 +7,40 @@ import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiBuilder.Marker;
 import com.intellij.lang.PsiParser;
 import com.intellij.psi.tree.IElementType;
-
-import static com.xenoamess.x8l.psi.X8lTypes.*;
-import static com.xenoamess.x8l.psi.parser.X8lParserUtil.*;
+import static com.xenoamess.x8l.psi.X8lTypes.COMMENT_NODE;
+import static com.xenoamess.x8l.psi.X8lTypes.COMMENT_NODE_CONTENT;
+import static com.xenoamess.x8l.psi.X8lTypes.COMMENT_NODE_CONTENT_STRING;
+import static com.xenoamess.x8l.psi.X8lTypes.COMMENT_NODE_LEFT_BRACKET;
+import static com.xenoamess.x8l.psi.X8lTypes.COMMENT_NODE_RIGHT_BRACKET;
+import static com.xenoamess.x8l.psi.X8lTypes.CONTENT_NODE;
+import static com.xenoamess.x8l.psi.X8lTypes.CONTENT_NODE_ATTRIBUTE;
+import static com.xenoamess.x8l.psi.X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY;
+import static com.xenoamess.x8l.psi.X8lTypes.CONTENT_NODE_ATTRIBUTE_KEY_CONTENT_STRING;
+import static com.xenoamess.x8l.psi.X8lTypes.CONTENT_NODE_ATTRIBUTE_VALUE;
+import static com.xenoamess.x8l.psi.X8lTypes.CONTENT_NODE_ATTRIBUTE_VALUE_CONTENT_STRING;
+import static com.xenoamess.x8l.psi.X8lTypes.CONTENT_NODE_CHILDREN_AREA;
+import static com.xenoamess.x8l.psi.X8lTypes.CONTENT_NODE_HEAD_AREA;
+import static com.xenoamess.x8l.psi.X8lTypes.LEFT_BRACKET;
+import static com.xenoamess.x8l.psi.X8lTypes.RIGHT_BRACKET;
+import static com.xenoamess.x8l.psi.X8lTypes.ROOT_NODE_CHILDREN_AREA;
+import static com.xenoamess.x8l.psi.X8lTypes.SEPARATOR;
+import static com.xenoamess.x8l.psi.X8lTypes.TEXT_NODE;
+import static com.xenoamess.x8l.psi.X8lTypes.TEXT_NODE_CONTENT;
+import static com.xenoamess.x8l.psi.X8lTypes.TEXT_NODE_CONTENT_STRING;
+import static com.xenoamess.x8l.psi.X8lTypes.TEXT_SEPARATOR;
+import static com.xenoamess.x8l.psi.X8lTypes.WHITE_SPACE;
+import static com.xenoamess.x8l.psi.X8lTypes.WHITE_SPACE_CONTENT_STRING;
+import static com.xenoamess.x8l.psi.parser.X8lParserUtil.TRUE_CONDITION;
+import static com.xenoamess.x8l.psi.parser.X8lParserUtil._COLLAPSE_;
+import static com.xenoamess.x8l.psi.parser.X8lParserUtil._NONE_;
+import static com.xenoamess.x8l.psi.parser.X8lParserUtil.adapt_builder_;
+import static com.xenoamess.x8l.psi.parser.X8lParserUtil.consumeToken;
+import static com.xenoamess.x8l.psi.parser.X8lParserUtil.current_position_;
+import static com.xenoamess.x8l.psi.parser.X8lParserUtil.empty_element_parsed_guard_;
+import static com.xenoamess.x8l.psi.parser.X8lParserUtil.enter_section_;
+import static com.xenoamess.x8l.psi.parser.X8lParserUtil.exit_section_;
+import static com.xenoamess.x8l.psi.parser.X8lParserUtil.nextTokenIs;
+import static com.xenoamess.x8l.psi.parser.X8lParserUtil.recursion_guard_;
 
 @SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
 public class X8lParser implements PsiParser, LightPsiParser {

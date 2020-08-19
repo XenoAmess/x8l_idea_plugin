@@ -1,8 +1,7 @@
 package com.xenoamess.x8l.idea_plugin;
 
 import icons.X8lIcons;
-
-import javax.swing.*;
+import javax.swing.Icon;
 
 /**
  * @author XenoAmess

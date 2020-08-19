@@ -7,10 +7,14 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
-import com.xenoamess.x8l.psi.*;
-import org.jetbrains.annotations.NotNull;
-
+import com.xenoamess.x8l.psi.X8lCommentNode;
+import com.xenoamess.x8l.psi.X8lContentNode;
+import com.xenoamess.x8l.psi.X8lContentNodeChildrenArea;
+import com.xenoamess.x8l.psi.X8lPsiElement;
+import com.xenoamess.x8l.psi.X8lTextNode;
+import com.xenoamess.x8l.psi.X8lVisitor;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 public class X8lContentNodeChildrenAreaImpl extends X8lPsiElement implements X8lContentNodeChildrenArea {
 

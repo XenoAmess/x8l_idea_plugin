@@ -14,11 +14,13 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.xenoamess.x8l.psi.X8lCommentNode;
 import com.xenoamess.x8l.psi.X8lTypes;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.*;
-
 import static com.xenoamess.x8l.idea_plugin.X8lUtil.createX8lFileFromString;
 
 

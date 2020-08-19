@@ -6,7 +6,11 @@ import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.tree.IElementType;
-import com.xenoamess.x8l.psi.*;
+import com.xenoamess.x8l.psi.X8lContentNode;
+import com.xenoamess.x8l.psi.X8lContentNodeChildrenArea;
+import com.xenoamess.x8l.psi.X8lContentNodeHeadArea;
+import com.xenoamess.x8l.psi.X8lPsiElement;
+import com.xenoamess.x8l.psi.X8lVisitor;
 import org.jetbrains.annotations.NotNull;
 
 public class X8lContentNodeImpl extends X8lPsiElement implements X8lContentNode {

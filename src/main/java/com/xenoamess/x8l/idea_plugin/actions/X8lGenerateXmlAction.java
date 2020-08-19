@@ -7,14 +7,13 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.xenoamess.x8l.X8lTree;
 import com.xenoamess.x8l.dealers.XmlDealer;
-import org.apache.commons.io.FileUtils;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import org.apache.commons.io.FileUtils;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @author XenoAmess
@@ -44,6 +43,7 @@ public class X8lGenerateXmlAction extends AbstractX8lFileAction {
         boolean result = true;
         try {
             genFile = new File(genFilePath);
+            //noinspection ResultOfMethodCallIgnored
             genFile.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();

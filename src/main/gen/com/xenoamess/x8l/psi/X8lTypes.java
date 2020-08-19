@@ -4,7 +4,18 @@ package com.xenoamess.x8l.psi;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
-import com.xenoamess.x8l.psi.impl.*;
+import com.xenoamess.x8l.psi.impl.X8lCommentNodeContentImpl;
+import com.xenoamess.x8l.psi.impl.X8lCommentNodeImpl;
+import com.xenoamess.x8l.psi.impl.X8lContentNodeAttributeImpl;
+import com.xenoamess.x8l.psi.impl.X8lContentNodeAttributeKeyImpl;
+import com.xenoamess.x8l.psi.impl.X8lContentNodeAttributeValueImpl;
+import com.xenoamess.x8l.psi.impl.X8lContentNodeChildrenAreaImpl;
+import com.xenoamess.x8l.psi.impl.X8lContentNodeHeadAreaImpl;
+import com.xenoamess.x8l.psi.impl.X8lContentNodeImpl;
+import com.xenoamess.x8l.psi.impl.X8lRootNodeChildrenAreaImpl;
+import com.xenoamess.x8l.psi.impl.X8lTextNodeContentImpl;
+import com.xenoamess.x8l.psi.impl.X8lTextNodeImpl;
+import com.xenoamess.x8l.psi.impl.X8lWhiteSpaceImpl;
 
 public interface X8lTypes {
 

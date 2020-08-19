@@ -5,12 +5,10 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
 import com.intellij.openapi.options.colors.ColorDescriptor;
 import com.intellij.openapi.options.colors.ColorSettingsPage;
+import java.util.Map;
+import javax.swing.Icon;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
-import java.util.Map;
-
 import static com.xenoamess.x8l.idea_plugin.X8lDataCenter.X8L_LANGUAGE_ICON;
 import static com.xenoamess.x8l.idea_plugin.X8lDataCenter.X8L_LANGUAGE_NAME;
 
