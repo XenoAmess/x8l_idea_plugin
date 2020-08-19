@@ -43,6 +43,7 @@ public class X8lGenerateXmlAction extends AbstractX8lFileAction {
         boolean result = true;
         try {
             genFile = new File(genFilePath);
+            //noinspection ResultOfMethodCallIgnored
             genFile.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();

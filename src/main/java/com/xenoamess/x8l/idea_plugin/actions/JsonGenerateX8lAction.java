@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,13 +23,12 @@ import org.jetbrains.annotations.Nullable;
  * @author XenoAmess
  */
 public class JsonGenerateX8lAction extends AbstractX8lFileAction {
-    public static final String ORIGINAL_PATH_END = ".json";
 
     @Override
     public void update(AnActionEvent event) {
         PsiFile psiFile = event.getData(CommonDataKeys.PSI_FILE);
         event.getPresentation().setEnabledAndVisible(
-                psiFile != null && psiFile.getVirtualFile().getName().endsWith(ORIGINAL_PATH_END)
+                psiFile != null && StringUtils.endsWithIgnoreCase(psiFile.getVirtualFile().getName(), X8lTree.STRING_JSON)
         );
     }
 
@@ -40,7 +40,7 @@ public class JsonGenerateX8lAction extends AbstractX8lFileAction {
             return null;
         }
 
-        if (!psiFile.getVirtualFile().getName().endsWith(ORIGINAL_PATH_END)) {
+        if (!StringUtils.endsWithIgnoreCase(psiFile.getVirtualFile().getName(), X8lTree.STRING_JSON)) {
             return null;
         }
 
