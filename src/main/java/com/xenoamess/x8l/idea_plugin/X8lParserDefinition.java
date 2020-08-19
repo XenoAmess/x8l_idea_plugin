@@ -68,7 +68,7 @@ public class X8lParserDefinition implements ParserDefinition {
     @Override
     @SuppressWarnings({"deprecation"})
     public SpaceRequirements spaceExistanceTypeBetweenTokens(ASTNode left, ASTNode right) {
-        //        if (checkeElementTypeAllowSpaceBesides(left.getElementType()) && checkeElementTypeAllowSpaceBesides
+        //        if (checkElementTypeAllowSpaceBesides(left.getElementType()) && checkeElementTypeAllowSpaceBesides
         //        (right.getElementType())) {
 //            return SpaceRequirements.MAY;
 //        } else {
@@ -84,7 +84,7 @@ public class X8lParserDefinition implements ParserDefinition {
         return this.spaceExistanceTypeBetweenTokens(left, right);
     }
 
-//    public static boolean checkeElementTypeAllowSpaceBesides(@Nullable IElementType type) {
+//    public static boolean checkElementTypeAllowSpaceBesides(@Nullable IElementType type) {
 //        if (X8lTypes.TEXT_NODE.equals(type)) {
 //            return false;
 //        }

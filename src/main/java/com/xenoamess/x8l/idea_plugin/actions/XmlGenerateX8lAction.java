@@ -27,13 +27,17 @@ public class XmlGenerateX8lAction extends AbstractX8lFileAction {
     @Override
     public void update(AnActionEvent event) {
         PsiFile psiFile = event.getData(CommonDataKeys.PSI_FILE);
-        String virtualFileName = psiFile.getVirtualFile().getName();
-        event.getPresentation().setEnabledAndVisible(
-                psiFile != null && (
-                        StringUtils.endsWithIgnoreCase(virtualFileName, X8lTree.STRING_XML)
-                                || StringUtils.endsWithIgnoreCase(virtualFileName, X8lTree.STRING_XSD)
-                )
-        );
+        final boolean isEnable;
+        if (psiFile != null) {
+            String virtualFileName = psiFile.getVirtualFile().getName();
+            isEnable = (
+                    StringUtils.endsWithIgnoreCase(virtualFileName, X8lTree.STRING_XML)
+                            || StringUtils.endsWithIgnoreCase(virtualFileName, X8lTree.STRING_XSD)
+            );
+        } else {
+            isEnable = false;
+        }
+        event.getPresentation().setEnabledAndVisible(isEnable);
     }
 
     @Override

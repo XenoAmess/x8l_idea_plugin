@@ -27,7 +27,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedDeque;
-import java.util.function.Consumer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,13 +51,10 @@ public class X8lUtil {
                 FileTypeIndex.getFiles(X8lFileType.INSTANCE, GlobalSearchScope.allScope(project));
 
         virtualFiles.parallelStream().forEach(
-                new Consumer<VirtualFile>() {
-                    @Override
-                    public void accept(VirtualFile virtualFile) {
-                        X8lFile x8lFile = (X8lFile) (psiManager.findFile(virtualFile));
-                        if (x8lFile != null) {
-                            result.addAll(findAllPsiElements(x8lFile));
-                        }
+                virtualFile -> {
+                    X8lFile x8lFile = (X8lFile) (psiManager.findFile(virtualFile));
+                    if (x8lFile != null) {
+                        result.addAll(findAllPsiElements(x8lFile));
                     }
                 }
         );
