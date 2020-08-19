@@ -3,7 +3,6 @@ package com.xenoamess.x8l.psi;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiFileFactory;
 import com.xenoamess.x8l.idea_plugin.X8lFileType;
-
 import java.util.Objects;
 
 /**

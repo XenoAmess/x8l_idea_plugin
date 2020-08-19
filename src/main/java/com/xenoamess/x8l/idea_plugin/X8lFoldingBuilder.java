@@ -11,13 +11,12 @@ import com.xenoamess.x8l.psi.X8lCommentNode;
 import com.xenoamess.x8l.psi.X8lContentNodeAttribute;
 import com.xenoamess.x8l.psi.X8lContentNodeChildrenArea;
 import com.xenoamess.x8l.psi.X8lContentNodeHeadArea;
-import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @author XenoAmess

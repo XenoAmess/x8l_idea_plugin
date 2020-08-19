@@ -1,7 +1,11 @@
 // This is a generated file. Not intended for manual editing.
 package com.xenoamess.x8l.psi;
 
-import com.intellij.psi.*;
+import com.intellij.psi.PsiComment;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElementVisitor;
+import com.intellij.psi.PsiLiteralValue;
+import com.intellij.psi.PsiNameIdentifierOwner;
 import org.jetbrains.annotations.NotNull;
 
 public class X8lVisitor extends PsiElementVisitor {

@@ -9,12 +9,11 @@ import com.intellij.psi.PsiFile;
 import com.xenoamess.x8l.X8lTree;
 import com.xenoamess.x8l.psi.X8lFile;
 import com.xenoamess.x8l.psi.X8lTreeBuildingUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @author XenoAmess

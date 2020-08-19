@@ -7,11 +7,9 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.util.SmartList;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Collection;
 import java.util.List;
-
+import org.jetbrains.annotations.NotNull;
 import static com.xenoamess.x8l.idea_plugin.X8lReferenceContributor.ifPrimitiveValue;
 import static com.xenoamess.x8l.idea_plugin.X8lUtil.findMostRemotePsiElementsIncludingTranscode;
 import static com.xenoamess.x8l.idea_plugin.X8lUtil.getStringFromElement;

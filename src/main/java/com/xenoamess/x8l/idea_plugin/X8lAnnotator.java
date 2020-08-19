@@ -9,11 +9,9 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiLiteralValue;
 import com.intellij.psi.tree.IElementType;
 import com.xenoamess.x8l.psi.X8lTypes;
+import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
-
 import static com.xenoamess.x8l.dealers.JsonDealer.ARRAY_ID_ATTRIBUTE;
 import static com.xenoamess.x8l.idea_plugin.X8lReferenceContributor.ifPrimitiveValue;
 import static com.xenoamess.x8l.idea_plugin.X8lSyntaxHighlighter.getTokenHighlightsStatic;

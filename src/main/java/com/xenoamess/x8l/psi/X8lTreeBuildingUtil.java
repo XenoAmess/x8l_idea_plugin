@@ -1,7 +1,11 @@
 package com.xenoamess.x8l.psi;
 
 import com.intellij.psi.PsiElement;
-import com.xenoamess.x8l.*;
+import com.xenoamess.x8l.CommentNode;
+import com.xenoamess.x8l.ContentNode;
+import com.xenoamess.x8l.RootNode;
+import com.xenoamess.x8l.TextNode;
+import com.xenoamess.x8l.X8lTree;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

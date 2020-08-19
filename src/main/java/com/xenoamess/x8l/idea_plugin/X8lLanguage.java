@@ -1,7 +1,6 @@
 package com.xenoamess.x8l.idea_plugin;
 
 import com.intellij.lang.Language;
-
 import static com.xenoamess.x8l.idea_plugin.X8lDataCenter.X8L_LANGUAGE_NAME;
 
 /**
