@@ -40,7 +40,7 @@ public class X8lUtil {
     }
 
     @NotNull
-    public static List<PsiElement> findAllPsiElements(Project project) {
+    public static List<PsiElement> findAllPsiElements(Project project, Class... needClasses) {
         if (project == null) {
             return Collections.emptyList();
         }
@@ -54,7 +54,7 @@ public class X8lUtil {
                 virtualFile -> {
                     X8lFile x8lFile = (X8lFile) (psiManager.findFile(virtualFile));
                     if (x8lFile != null) {
-                        result.addAll(findAllPsiElements(x8lFile));
+                        result.addAll(findAllPsiElements(x8lFile, needClasses));
                     }
                 }
         );
@@ -103,15 +103,20 @@ public class X8lUtil {
 //    }
 
     @NotNull
-    public static Collection<PsiElement> findAllPsiElements(PsiElement element) {
+    public static Collection<PsiElement> findAllPsiElements(final PsiElement element, final Class... needClasses) {
         if (element == null) {
             return Collections.emptyList();
         }
         List<PsiElement> result = new ArrayList<>();
         for (PsiElement child = element.getFirstChild(); child != null; child = child.getNextSibling()) {
-            Collection<PsiElement> childResult = findAllPsiElements(child);
-            if (!childResult.isEmpty()) {
-                result.addAll(childResult);
+            Collection<PsiElement> childResult = findAllPsiElements(child, needClasses);
+            for (PsiElement au : childResult) {
+                for (Class needClass : needClasses) {
+                    if (needClass.isInstance(au)) {
+                        result.add(au);
+                        break;
+                    }
+                }
             }
         }
         result.add(element);

@@ -11,6 +11,7 @@ import com.xenoamess.x8l.psi.X8lCommentNode;
 import com.xenoamess.x8l.psi.X8lContentNodeAttribute;
 import com.xenoamess.x8l.psi.X8lContentNodeChildrenArea;
 import com.xenoamess.x8l.psi.X8lContentNodeHeadArea;
+import com.xenoamess.x8l.psi.X8lPsiElement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -28,7 +29,7 @@ public class X8lFoldingBuilder extends FoldingBuilderEx implements DumbAware {
         // Initialize the list of folding regions
         List<FoldingDescriptor> descriptors = new ArrayList<>();
         // Get a collection of the literal expressions in the document below root
-        Collection<PsiElement> psiElements = X8lUtil.findAllPsiElements(root);
+        Collection<PsiElement> psiElements = X8lUtil.findAllPsiElements(root, X8lPsiElement.class);
         // Evaluate the collection
         for (final PsiElement psiElement : psiElements) {
             TextRange textRange = null;
@@ -47,6 +48,8 @@ public class X8lFoldingBuilder extends FoldingBuilderEx implements DumbAware {
             } else if (psiElement instanceof X8lContentNodeChildrenArea) {
                 textRange = new TextRange(psiElement.getTextRange().getStartOffset(),
                         psiElement.getTextRange().getEndOffset());
+            } else {
+                continue;
             }
 
             if (textRange != null && textRange.getLength() > 0) {

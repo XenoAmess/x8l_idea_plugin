@@ -17,13 +17,7 @@ public class X8lChooseByNameContributor implements ChooseByNameContributor {
     @Override
     public String[] getNames(Project project, boolean includeNonProjectItems) {
         // TODO: include non project items
-        List<PsiElement> psiElements = X8lUtil.findAllPsiElements(project);
-        List<String> names = new ArrayList<>();
-        for (PsiElement psiElement : psiElements) {
-            if (psiElement instanceof PsiNameIdentifierOwner) {
-                names.add(((PsiNameIdentifierOwner) psiElement).getName());
-            }
-        }
+        List<PsiElement> names = X8lUtil.findAllPsiElements(project, PsiNameIdentifierOwner.class);
         return names.toArray(new String[0]);
     }
 

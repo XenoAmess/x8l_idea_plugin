@@ -9,6 +9,8 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementResolveResult;
 import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiIdentifier;
+import com.intellij.psi.PsiLiteralValue;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.PsiNameIdentifierOwner;
 import com.intellij.psi.PsiPolyVariantReference;
@@ -125,15 +127,13 @@ public class X8lReference extends AttributeValueSelfReference implements PsiPoly
     @Override
     public Object[] getVariants() {
         Project project = myElement.getProject();
-        List<PsiElement> psiElements = X8lUtil.findAllPsiElements(project);
+        List<PsiElement> psiElements = X8lUtil.findAllPsiElements(project, PsiIdentifier.class, PsiLiteralValue.class);
         List<LookupElement> variants = new ArrayList<>();
         for (final PsiElement psiElement : psiElements) {
-            if (psiElement.getText() != null && psiElement.getText().length() > 0) {
-                variants.add(LookupElementBuilder
-                        .create(psiElement).withIcon(X8lDataCenter.X8L_LANGUAGE_ICON)
-                        .withTypeText(psiElement.getContainingFile().getName())
-                );
-            }
+            variants.add(LookupElementBuilder
+                    .create(psiElement).withIcon(X8lDataCenter.X8L_LANGUAGE_ICON)
+                    .withTypeText(psiElement.getContainingFile().getName())
+            );
         }
         return variants.toArray();
     }
