@@ -34,7 +34,7 @@ public class X8lReference extends AttributeValueSelfReference implements PsiPoly
 
     public X8lReference(@NotNull PsiElement element, TextRange textRange) {
         super(element, textRange);
-        key = element.getText().substring(textRange.getStartOffset(), textRange.getEndOffset());
+        key = element.getText().substring(0, textRange.getEndOffset() - textRange.getStartOffset());
     }
 
     @NotNull
