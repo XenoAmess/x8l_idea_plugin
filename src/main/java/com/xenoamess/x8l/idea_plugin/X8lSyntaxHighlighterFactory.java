@@ -10,9 +10,11 @@ import org.jetbrains.annotations.NotNull;
  * @author XenoAmess
  */
 public class X8lSyntaxHighlighterFactory extends SyntaxHighlighterFactory {
+    private static final X8lSyntaxHighlighter SINGLETON = new X8lSyntaxHighlighter();
+
     @NotNull
     @Override
     public SyntaxHighlighter getSyntaxHighlighter(Project project, VirtualFile virtualFile) {
-        return new X8lSyntaxHighlighter();
+        return SINGLETON;
     }
 }
