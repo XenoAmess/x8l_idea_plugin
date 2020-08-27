@@ -20,7 +20,6 @@ import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.tree.IElementType;
 import com.xenoamess.x8l.psi.X8lPsiElement;
-import java.lang.annotation.ElementType;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -30,21 +29,22 @@ import org.apache.commons.collections4.list.SetUniqueList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import static com.xenoamess.x8l.idea_plugin.X8lAnnotator.I_ELEMENT_TYPES;
+import static com.xenoamess.x8l.idea_plugin.X8lUtil.createSet;
 
 /**
  * @author XenoAmess
  */
 public class X8lReference extends AttributeValueSelfReference implements PsiPolyVariantReference {
-    private static final transient FileType JAVA_FILE_TYPE = tryGetJavaFileType();
-    private static final transient Set<IElementType> JAVA_ELEMENT_TYPE_SET = tryGetJavaElementType();
+    static final transient FileType JAVA_FILE_TYPE = tryGetJavaFileType();
+    static final transient Set<IElementType> JAVA_ELEMENT_TYPE_SET = tryGetJavaElementType();
+    static final transient Set<Class> ALLOWED_CLASS_SET = createSet(PsiIdentifier.class, PsiLiteralValue.class);
 
     private static FileType tryGetJavaFileType() {
         FileType result;
         try {
             result =
-                    (FileType) Class.forName(
-                            "com.intellij.ide.highlighter.JavaFileType"
-                    ).getField("INSTANCE").get(null);
+                    (FileType) Class.forName("com.intellij.ide.highlighter.JavaFileType")
+                            .getField("INSTANCE").get(null);
         } catch (Exception ignored) {
             result = null;
         }
@@ -57,9 +57,7 @@ public class X8lReference extends AttributeValueSelfReference implements PsiPoly
             return result;
         }
         try {
-            Class c = Class.forName(
-                    "com.intellij.psi.JavaTokenType"
-            );
+            Class c = Class.forName("com.intellij.psi.JavaTokenType");
             result.add((IElementType) c.getField("IDENTIFIER").get(null));
             result.add((IElementType) c.getField("STRING_LITERAL").get(null));
         } catch (Exception ignored) {
@@ -158,7 +156,7 @@ public class X8lReference extends AttributeValueSelfReference implements PsiPoly
     @Override
     public Object[] getVariants() {
         Project project = myElement.getProject();
-        List<PsiElement> psiElements = X8lUtil.findAllPsiElements(project, PsiIdentifier.class, PsiLiteralValue.class);
+        List<PsiElement> psiElements = X8lUtil.findAllPsiElementsForClass(project, ALLOWED_CLASS_SET);
         List<LookupElement> variants = new ArrayList<>();
         for (final PsiElement psiElement : psiElements) {
             variants.add(

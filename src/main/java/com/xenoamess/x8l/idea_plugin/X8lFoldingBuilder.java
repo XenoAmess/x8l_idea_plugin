@@ -29,7 +29,10 @@ public class X8lFoldingBuilder extends FoldingBuilderEx implements DumbAware {
         // Initialize the list of folding regions
         List<FoldingDescriptor> descriptors = new ArrayList<>();
         // Get a collection of the literal expressions in the document below root
-        Collection<PsiElement> psiElements = X8lUtil.findAllPsiElements(root, X8lPsiElement.class);
+        Collection<PsiElement> psiElements = X8lUtil.findAllPsiElementsForClass(
+                root,
+                X8lUtil.createSet(X8lPsiElement.class)
+        );
         // Evaluate the collection
         for (final PsiElement psiElement : psiElements) {
             TextRange textRange = null;

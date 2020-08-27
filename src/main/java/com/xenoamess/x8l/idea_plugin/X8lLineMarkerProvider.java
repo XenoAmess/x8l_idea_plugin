@@ -10,6 +10,7 @@ import com.intellij.util.SmartList;
 import java.util.Collection;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
+import static com.xenoamess.x8l.idea_plugin.X8lReference.ALLOWED_CLASS_SET;
 import static com.xenoamess.x8l.idea_plugin.X8lReferenceContributor.ifPrimitiveValue;
 import static com.xenoamess.x8l.idea_plugin.X8lUtil.findMostRemotePsiElementsIncludingTranscode;
 import static com.xenoamess.x8l.idea_plugin.X8lUtil.getStringFromElement;
@@ -26,6 +27,17 @@ public class X8lLineMarkerProvider extends RelatedItemLineMarkerProvider {
             @NotNull PsiElement element,
             @NotNull Collection<? super RelatedItemLineMarkerInfo<?>> result
     ) {
+        boolean allowed = false;
+        for (Class au : ALLOWED_CLASS_SET) {
+            if (au.isInstance(element)) {
+                allowed = true;
+                break;
+            }
+        }
+        if (!allowed) {
+            return;
+        }
+
         String string = getStringFromElement(element);
 
         if (ifIllegalString(element, string)) {

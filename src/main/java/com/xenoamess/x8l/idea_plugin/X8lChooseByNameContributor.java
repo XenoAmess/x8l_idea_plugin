@@ -8,6 +8,7 @@ import com.intellij.psi.PsiNameIdentifierOwner;
 import java.util.ArrayList;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
+import static com.xenoamess.x8l.idea_plugin.X8lUtil.createSet;
 
 /**
  * @author XenoAmess
@@ -17,7 +18,12 @@ public class X8lChooseByNameContributor implements ChooseByNameContributor {
     @Override
     public String[] getNames(Project project, boolean includeNonProjectItems) {
         // TODO: include non project items
-        List<PsiElement> names = X8lUtil.findAllPsiElements(project, PsiNameIdentifierOwner.class);
+        List<PsiElement> psiElements = X8lUtil.findAllPsiElementsForClass(project,
+                createSet(PsiNameIdentifierOwner.class));
+        List<String> names = new ArrayList<>();
+        for (PsiElement psiElement : psiElements) {
+            names.add(((PsiNameIdentifierOwner) psiElement).getName());
+        }
         return names.toArray(new String[0]);
     }
 
