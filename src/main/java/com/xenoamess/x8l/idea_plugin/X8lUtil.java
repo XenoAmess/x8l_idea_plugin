@@ -27,7 +27,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedDeque;
-import java.util.function.Consumer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,7 +40,7 @@ public class X8lUtil {
     }
 
     @NotNull
-    public static List<PsiElement> findAllPsiElements(Project project) {
+    public static List<PsiElement> findAllPsiElementsForClass(Project project, Set<Class> needClasses) {
         if (project == null) {
             return Collections.emptyList();
         }
@@ -52,13 +51,32 @@ public class X8lUtil {
                 FileTypeIndex.getFiles(X8lFileType.INSTANCE, GlobalSearchScope.allScope(project));
 
         virtualFiles.parallelStream().forEach(
-                new Consumer<VirtualFile>() {
-                    @Override
-                    public void accept(VirtualFile virtualFile) {
-                        X8lFile x8lFile = (X8lFile) (psiManager.findFile(virtualFile));
-                        if (x8lFile != null) {
-                            result.addAll(findAllPsiElements(x8lFile));
-                        }
+                virtualFile -> {
+                    X8lFile x8lFile = (X8lFile) (psiManager.findFile(virtualFile));
+                    if (x8lFile != null) {
+                        result.addAll(findAllPsiElementsForClass(x8lFile, needClasses));
+                    }
+                }
+        );
+        return new ArrayList<>(result);
+    }
+
+    @NotNull
+    public static List<PsiElement> findAllPsiElementsForIElementType(Project project, Set<IElementType> iElementTypeSet) {
+        if (project == null) {
+            return Collections.emptyList();
+        }
+        PsiManager psiManager = PsiManager.getInstance(project);
+        final ConcurrentLinkedDeque<PsiElement> result = new ConcurrentLinkedDeque<>();
+
+        Collection<VirtualFile> virtualFiles =
+                FileTypeIndex.getFiles(X8lFileType.INSTANCE, GlobalSearchScope.allScope(project));
+
+        virtualFiles.parallelStream().forEach(
+                virtualFile -> {
+                    X8lFile x8lFile = (X8lFile) (psiManager.findFile(virtualFile));
+                    if (x8lFile != null) {
+                        result.addAll(findAllPsiElementsForIElementType(x8lFile, iElementTypeSet));
                     }
                 }
         );
@@ -107,15 +125,40 @@ public class X8lUtil {
 //    }
 
     @NotNull
-    public static Collection<PsiElement> findAllPsiElements(PsiElement element) {
+    public static Collection<PsiElement> findAllPsiElementsForClass(final PsiElement element, final Set<Class> needClasses) {
         if (element == null) {
             return Collections.emptyList();
         }
         List<PsiElement> result = new ArrayList<>();
         for (PsiElement child = element.getFirstChild(); child != null; child = child.getNextSibling()) {
-            Collection<PsiElement> childResult = findAllPsiElements(child);
-            if (!childResult.isEmpty()) {
-                result.addAll(childResult);
+            Collection<PsiElement> childResult = findAllPsiElementsForClass(child, needClasses);
+            for (PsiElement au : childResult) {
+                for (Class needClass : needClasses) {
+                    if (needClass.isInstance(au)) {
+                        result.add(au);
+                        break;
+                    }
+                }
+            }
+        }
+        result.add(element);
+        return result;
+//        return PsiTreeUtil.findChildrenOfType(element, PsiElement.class);
+    }
+
+    @NotNull
+    public static Collection<PsiElement> findAllPsiElementsForIElementType(final PsiElement element,
+                                                                           final Set<IElementType> iElementTypeSet) {
+        if (element == null) {
+            return Collections.emptyList();
+        }
+        List<PsiElement> result = new ArrayList<>();
+        for (PsiElement child = element.getFirstChild(); child != null; child = child.getNextSibling()) {
+            Collection<PsiElement> childResult = findAllPsiElementsForIElementType(child, iElementTypeSet);
+            for (PsiElement au : childResult) {
+                if (iElementTypeSet == null || iElementTypeSet.contains(au.getNode().getElementType())) {
+                    result.add(au);
+                }
             }
         }
         result.add(element);
@@ -178,7 +221,8 @@ public class X8lUtil {
         for (VirtualFile virtualFile : virtualFiles) {
             X8lFile x8lFile = (X8lFile) PsiManager.getInstance(project).findFile(virtualFile);
             if (x8lFile != null) {
-                result.addAll(findMostRemoteChildrenOfType(x8lFile, strings, iElementType, X8L_GET_CHILD_ALL));
+                result.addAll(findMostRemoteChildrenOfType(x8lFile, strings, createSet(iElementType),
+                        X8L_GET_CHILD_ALL));
             }
         }
         return result;
@@ -216,7 +260,7 @@ public class X8lUtil {
     /**
      * @param element      base element
      * @param string       text string, if==null then can be any string.
-     * @param iElementType iElementType, if==null then can be any types.
+     * @param iElementTypes iElementType, if==null then can be any types.
      * @param requiredNum  requiredNum, if requiredNum&gt;0 then will return at least requiredNum number of elements
      *                     (instead all of elements)
      *                     if do not have so many elements then return all of them.
@@ -226,13 +270,13 @@ public class X8lUtil {
     public static List<PsiElement> findMostRemoteChildrenOfType(
             @Nullable PsiElement element,
             @Nullable String string,
-            @Nullable IElementType iElementType,
+            @Nullable Set<IElementType> iElementTypes,
             int requiredNum
     ) {
         return findMostRemoteChildrenOfType(
                 element,
                 (string == null ? null : createSet(string)),
-                iElementType,
+                iElementTypes,
                 requiredNum
         );
     }
@@ -240,16 +284,19 @@ public class X8lUtil {
     /**
      * @param element      base element
      * @param strings      text string, if==null then can be any string.
-     * @param iElementType iElementType, if==null then can be any types.
      * @param requiredNum  requiredNum, if requiredNum&gt;0 then will return at least requiredNum number of elements
      *                     (instead all of elements)
+     * @param iElementTypes iElementType, if==null then can be any types.
      *                     if do not have so many elements then return all of them.
      * @return PsiElements
      */
     @NotNull
-    public static List<PsiElement> findMostRemoteChildrenOfType(@Nullable PsiElement element,
-                                                                @Nullable Set<String> strings
-            , @Nullable IElementType iElementType, int requiredNum) {
+    public static List<PsiElement> findMostRemoteChildrenOfType(
+            @Nullable PsiElement element,
+            @Nullable Set<String> strings,
+            @Nullable Set<IElementType> iElementTypes,
+            int requiredNum
+    ) {
         if (element == null) {
             return Collections.emptyList();
         }
@@ -264,7 +311,8 @@ public class X8lUtil {
             if (childRequiredNum == 0) {
                 break;
             }
-            List<PsiElement> childResult = findMostRemoteChildrenOfType(child, strings, iElementType, childRequiredNum);
+            List<PsiElement> childResult = findMostRemoteChildrenOfType(child, strings, iElementTypes,
+                    childRequiredNum);
             if (!childResult.isEmpty()) {
                 if (result == null) {
                     result = new SmartList<>();
@@ -277,7 +325,7 @@ public class X8lUtil {
             return result;
         }
 
-        if (iElementType == null || element.getNode().getElementType().equals(iElementType)) {
+        if (iElementTypes == null || iElementTypes.contains(element.getNode().getElementType())) {
             if (strings == null || strings.contains(element.getText())) {
                 if (result == null) {
                     result = new SmartList<>();

@@ -9,6 +9,8 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementResolveResult;
 import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiIdentifier;
+import com.intellij.psi.PsiLiteralValue;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.PsiNameIdentifierOwner;
 import com.intellij.psi.PsiPolyVariantReference;
@@ -20,26 +22,62 @@ import com.intellij.psi.tree.IElementType;
 import com.xenoamess.x8l.psi.X8lPsiElement;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
-import org.apache.commons.collections.list.SetUniqueList;
+import java.util.Set;
+import org.apache.commons.collections4.list.SetUniqueList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import static com.xenoamess.x8l.idea_plugin.X8lAnnotator.I_ELEMENT_TYPES;
+import static com.xenoamess.x8l.idea_plugin.X8lUtil.createSet;
 
 /**
  * @author XenoAmess
  */
 public class X8lReference extends AttributeValueSelfReference implements PsiPolyVariantReference {
+    static final transient FileType JAVA_FILE_TYPE = tryGetJavaFileType();
+    static final transient Set<IElementType> JAVA_ELEMENT_TYPE_SET = tryGetJavaElementType();
+    static final transient Set<Class> ALLOWED_CLASS_SET = createSet(PsiIdentifier.class, PsiLiteralValue.class);
+
+    private static FileType tryGetJavaFileType() {
+        FileType result;
+        try {
+            result =
+                    (FileType) Class.forName("com.intellij.ide.highlighter.JavaFileType")
+                            .getField("INSTANCE").get(null);
+        } catch (Exception ignored) {
+            result = null;
+        }
+        return result;
+    }
+
+    private static Set<IElementType> tryGetJavaElementType() {
+        Set<IElementType> result = new HashSet<>();
+        if (JAVA_FILE_TYPE == null) {
+            return result;
+        }
+        try {
+            Class c = Class.forName("com.intellij.psi.JavaTokenType");
+            result.add((IElementType) c.getField("IDENTIFIER").get(null));
+            result.add((IElementType) c.getField("STRING_LITERAL").get(null));
+        } catch (Exception ignored) {
+        }
+        return result;
+    }
+
     private final String key;
 
     public X8lReference(@NotNull PsiElement element, TextRange textRange) {
         super(element, textRange);
-        key = element.getText().substring(textRange.getStartOffset(), textRange.getEndOffset());
+        key = element.getText().substring(0, textRange.getEndOffset() - textRange.getStartOffset());
     }
 
     @NotNull
     @Override
     public ResolveResult[] multiResolve(boolean incompleteCode) {
+        if ("p3c_config.x8l".equals(myElement.getContainingFile().getName())) {
+            return new ResolveResult[0];
+        }
         List<PsiElement> resultPsiElements = getResultPsiElements();
         List<ResolveResult> results = new ArrayList<>(resultPsiElements.size());
         for (PsiElement psiElement : resultPsiElements) {
@@ -66,52 +104,45 @@ public class X8lReference extends AttributeValueSelfReference implements PsiPoly
             }
         }
         if (this.myElement instanceof X8lPsiElement) {
-            resultPsiElements.addAll(
-                    tryAddJavaElement()
-            );
+            if (JAVA_FILE_TYPE != null) {
+                resultPsiElements.addAll(
+                        getJavaElement()
+                );
+            }
         }
         return resultPsiElements;
     }
 
-    public List<PsiElement> tryAddJavaElement() {
-        @SuppressWarnings("unchecked") List<PsiElement> result = SetUniqueList.decorate(new ArrayList<PsiElement>());
-        try {
-            Project project = myElement.getProject();
-            FileType javaFileType =
-                    (FileType) Class.forName(
-                            "com.intellij.ide.highlighter.JavaFileType"
-                    ).getField("INSTANCE").get(null);
+    private List<PsiElement> getJavaElement() {
+        List<PsiElement> result = new ArrayList<>();
+        SetUniqueList<PsiElement> setUniqueList = SetUniqueList.setUniqueList(result);
+        Project project = myElement.getProject();
 
-            Collection<VirtualFile> virtualFiles =
-                    FileTypeIndex.getFiles(javaFileType,
-                            GlobalSearchScope.allScope(project));
-            for (VirtualFile virtualFile : virtualFiles) {
-                PsiFile javaFile = PsiManager.getInstance(project).findFile(virtualFile);
-                if (javaFile != null) {
-                    result.addAll(
-                            X8lUtil.findMostRemoteChildrenOfType(
-                                    javaFile,
-                                    "\"" + key + "\""
-                                    ,
-                                    null,
-                                    -1
-                            )
-                    );
-                    result.addAll(
-                            X8lUtil.findMostRemoteChildrenOfType(
-                                    javaFile,
-                                    key
-                                    ,
-                                    null,
-                                    -1
-                            )
-                    );
-                }
+        Collection<VirtualFile> virtualFiles =
+                FileTypeIndex.getFiles(JAVA_FILE_TYPE,
+                        GlobalSearchScope.allScope(project));
+        for (VirtualFile virtualFile : virtualFiles) {
+            PsiFile javaFile = PsiManager.getInstance(project).findFile(virtualFile);
+            if (javaFile != null) {
+                setUniqueList.addAll(
+                        X8lUtil.findMostRemoteChildrenOfType(
+                                javaFile,
+                                "\"" + key + "\"",
+                                JAVA_ELEMENT_TYPE_SET,
+                                -1
+                        )
+                );
+                setUniqueList.addAll(
+                        X8lUtil.findMostRemoteChildrenOfType(
+                                javaFile,
+                                key,
+                                JAVA_ELEMENT_TYPE_SET,
+                                -1
+                        )
+                );
             }
-        } catch (Exception e) {
-            //do nothing.
         }
-        return new ArrayList<>(result);
+        return result;
     }
 
     @Nullable
@@ -125,15 +156,15 @@ public class X8lReference extends AttributeValueSelfReference implements PsiPoly
     @Override
     public Object[] getVariants() {
         Project project = myElement.getProject();
-        List<PsiElement> psiElements = X8lUtil.findAllPsiElements(project);
+        List<PsiElement> psiElements = X8lUtil.findAllPsiElementsForClass(project, ALLOWED_CLASS_SET);
         List<LookupElement> variants = new ArrayList<>();
         for (final PsiElement psiElement : psiElements) {
-            if (psiElement.getText() != null && psiElement.getText().length() > 0) {
-                variants.add(LookupElementBuilder
-                        .create(psiElement).withIcon(X8lDataCenter.X8L_LANGUAGE_ICON)
-                        .withTypeText(psiElement.getContainingFile().getName())
-                );
-            }
+            variants.add(
+                    LookupElementBuilder
+                            .create(psiElement)
+                            .withIcon(X8lDataCenter.X8L_LANGUAGE_ICON)
+                            .withTypeText(psiElement.getContainingFile().getName())
+            );
         }
         return variants.toArray();
     }

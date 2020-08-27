@@ -2,7 +2,7 @@ package com.xenoamess.x8l.idea_plugin;
 
 import com.intellij.psi.tree.IElementType;
 import org.junit.Test;
-
+import org.junit.jupiter.api.Assertions;
 import static com.xenoamess.x8l.idea_plugin.X8lSyntaxHighlighter.getTokenHighlightsStatic;
 
 public class HighlighterColorTest {
@@ -11,7 +11,7 @@ public class HighlighterColorTest {
     @Test
     public void test() {
         for (IElementType type : I_ELEMENT_TYPES) {
-            assert (getTokenHighlightsStatic(type).length != 0) : type.toString() + " have empty";
+            Assertions.assertTrue(getTokenHighlightsStatic(type).length != 0, type.toString() + " have empty");
         }
     }
 }
