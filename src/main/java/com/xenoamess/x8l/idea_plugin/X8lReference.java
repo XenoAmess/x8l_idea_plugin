@@ -20,9 +20,12 @@ import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.tree.IElementType;
 import com.xenoamess.x8l.psi.X8lPsiElement;
+import java.lang.annotation.ElementType;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.apache.commons.collections4.list.SetUniqueList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -33,18 +36,35 @@ import static com.xenoamess.x8l.idea_plugin.X8lAnnotator.I_ELEMENT_TYPES;
  */
 public class X8lReference extends AttributeValueSelfReference implements PsiPolyVariantReference {
     private static final transient FileType JAVA_FILE_TYPE = tryGetJavaFileType();
+    private static final transient Set<IElementType> JAVA_ELEMENT_TYPE_SET = tryGetJavaElementType();
 
     private static FileType tryGetJavaFileType() {
-        FileType javaFileType;
+        FileType result;
         try {
-            javaFileType =
+            result =
                     (FileType) Class.forName(
                             "com.intellij.ide.highlighter.JavaFileType"
                     ).getField("INSTANCE").get(null);
         } catch (Exception ignored) {
-            javaFileType = null;
+            result = null;
         }
-        return javaFileType;
+        return result;
+    }
+
+    private static Set<IElementType> tryGetJavaElementType() {
+        Set<IElementType> result = new HashSet<>();
+        if (JAVA_FILE_TYPE == null) {
+            return result;
+        }
+        try {
+            Class c = Class.forName(
+                    "com.intellij.psi.JavaTokenType"
+            );
+            result.add((IElementType) c.getField("IDENTIFIER").get(null));
+            result.add((IElementType) c.getField("STRING_LITERAL").get(null));
+        } catch (Exception ignored) {
+        }
+        return result;
     }
 
     private final String key;
@@ -57,6 +77,9 @@ public class X8lReference extends AttributeValueSelfReference implements PsiPoly
     @NotNull
     @Override
     public ResolveResult[] multiResolve(boolean incompleteCode) {
+        if ("p3c_config.x8l".equals(myElement.getContainingFile().getName())) {
+            return new ResolveResult[0];
+        }
         List<PsiElement> resultPsiElements = getResultPsiElements();
         List<ResolveResult> results = new ArrayList<>(resultPsiElements.size());
         for (PsiElement psiElement : resultPsiElements) {
@@ -85,14 +108,14 @@ public class X8lReference extends AttributeValueSelfReference implements PsiPoly
         if (this.myElement instanceof X8lPsiElement) {
             if (JAVA_FILE_TYPE != null) {
                 resultPsiElements.addAll(
-                        tryGetJavaElement()
+                        getJavaElement()
                 );
             }
         }
         return resultPsiElements;
     }
 
-    private List<PsiElement> tryGetJavaElement() {
+    private List<PsiElement> getJavaElement() {
         List<PsiElement> result = new ArrayList<>();
         SetUniqueList<PsiElement> setUniqueList = SetUniqueList.setUniqueList(result);
         Project project = myElement.getProject();
@@ -106,18 +129,16 @@ public class X8lReference extends AttributeValueSelfReference implements PsiPoly
                 setUniqueList.addAll(
                         X8lUtil.findMostRemoteChildrenOfType(
                                 javaFile,
-                                "\"" + key + "\""
-                                ,
-                                null,
+                                "\"" + key + "\"",
+                                JAVA_ELEMENT_TYPE_SET,
                                 -1
                         )
                 );
                 setUniqueList.addAll(
                         X8lUtil.findMostRemoteChildrenOfType(
                                 javaFile,
-                                key
-                                ,
-                                null,
+                                key,
+                                JAVA_ELEMENT_TYPE_SET,
                                 -1
                         )
                 );
@@ -140,9 +161,11 @@ public class X8lReference extends AttributeValueSelfReference implements PsiPoly
         List<PsiElement> psiElements = X8lUtil.findAllPsiElements(project, PsiIdentifier.class, PsiLiteralValue.class);
         List<LookupElement> variants = new ArrayList<>();
         for (final PsiElement psiElement : psiElements) {
-            variants.add(LookupElementBuilder
-                    .create(psiElement).withIcon(X8lDataCenter.X8L_LANGUAGE_ICON)
-                    .withTypeText(psiElement.getContainingFile().getName())
+            variants.add(
+                    LookupElementBuilder
+                            .create(psiElement)
+                            .withIcon(X8lDataCenter.X8L_LANGUAGE_ICON)
+                            .withTypeText(psiElement.getContainingFile().getName())
             );
         }
         return variants.toArray();
