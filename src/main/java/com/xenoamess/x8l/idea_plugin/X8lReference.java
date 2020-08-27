@@ -23,7 +23,7 @@ import com.xenoamess.x8l.psi.X8lPsiElement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.apache.commons.collections.list.SetUniqueList;
+import org.apache.commons.collections4.list.SetUniqueList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import static com.xenoamess.x8l.idea_plugin.X8lAnnotator.I_ELEMENT_TYPES;
@@ -32,6 +32,21 @@ import static com.xenoamess.x8l.idea_plugin.X8lAnnotator.I_ELEMENT_TYPES;
  * @author XenoAmess
  */
 public class X8lReference extends AttributeValueSelfReference implements PsiPolyVariantReference {
+    private static final transient FileType JAVA_FILE_TYPE = tryGetJavaFileType();
+
+    private static FileType tryGetJavaFileType() {
+        FileType javaFileType;
+        try {
+            javaFileType =
+                    (FileType) Class.forName(
+                            "com.intellij.ide.highlighter.JavaFileType"
+                    ).getField("INSTANCE").get(null);
+        } catch (Exception ignored) {
+            javaFileType = null;
+        }
+        return javaFileType;
+    }
+
     private final String key;
 
     public X8lReference(@NotNull PsiElement element, TextRange textRange) {
@@ -68,52 +83,47 @@ public class X8lReference extends AttributeValueSelfReference implements PsiPoly
             }
         }
         if (this.myElement instanceof X8lPsiElement) {
-            resultPsiElements.addAll(
-                    tryAddJavaElement()
-            );
+            if (JAVA_FILE_TYPE != null) {
+                resultPsiElements.addAll(
+                        tryGetJavaElement()
+                );
+            }
         }
         return resultPsiElements;
     }
 
-    public List<PsiElement> tryAddJavaElement() {
-        @SuppressWarnings("unchecked") List<PsiElement> result = SetUniqueList.decorate(new ArrayList<PsiElement>());
-        try {
-            Project project = myElement.getProject();
-            FileType javaFileType =
-                    (FileType) Class.forName(
-                            "com.intellij.ide.highlighter.JavaFileType"
-                    ).getField("INSTANCE").get(null);
+    private List<PsiElement> tryGetJavaElement() {
+        List<PsiElement> result = new ArrayList<>();
+        SetUniqueList<PsiElement> setUniqueList = SetUniqueList.setUniqueList(result);
+        Project project = myElement.getProject();
 
-            Collection<VirtualFile> virtualFiles =
-                    FileTypeIndex.getFiles(javaFileType,
-                            GlobalSearchScope.allScope(project));
-            for (VirtualFile virtualFile : virtualFiles) {
-                PsiFile javaFile = PsiManager.getInstance(project).findFile(virtualFile);
-                if (javaFile != null) {
-                    result.addAll(
-                            X8lUtil.findMostRemoteChildrenOfType(
-                                    javaFile,
-                                    "\"" + key + "\""
-                                    ,
-                                    null,
-                                    -1
-                            )
-                    );
-                    result.addAll(
-                            X8lUtil.findMostRemoteChildrenOfType(
-                                    javaFile,
-                                    key
-                                    ,
-                                    null,
-                                    -1
-                            )
-                    );
-                }
+        Collection<VirtualFile> virtualFiles =
+                FileTypeIndex.getFiles(JAVA_FILE_TYPE,
+                        GlobalSearchScope.allScope(project));
+        for (VirtualFile virtualFile : virtualFiles) {
+            PsiFile javaFile = PsiManager.getInstance(project).findFile(virtualFile);
+            if (javaFile != null) {
+                setUniqueList.addAll(
+                        X8lUtil.findMostRemoteChildrenOfType(
+                                javaFile,
+                                "\"" + key + "\""
+                                ,
+                                null,
+                                -1
+                        )
+                );
+                setUniqueList.addAll(
+                        X8lUtil.findMostRemoteChildrenOfType(
+                                javaFile,
+                                key
+                                ,
+                                null,
+                                -1
+                        )
+                );
             }
-        } catch (Exception e) {
-            //do nothing.
         }
-        return new ArrayList<>(result);
+        return result;
     }
 
     @Nullable
