@@ -48,7 +48,7 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
     implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.7.0-RC1'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0-RC1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0-SNAPSHOT'
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
