@@ -42,7 +42,7 @@ intellij {
 }
 
 dependencies {
-    implementation(group: 'com.xenoamess', name: 'x8l', version: '2.3.3') {
+    implementation(group: 'com.xenoamess', name: 'x8l', version: '2.3.4') {
         exclude group:"pull-parser", module: "pull-parser"
     }
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
