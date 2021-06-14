@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.7.3'
+    id 'org.jetbrains.intellij' version '1.0'
 
     id 'application'
     id 'maven'
@@ -37,8 +37,7 @@ sourceSets {
 }
 
 intellij {
-    plugins 'java'
-//    setPlugins("org.jetbrains.kotlin:1.3.11-release-IJ2018.3-1")
+    plugins.set(Arrays.asList("com.intellij.java"))
 }
 
 dependencies {
@@ -57,8 +56,8 @@ dependencies {
 // See https://www.jetbrains.com/intellij-repository/snapshots/
 intellij {
 //    version "IC-172.2103.15"
-    version "202-EAP-SNAPSHOT"
-    updateSinceUntilBuild false
+    version.set("202-EAP-SNAPSHOT")
+    updateSinceUntilBuild.set(false)
 }
 
 //patchPluginXml {
