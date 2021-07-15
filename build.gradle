@@ -9,7 +9,7 @@ plugins {
 
 allprojects {
     sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_11
     compileJava.options.encoding = 'UTF-8'
     repositories {
         mavenCentral()
@@ -55,8 +55,7 @@ dependencies {
 // See https://www.jetbrains.com/intellij-repository/releases/
 // See https://www.jetbrains.com/intellij-repository/snapshots/
 intellij {
-//    version "IC-172.2103.15"
-    version.set("202-EAP-SNAPSHOT")
+    version.set("201.7223.91")
     updateSinceUntilBuild.set(false)
 }
 

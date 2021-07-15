@@ -25,10 +25,10 @@ public class X8lLineMarkerProvider extends RelatedItemLineMarkerProvider {
     @Override
     protected void collectNavigationMarkers(
             @NotNull PsiElement element,
-            @NotNull Collection<? super RelatedItemLineMarkerInfo<?>> result
+            @NotNull Collection<? super RelatedItemLineMarkerInfo> result
     ) {
         boolean allowed = false;
-        for (Class au : ALLOWED_CLASS_SET) {
+        for (Class<?> au : ALLOWED_CLASS_SET) {
             if (au.isInstance(element)) {
                 allowed = true;
                 break;
