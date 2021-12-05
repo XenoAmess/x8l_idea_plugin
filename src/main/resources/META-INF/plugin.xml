@@ -120,8 +120,8 @@
     <actions>
         <action id="com.xenoamess.x8l.idea_plugin.actions.JsonGenerateX8lAction"
                 class="com.xenoamess.x8l.idea_plugin.actions.JsonGenerateX8lAction"
-                text="Transcode to Json"
-                description="Transcode to Json"
+                text="Transcode to X8l"
+                description="Transcode to X8l"
                 icon="X8lIcons.X8L_LANGUAGE_ICON"
         >
             <add-to-group group-id="ProjectViewPopupMenuModifyGroup"
