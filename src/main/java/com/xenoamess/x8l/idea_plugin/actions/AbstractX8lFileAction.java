@@ -3,6 +3,7 @@ package com.xenoamess.x8l.idea_plugin.actions;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
@@ -75,7 +76,9 @@ public abstract class AbstractX8lFileAction extends AnAction {
             return;
         }
         doJob(x8lTree);
-        this.saveX8lTreeToFile(x8lTree, event);
+        ApplicationManager.getApplication().runWriteAction(
+                () -> AbstractX8lFileAction.this.saveX8lTreeToFile(x8lTree, event)
+        );
     }
 
     /**
