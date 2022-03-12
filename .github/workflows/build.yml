@@ -37,7 +37,7 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
           distribution: adopt
-      - name: Build with mvnw
+      - name: Build with gradlew
         run: |
           chmod 777 ./gradlew
           ./gradlew buildPlugin -s
