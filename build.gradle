@@ -22,7 +22,7 @@ allprojects {
 }
 
 group 'com.xenoamess'
-version '0.0.29-SNAPSHOT'
+version '0.0.29'
 
 sourceSets {
     main {
