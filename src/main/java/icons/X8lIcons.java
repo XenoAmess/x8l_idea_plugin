@@ -7,5 +7,5 @@ import javax.swing.Icon;
  * @author XenoAmess
  */
 public class X8lIcons {
-    public static final Icon X8L_LANGUAGE_ICON = IconLoader.getIcon("/icons/x8l_language_icon.png");
+    public static final Icon X8L_LANGUAGE_ICON = IconLoader.getIcon("/icons/x8l_language_icon.png", X8lIcons.class);
 }
