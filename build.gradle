@@ -22,7 +22,7 @@ allprojects {
 }
 
 group 'com.xenoamess'
-version '0.0.28'
+version '0.0.29-SNAPSHOT'
 
 sourceSets {
     main {
@@ -39,6 +39,8 @@ intellij {
 dependencies {
     implementation(group: 'com.xenoamess', name: 'x8l', version: '2.3.9') {
         exclude group:"pull-parser", module: "pull-parser"
+        exclude group: 'org.apache.logging.log4j'
+        exclude group: 'org.slf4j'
     }
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
     implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
@@ -51,7 +53,7 @@ dependencies {
 // See https://www.jetbrains.com/intellij-repository/releases/
 // See https://www.jetbrains.com/intellij-repository/snapshots/
 intellij {
-    version.set("212.5457.46")
+    version.set("2022.1")
     updateSinceUntilBuild.set(false)
 }
 
