@@ -7,8 +7,8 @@ plugins {
 }
 
 allprojects {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
     compileJava.options.encoding = 'UTF-8'
     repositories {
         mavenCentral()
@@ -52,7 +52,7 @@ dependencies {
 // See https://www.jetbrains.com/intellij-repository/releases/
 // See https://www.jetbrains.com/intellij-repository/snapshots/
 intellij {
-    version.set("2022.1")
+    version.set("2022.3")
     updateSinceUntilBuild.set(false)
 }
 
