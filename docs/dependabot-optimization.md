@@ -161,3 +161,58 @@ CI 运行后出现 warning：`AdoptOpenJDK has moved to Eclipse Temurin ... plea
 - `.github/dependabot.yml` — Dependabot 配置
 - 仓库设置：master 分支保护 + `allow_auto_merge=true`
 - 仓库 secret：`MYTOKEN`（PAT，含 `repo` + `workflow` scope）
+
+---
+
+## 8. 第二轮优化：撤掉 `groups:` 块
+
+上一轮（第 2 节 step 3）给两个 ecosystem 加了 `groups: { minor-and-patch, major }`，参考的是 dependabot-automerge-skill 当时的推荐写法。跑了两周后**实际表现并不好**，本轮撤掉。
+
+### 8.1 现状盘点（2026-06-29）
+
+| PR | 标题 | 状态 |
+| --- | --- | --- |
+| #201 | `chore(deps): bump gradle-wrapper from 8.0.2 to 9.6.1 in the major group across 1 directory` | BLOCKED（macos 真实失败） |
+| #200 | `chore(deps): bump the minor-and-patch group with 2 updates` | UNKNOWN（已合并） |
+| #199 | `chore(deps): bump the major group with 2 updates` | UNKNOWN（已合并） |
+
+PR #200 是一个 `minor-and-patch` 分组 PR，**单条 diff 里同时改 `org.junit.jupiter:junit-jupiter-engine` 和 `org.junit.jupiter:junit-jupiter-api` 两个完全独立的依赖**。这种 PR 暴露了分组策略的两个真实问题。
+
+### 8.2 为什么撤掉 `groups:`
+
+**1. 失败不可归因。** 分组 PR 失败时，日志里看不出是哪一条依赖搞坏的。例：3 个 bump 混在一个 PR 里，CI 报 `ClassNotFoundException`，你不知道是哪一个引入了 breaking 行为——只能逐个回退测试。本仓库 #201 gradle-wrapper 9.6.1 失败就是这种情况：CI 日志说 `ClassNotFoundException: org.gradle.api.internal.plugins.DefaultArtifactPublicationSet`，但因为它属于一个 major 分组 PR，第一反应会怀疑是 `org.jetbrains.intellij` 插件版本不兼容、junit 版本不兼容、还是 gradle 本身。分组模糊了元凶。
+
+**2. 重大升级 PR 不可读。** `major` 分组会把 N 个 major bump 塞进一个 PR。`auto-merge.yml` 的策略是 "gradle major 不自动合并、留给人工"，但人面对的是一个 200 行的多依赖 diff，没办法一次 review 完，最终无人 review 卡在那边。本次 #201 就是这种结局。
+
+**3. PR 数量 = 噪声是错觉。** 撤掉分组后每个依赖一个 PR，每周 5–10 个，看上去像噪声变多。但配合 `commit-message.prefix`（`build(deps)` / `ci`）+ `labels`（`dependencies`、`gradle` / `github-actions`），PR 列表里是清晰可扫的"小 diff 流"，而不是不可读的"巨型 diff"。
+
+**4. auto-merge 策略对每个 PR 单独生效。** 撤掉分组后，minor/patch 的 PR 仍然走 `semver-minor` / `semver-patch` 路径被自动合并；major 仍然卡住让人审。自动合并逻辑**不依赖** `groups:`——它读的是 `dependabot/fetch-metadata` 给的 `update-type`，分组与否不影响判断。
+
+### 8.3 改动内容
+
+`.github/dependabot.yml` 本轮改动：
+
+| 项 | 旧 | 新 |
+| --- | --- | --- |
+| 调度 | `interval: daily` | `interval: weekly` `day: monday` `time: 04:00` `timezone: Asia/Shanghai` |
+| 分组 | `groups: { minor-and-patch, major }` | （删除） |
+| `commit-message.prefix` | 无 | gradle → `build(deps)`；github-actions → `ci` |
+| `open-pull-requests-limit`（github-actions） | 10 | 5（actions 数量少，给 5 足够） |
+| `open-pull-requests-limit`（gradle） | 10 | 10（不变） |
+
+提交：`f9bac31` build(dependabot): drop groups block, switch to weekly schedule
+
+### 8.4 对存量 PR 的处理
+
+**PR #201（gradle-wrapper 8.0.2 → 9.6.1，major 分组）**——**保留开启**，不自动关闭。理由：
+- 这个 PR **真的有价值**：它暴露了 Gradle 9.6.1 + `org.jetbrains.intellij` 1.17.4 插件不兼容的真实 bug（`ClassNotFoundException: org.gradle.api.internal.plugins.DefaultArtifactPublicationSet`），macos 构建因此失败。
+- auto-merge 策略已经正确地把它**留在那边给人工审查**——major gradle 不自动合并的规则生效了。
+- 人工处理方向有两个：回退 wrapper 升级到 8.x 末班车、或者升 `org.jetbrains.intellij` 插件到 2.x 兼容 Gradle 9。两个选择都需要人做决定，不是我该自动 close 掉的。
+
+下次 Monday 04:00（Asia/Shanghai）的新周期里，没有 `groups:` 的 dependabot 会按"一个依赖一个 PR"重新开 PR。届时 #201 会自然被新的小 PR 取代（或者被 dependabot 检测到 base 已变而自动 rebase / close）。
+
+### 8.5 经验更新
+
+上一轮 4.5 节的"分组副作用"被本轮证伪了——原来以为"分组 = 减少噪声"，实际是"把 N 个小噪声换成 1 个大噪声"，**净亏**。修正后的经验：
+
+→ 经验：默认**不**加 `groups:`。每个依赖一个 PR，配合 `commit-message.prefix` + `labels` 已经足够扫。分组只在以下情况才用：(a) 真正成对的依赖必须同步升级（如 B 协议固定要 A v2）；(b) 仓库 owner 显式要求"按 X 维度批量打"。本仓库两条都不满足。
