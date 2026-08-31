@@ -39,7 +39,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           java-version: ${{ matrix.java }}
-          distribution: adopt
+          distribution: temurin
       - name: Build with gradlew
         run: |
           chmod 777 ./gradlew
